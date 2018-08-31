@@ -1,4 +1,4 @@
-package me.huigesi.eyesopen;
+package me.huigesi.eyesopen.app;
 
 import android.app.Application;
 import android.content.Context;
@@ -10,7 +10,7 @@ import com.jess.arms.integration.ConfigModule;
 
 import java.util.List;
 
-public class GlobalConfiguration implements ConfigModule {
+public final class GlobalConfiguration implements ConfigModule {
     @Override
     public void applyOptions(Context context, GlobalConfigModule.Builder builder) {
 
