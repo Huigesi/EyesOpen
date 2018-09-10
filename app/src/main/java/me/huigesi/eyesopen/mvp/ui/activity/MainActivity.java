@@ -30,6 +30,7 @@ import me.huigesi.eyesopen.mvp.presenter.MainPresenter;
 import me.huigesi.eyesopen.mvp.ui.adapter.MyFragmentAdapter;
 import me.huigesi.eyesopen.mvp.ui.fragment.NbaDetailFragment;
 import me.huigesi.eyesopen.mvp.ui.fragment.NbaFragment;
+import me.huigesi.eyesopen.mvp.ui.fragment.WeiboFragment;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -76,8 +77,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         }
         ArrayList<Fragment> mFragmentList = new ArrayList<>();
         mFragmentList.add(NbaFragment.newInstance());
-        mFragmentList.add(NbaDetailFragment.newInstance());
-        mFragmentList.add(NbaFragment.newInstance());
+        mFragmentList.add(WeiboFragment.newInstance());
+        mFragmentList.add(WeiboFragment.newInstance());
         MyFragmentAdapter adapter = new MyFragmentAdapter(getSupportFragmentManager(),
                 mFragmentList);
         mVpContent.setAdapter(adapter);

@@ -38,9 +38,7 @@ public class NbaPresenter extends BasePresenter<NbaContract.Model, NbaContract.V
     private AppManager mAppManager;
 
     private String nid = "";
-    private int count = 0;
     private boolean isFirst = true;
-    private int preEndIndex;
 
     @Inject
     public NbaPresenter(NbaContract.Model model, NbaContract.View rootView, RxErrorHandler handler
@@ -72,7 +70,6 @@ public class NbaPresenter extends BasePresenter<NbaContract.Model, NbaContract.V
         Map<String, String> params = new HashMap<>();
         params.put("client", Api.HUPU_CLIENT_ID);
         params.put("nid", nid);
-        params.put("count", String.valueOf(count));
         mModel.getNbaNews(params, nid, isEvictCache)
                 .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3, 2))
@@ -94,7 +91,6 @@ public class NbaPresenter extends BasePresenter<NbaContract.Model, NbaContract.V
                         List<NbaNews.ResultBean.DataBean> nbaDatas = nbaNews.getResult().getData();
                         nid = nbaDatas.get(nbaDatas.size() - 1).getNid();
                         if (isFirst) {
-
                             mRootView.showData(nbaNews);
                         }else {
                             mRootView.showMoreData(nbaNews);
