@@ -38,6 +38,6 @@ import me.huigesi.eyesopen.mvp.model.entity.NbaNews;
 public interface CommonCache {
 
     @LifeCache(duration = 2, timeUnit = TimeUnit.MINUTES)
-    Observable<Reply<List<NbaNews>>> getNbaNews(Observable<List<NbaNews>> nbaNews,
+    Observable<Reply<NbaNews>> getNbaNews(Observable<NbaNews> nbaNews,
                                               DynamicKey idLastUserQueried, EvictProvider evictProvider);
 }

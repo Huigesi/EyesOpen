@@ -48,7 +48,7 @@ public class NbaFragment extends BaseFragment<NbaPresenter> implements NbaContra
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        mPresenter.requestUsers(true);
     }
 
     /**
@@ -116,6 +116,11 @@ public class NbaFragment extends BaseFragment<NbaPresenter> implements NbaContra
 
     @Override
     public void killMyself() {
+
+    }
+
+    @Override
+    public void endLoadMore() {
 
     }
 }
