@@ -50,7 +50,7 @@ dependencies {
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-14'
     implementation 'me.jessyan:retrofit-url-manager:1.4.0'
-
+    implementation 'cn.jzvd:jiaozivideoplayer:6.2.12'
     //test
     testImplementation rootProject.ext.dependencies["junit"]
     debugImplementation rootProject.ext.dependencies["canary-debug"]
