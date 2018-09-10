@@ -49,9 +49,10 @@ public class NbaPresenter extends BasePresenter<NbaContract.Model, NbaContract.V
         mErrorHandler=handler;
         mApplication=application;
         mAppManager=appManager;
+        requestUsers(true);
     }
-
-   /* @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+/*
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate() {
         requestUsers(true);//打开 App 时自动加载列表
     }*/
@@ -91,7 +92,7 @@ public class NbaPresenter extends BasePresenter<NbaContract.Model, NbaContract.V
                     public void onNext(NbaNews nbaNews) {
                         List<NbaNews.ResultBean.DataBean> nbaDatas = nbaNews.getResult().getData();
                         nid = nbaDatas.get(nbaDatas.size() - 1).getNid();
-                        Log.i(TAG, "onNext: " + nbaDatas.get(0).getBrand_name());
+                        mRootView.showData(nbaNews);
                     }
                 });
 

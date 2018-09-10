@@ -9,4 +9,6 @@
 
     <color name="colorWhite">#ffffff</color>
     <color name="colorLine">#EBEBEB</color>
+    <color name="text_common">#191919</color>
+    <color name="colorSubtitle">#999</color>
 </resources>
