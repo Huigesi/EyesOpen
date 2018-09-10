@@ -16,6 +16,8 @@ public interface NbaContract {
     interface View extends IView {
         void showData(NbaNews data);
 
+        void showMoreData(NbaNews data);
+
         void endLoadMore();
 
         Activity getActivity();

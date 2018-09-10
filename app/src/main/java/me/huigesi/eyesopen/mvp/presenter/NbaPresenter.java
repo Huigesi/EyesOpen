@@ -67,11 +67,12 @@ public class NbaPresenter extends BasePresenter<NbaContract.Model, NbaContract.V
         if (pullToRefresh && isFirst) {
             isFirst = false;
             isEvictCache = false;
-            count+=20;
         }
 
         Map<String, String> params = new HashMap<>();
         params.put("client", Api.HUPU_CLIENT_ID);
+        params.put("nid", nid);
+        params.put("count", String.valueOf(count));
         mModel.getNbaNews(params, nid, isEvictCache)
                 .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3, 2))
@@ -92,7 +93,12 @@ public class NbaPresenter extends BasePresenter<NbaContract.Model, NbaContract.V
                     public void onNext(NbaNews nbaNews) {
                         List<NbaNews.ResultBean.DataBean> nbaDatas = nbaNews.getResult().getData();
                         nid = nbaDatas.get(nbaDatas.size() - 1).getNid();
-                        mRootView.showData(nbaNews);
+                        if (isFirst) {
+
+                            mRootView.showData(nbaNews);
+                        }else {
+                            mRootView.showMoreData(nbaNews);
+                        }
                     }
                 });
 
