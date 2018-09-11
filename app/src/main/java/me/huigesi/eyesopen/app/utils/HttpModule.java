@@ -46,13 +46,10 @@ public class HttpModule {
         WeiboService retrofitService = retrofit.create(WeiboService.class);
         RxErrorHandler errorHandler = RxErrorHandler.builder()
                 .with(context)
-                .responseErrorListener(new ResponseErrorListener() {
-                    @Override
-                    public void handleResponseError(Context context, Throwable t) {
+                .responseErrorListener((context1, t) -> {
 
-                    }
                 }).build();
-        retrofitService.getWeiboUserHead2(params)
+        retrofitService.getWeiboUserHead(params)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new ErrorHandleSubscriber<WeiboUserSpace>(errorHandler) {
