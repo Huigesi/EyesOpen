@@ -7,7 +7,7 @@
     android:background="#000000"
     >
 
-  <com.example.administrator.idlereader.utils.bigImgViewPager.view.HackyViewPager
+  <me.huigesi.eyesopen.app.utils.bigImgViewPager.view.HackyViewPager
       android:id="@+id/viewPager"
       android:layout_width="match_parent"
       android:layout_height="match_parent"

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     >
 
-  <com.example.administrator.idlereader.utils.bigImgViewPager.subscaleview.SubsamplingScaleImageView
+  <me.huigesi.eyesopen.app.utils.bigImgViewPager.subscaleview.SubsamplingScaleImageView
       android:id="@+id/photo_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
