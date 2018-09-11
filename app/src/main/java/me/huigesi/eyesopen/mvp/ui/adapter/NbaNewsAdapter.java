@@ -67,38 +67,35 @@ public class NbaNewsAdapter extends BaseRecyclerViewAdapter<NbaNews.ResultBean.D
                 ((ViewHolder) holder).tvNbaComment.setText(data.getReplies());
             }
 
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (data.getType() == 1) {
-                        UIUtils.startNbaNewsFragment(mContext, data.getNid());
-                    } else if (data.getType() == 2) {
-                        //UIUtils.startNbaZhuanTiActivity(mContext, data.getNid());
-                    } else if (data.getType() == 5) {
-                        //UIUtils.startNbaH5Fragment(mContext, data.getNid(), RegularUtils.getTid(data.getLink()));
-                    } else if (data.getType() == 3) {
-                        /*List<ImageInfo> imageInfoList = new ArrayList<>();
-                        ImageInfo imageInfo;
-                        for (String image : data.getThumbs()) {
-                            imageInfo = new ImageInfo();
-                            imageInfo.setOriginUrl(image);// 原图
-                            imageInfo.setThumbnailUrl(
-                                    image);// 缩略图，实际使用中，根据需求传入缩略图路径。如果没有缩略图url，可以将两项设置为一样，并隐藏查看原图按钮即可。
-                            imageInfoList.add(imageInfo);
-                            imageInfo = null;
-                        }
-                        ImagePreview
-                                .getInstance()
-                                .setContext(mContext)
-                                .setIndex(0)
-                                .setImageInfoList(imageInfoList)
-                                .setShowDownButton(true)
-                                .setLoadStrategy(ImagePreview.LoadStrategy.NetworkAuto)
-                                .setFolderName("IdleReader")
-                                .setScaleLevel(1, 3, 8)
-                                .setZoomTransitionDuration(300)
-                                .start();*/
+            holder.itemView.setOnClickListener(v -> {
+                if (data.getType() == 1) {
+                    UIUtils.startNbaNewsFragment(mContext, data.getNid());
+                } else if (data.getType() == 2) {
+                    //UIUtils.startNbaZhuanTiActivity(mContext, data.getNid());
+                } else if (data.getType() == 5) {
+                    //UIUtils.startNbaH5Fragment(mContext, data.getNid(), RegularUtils.getTid(data.getLink()));
+                } else if (data.getType() == 3) {
+                    /*List<ImageInfo> imageInfoList = new ArrayList<>();
+                    ImageInfo imageInfo;
+                    for (String image : data.getThumbs()) {
+                        imageInfo = new ImageInfo();
+                        imageInfo.setOriginUrl(image);// 原图
+                        imageInfo.setThumbnailUrl(
+                                image);// 缩略图，实际使用中，根据需求传入缩略图路径。如果没有缩略图url，可以将两项设置为一样，并隐藏查看原图按钮即可。
+                        imageInfoList.add(imageInfo);
+                        imageInfo = null;
                     }
+                    ImagePreview
+                            .getInstance()
+                            .setContext(mContext)
+                            .setIndex(0)
+                            .setImageInfoList(imageInfoList)
+                            .setShowDownButton(true)
+                            .setLoadStrategy(ImagePreview.LoadStrategy.NetworkAuto)
+                            .setFolderName("IdleReader")
+                            .setScaleLevel(1, 3, 8)
+                            .setZoomTransitionDuration(300)
+                            .start();*/
                 }
             });
         }

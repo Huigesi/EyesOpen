@@ -29,6 +29,7 @@ import me.huigesi.eyesopen.R;
 import me.huigesi.eyesopen.app.base.DefaultsFooter;
 import me.huigesi.eyesopen.app.utils.GlideUtils;
 import me.huigesi.eyesopen.app.utils.SPreUtils;
+import me.huigesi.eyesopen.app.utils.swipeBack.SwipeBackActivity;
 import me.huigesi.eyesopen.di.component.DaggerWeiboSpaceComponent;
 import me.huigesi.eyesopen.di.module.WeiboSpaceModule;
 import me.huigesi.eyesopen.mvp.contract.WeiboSpaceContract;
@@ -40,7 +41,7 @@ import me.huigesi.eyesopen.mvp.ui.adapter.WeiboNewsAdapter;
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
 
-public class WeiboSpaceActivity extends BaseActivity<WeiboSpacePresenter> implements WeiboSpaceContract.View {
+public class WeiboSpaceActivity extends SwipeBackActivity<WeiboSpacePresenter> implements WeiboSpaceContract.View {
 
     public static final String WEIBO_SPACE_UID = "WEIBO_SPACE_UID";
 
