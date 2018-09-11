@@ -11,9 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 import me.huigesi.eyesopen.R;
 import me.huigesi.eyesopen.app.base.BaseRecyclerViewAdapter;
 import me.huigesi.eyesopen.app.utils.GlideUtils;
@@ -29,7 +26,7 @@ public class NbaNewsAdapter extends BaseRecyclerViewAdapter<NbaNews.ResultBean.D
     @Override
     public RecyclerView.ViewHolder onCreate(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_nba_hupu, parent, false);
+                .inflate(R.layout.item_nba, parent, false);
         return new ViewHolder(view);
     }
 

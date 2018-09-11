@@ -78,7 +78,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         ArrayList<Fragment> mFragmentList = new ArrayList<>();
         mFragmentList.add(NbaFragment.newInstance());
         mFragmentList.add(WeiboFragment.newInstance());
-        mFragmentList.add(WeiboFragment.newInstance());
+        mFragmentList.add(NbaFragment.newInstance());
         MyFragmentAdapter adapter = new MyFragmentAdapter(getSupportFragmentManager(),
                 mFragmentList);
         mVpContent.setAdapter(adapter);

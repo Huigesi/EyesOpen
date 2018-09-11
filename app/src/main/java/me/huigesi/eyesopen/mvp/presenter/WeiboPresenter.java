@@ -62,10 +62,10 @@ public class WeiboPresenter extends BasePresenter<WeiboContract.Model, WeiboCont
                         SPreUtils.setWeiBoUserInfo(weiboUserInfo, mRootView.getActivity());
                     }
                 });
-        requestUsers(true);
+        requestWeibos(true);
     }
 
-    private void requestUsers(boolean pullToRefresh) {
+    public void requestWeibos(boolean pullToRefresh) {
         if (pullToRefresh) {
             page = 1;
         }
