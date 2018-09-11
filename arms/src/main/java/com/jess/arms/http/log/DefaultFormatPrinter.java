@@ -120,12 +120,13 @@ public class DefaultFormatPrinter implements FormatPrinter {
         bodyString = RequestInterceptor.isJson(contentType) ? CharacterHandler.jsonFormat(bodyString)
                 : RequestInterceptor.isXml(contentType) ? CharacterHandler.xmlFormat(bodyString) : bodyString;
 
-        final String responseBody = LINE_SEPARATOR + BODY_TAG + LINE_SEPARATOR + bodyString;
+        //final String responseBody = LINE_SEPARATOR + BODY_TAG + LINE_SEPARATOR + bodyString;
+        final String responseBody = LINE_SEPARATOR + BODY_TAG + LINE_SEPARATOR;
         final String tag = getTag(false);
-        final String[] urlLine = {URL_TAG + responseUrl, N};
+        final String[] urlLine = {URL_TAG + responseUrl};
 
         LogUtils.debugInfo(tag, RESPONSE_UP_LINE);
-        logLines(tag, urlLine, true);
+        logLines(tag, urlLine, false);
         logLines(tag, getResponse(headers, chainMs, code, isSuccessful, segments, message), true);
         logLines(tag, responseBody.split(LINE_SEPARATOR), true);
         LogUtils.debugInfo(tag, END_LINE);

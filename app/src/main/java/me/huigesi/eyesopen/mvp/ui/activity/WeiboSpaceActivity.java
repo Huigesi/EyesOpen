@@ -28,6 +28,7 @@ import butterknife.ButterKnife;
 import me.huigesi.eyesopen.R;
 import me.huigesi.eyesopen.app.base.DefaultsFooter;
 import me.huigesi.eyesopen.app.utils.GlideUtils;
+import me.huigesi.eyesopen.app.utils.SPreUtils;
 import me.huigesi.eyesopen.di.component.DaggerWeiboSpaceComponent;
 import me.huigesi.eyesopen.di.module.WeiboSpaceModule;
 import me.huigesi.eyesopen.mvp.contract.WeiboSpaceContract;
@@ -73,6 +74,7 @@ public class WeiboSpaceActivity extends BaseActivity<WeiboSpacePresenter> implem
     private String mUid;
     private WeiboNewsAdapter mAdapter;
     private LinearLayoutManager mLinearLayoutManager;
+    private String mGsId;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -92,14 +94,16 @@ public class WeiboSpaceActivity extends BaseActivity<WeiboSpacePresenter> implem
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         mUid = getIntent().getStringExtra(WEIBO_SPACE_UID);
+        mGsId = SPreUtils.getWeiBoUserInfo(SPreUtils.WEIBO_GSID,this);
         mPresenter.requestHeader(mUid);
+        mPresenter.requestUserNews(true,mGsId,mUid);
         mSrlNews.setRefreshHeader(new MaterialHeader(this).setColorSchemeColors(
                 getResources().getColor(R.color.colorTheme)));
         mSrlNews.setRefreshFooter(new DefaultsFooter(this).setFinishDuration(0));
-        mSrlNews.setOnRefreshListener(refreshLayout -> mPresenter.requestUserNews(true));
+        mSrlNews.setOnRefreshListener(refreshLayout -> mPresenter.requestUserNews(true,mGsId,mUid));
         mSrlNews.setOnLoadMoreListener(refreshLayout -> loadMore());
         initRecycleView();
-        mAdapter = new WeiboNewsAdapter(getActivity(),true);
+        mAdapter = new WeiboNewsAdapter(this,true);
         mRvNews.setAdapter(mAdapter);
     }
 
@@ -109,13 +113,13 @@ public class WeiboSpaceActivity extends BaseActivity<WeiboSpacePresenter> implem
         mRvNews.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                outRect.set(0,0,0,ArmsUtils.dip2px(getActivity(),5));
+                outRect.set(0,0,0,ArmsUtils.dip2px(WeiboSpaceActivity.this,5));
             }
         });
     }
 
     private void loadMore() {
-        mPresenter.requestUserNews(false);
+        mPresenter.requestUserNews(false,mGsId,mUid);
     }
 
     @Override
@@ -125,7 +129,7 @@ public class WeiboSpaceActivity extends BaseActivity<WeiboSpacePresenter> implem
 
     @Override
     public void hideLoading() {
-
+        mSrlNews.finishRefresh(0);
     }
 
     @Override
@@ -163,7 +167,9 @@ public class WeiboSpaceActivity extends BaseActivity<WeiboSpacePresenter> implem
 
     @Override
     public void showData(WeiboNews data) {
-        mAdapter.setData(data.getStatuses(),true);
+        if (data.getStatuses() != null) {
+            mAdapter.setData(data.getStatuses(),true);
+        }
     }
 
     @Override
@@ -173,7 +179,7 @@ public class WeiboSpaceActivity extends BaseActivity<WeiboSpacePresenter> implem
 
     @Override
     public void endLoadMore() {
-
+        mSrlNews.finishLoadMore(0);
     }
 
     @Override

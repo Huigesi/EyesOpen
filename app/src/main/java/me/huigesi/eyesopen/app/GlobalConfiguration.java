@@ -4,8 +4,10 @@ import android.app.Application;
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
 
+import com.google.gson.GsonBuilder;
 import com.jess.arms.BuildConfig;
 import com.jess.arms.base.delegate.AppLifecycles;
+import com.jess.arms.di.module.AppModule;
 import com.jess.arms.di.module.GlobalConfigModule;
 import com.jess.arms.http.imageloader.glide.GlideImageLoaderStrategy;
 import com.jess.arms.http.log.RequestInterceptor;
@@ -15,6 +17,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import me.huigesi.eyesopen.mvp.model.api.Api;
+import me.huigesi.eyesopen.mvp.ui.adapter.IntegerDefault0Adapter;
 import me.jessyan.progressmanager.ProgressManager;
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 
@@ -30,7 +33,6 @@ public final class GlobalConfiguration implements ConfigModule {
                 //强烈建议自己自定义图片加载逻辑, 因为 arms-imageloader-glide 提供的 GlideImageLoaderStrategy 并不能满足复杂的需求
                 //请参考 https://github.com/JessYanCoding/MVPArms/wiki#3.4
                 .imageLoaderStrategy(new GlideImageLoaderStrategy())
-
                 //想支持多 BaseUrl, 以及运行时动态切换任意一个 BaseUrl, 请使用 https://github.com/JessYanCoding/RetrofitUrlManager
                 //如果 BaseUrl 在 App 启动时不能确定, 需要请求服务器接口动态获取, 请使用以下代码
                 //以下方式是 Arms 框架自带的切换 BaseUrl 的方式, 在整个 App 生命周期内只能切换一次, 若需要无限次的切换 BaseUrl, 以及各种复杂的应用场景还是需要使用 RetrofitUrlManager 框架
@@ -69,7 +71,9 @@ public final class GlobalConfiguration implements ConfigModule {
                 .gsonConfiguration((context1, gsonBuilder) -> {//这里可以自己自定义配置Gson的参数
                     gsonBuilder
                             .serializeNulls()//支持序列化null的参数
-                            .enableComplexMapKeySerialization();//支持将序列化key为object的map,默认只能序列化key为string的map
+                            .enableComplexMapKeySerialization()//支持将序列化key为object的map,默认只能序列化key为string的map
+                            .registerTypeAdapter(Integer.class, new IntegerDefault0Adapter())
+                            .registerTypeAdapter(int.class, new IntegerDefault0Adapter());
                 })
                 .retrofitConfiguration((context1, retrofitBuilder) -> {//这里可以自己自定义配置Retrofit的参数, 甚至您可以替换框架配置好的 OkHttpClient 对象 (但是不建议这样做, 这样做您将损失框架提供的很多功能)
 //                    retrofitBuilder.addConverterFactory(FastJsonConverterFactory.create());//比如使用fastjson替代gson
@@ -106,6 +110,6 @@ public final class GlobalConfiguration implements ConfigModule {
 
     @Override
     public void injectFragmentLifecycle(Context context, List<FragmentManager.FragmentLifecycleCallbacks> lifecycles) {
-       // lifecycles.add(new FragmentLifecycleCallbacksImpl());
+        // lifecycles.add(new FragmentLifecycleCallbacksImpl());
     }
 }

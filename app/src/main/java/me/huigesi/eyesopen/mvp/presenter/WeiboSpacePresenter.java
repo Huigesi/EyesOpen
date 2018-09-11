@@ -72,12 +72,11 @@ public class WeiboSpacePresenter extends BasePresenter<WeiboSpaceContract.Model,
                     @Override
                     public void onNext(WeiboUserSpace weiboUserSpace) {
                         mRootView.showHeader(weiboUserSpace);
-                        requestUserNews(true);
                     }
                 });
     }
 
-    public void requestUserNews(boolean pullToRefresh) {
+    public void requestUserNews(boolean pullToRefresh,String gsId,String uid) {
         if (pullToRefresh) {
             page = 0;
         }
@@ -86,13 +85,13 @@ public class WeiboSpacePresenter extends BasePresenter<WeiboSpaceContract.Model,
             isFirst = false;
             page++;
         }
-        gsId = SPreUtils.getWeiBoUserInfo(SPreUtils.WEIBO_GSID, mRootView.getActivity());
         Map<String, String> params = new HashMap<>();
         params.put("since_id", String.valueOf(0));
         params.put("s", WEIBO_S);
         params.put("c", WEIBO_C);
         params.put("page", String.valueOf(page));
         params.put("gsid", gsId);
+        params.put("uid", uid);
         params.put("source", WEIBO_SOURCE);
         params.put("advance_enable", "false");
         params.put("wm", WEIBO_WM);
@@ -115,11 +114,7 @@ public class WeiboSpacePresenter extends BasePresenter<WeiboSpaceContract.Model,
                 .subscribe(new ErrorHandleSubscriber<WeiboNews>(mErrorHandler) {
                     @Override
                     public void onNext(WeiboNews weiboNews) {
-                        if (isFirst) {
                             mRootView.showData(weiboNews);
-                        }else {
-                            mRootView.showMoreData(weiboNews);
-                        }
                     }
                 });
     }

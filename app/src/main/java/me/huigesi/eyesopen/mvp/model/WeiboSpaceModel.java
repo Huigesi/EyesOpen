@@ -48,7 +48,7 @@ public class WeiboSpaceModel extends BaseModel implements WeiboSpaceContract.Mod
         RetrofitUrlManager.getInstance().putDomain("weibo", Api.WEIBO_HOST);
         Observable<WeiboNews> weiboNewsObservable = mRepositoryManager
                 .obtainRetrofitService(WeiboService.class)
-                .getWeiBoNews(params);
+                .getWeiBoUser(params);
         return weiboNewsObservable;
     }
 
