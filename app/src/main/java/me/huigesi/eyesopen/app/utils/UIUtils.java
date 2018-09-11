@@ -23,10 +23,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import me.huigesi.eyesopen.R;
+import me.huigesi.eyesopen.mvp.ui.activity.WeiboSpaceActivity;
 
 
 public class UIUtils {
     public static final String FRAGMENT_CLASS = "FRAGMENT_CLASS";
+    public static void startSpaceActivity(Context context, String uid) {
+        Intent intent = new Intent(context, WeiboSpaceActivity.class);
+        intent.putExtra(WeiboSpaceActivity.WEIBO_SPACE_UID, uid);
+        context.startActivity(intent);
+    }
 /*
 
     public static void startNbaNewsFragment(Context context, String nid) {
@@ -57,11 +63,7 @@ public class UIUtils {
         context.startActivity(intent);
     }
 
-    public static void startSpaceFragment(Context context, String uid) {
-        Intent intent = new Intent(context, WeiBoSpaceActivity.class);
-        intent.putExtra(WeiBoSpaceActivity.WEIBO_SPACE_UID, uid);
-        context.startActivity(intent);
-    }
+
 
     public static void startWeiBoDetailFragment(Context context, String nid) {
         Intent intent = new Intent(context, DetailActivity.class);
@@ -141,7 +143,7 @@ public class UIUtils {
                         HttpModule.ResultListener listener = new HttpModule.ResultListener() {
                             @Override
                             public void success(WeiBoSpaceUser o) {
-                                startSpaceFragment(context, o.getIdstr());
+                                startSpaceActivity(context, o.getIdstr());
                             }
 
                             @Override
@@ -166,7 +168,7 @@ public class UIUtils {
                         HttpModule.ResultListener listener = new HttpModule.ResultListener() {
                             @Override
                             public void success(WeiBoSpaceUser o) {
-                                startSpaceFragment(context, o.getIdstr());
+                                startSpaceActivity(context, o.getIdstr());
                             }
 
                             @Override

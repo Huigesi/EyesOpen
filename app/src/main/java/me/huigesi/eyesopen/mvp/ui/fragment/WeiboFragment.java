@@ -88,7 +88,7 @@ public class WeiboFragment extends BaseFragment<WeiboPresenter> implements Weibo
             }
         });
         initRecycleView();
-        mAdapter = new WeiboNewsAdapter(getActivity());
+        mAdapter = new WeiboNewsAdapter(getActivity(),false);
         mRvNews.setAdapter(mAdapter);
     }
 

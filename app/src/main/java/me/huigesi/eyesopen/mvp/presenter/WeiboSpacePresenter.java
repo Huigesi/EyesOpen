@@ -3,7 +3,7 @@ package me.huigesi.eyesopen.mvp.presenter;
 import android.app.Application;
 
 import com.jess.arms.integration.AppManager;
-import com.jess.arms.di.scope.FragmentScope;
+import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.utils.RxLifecycleUtils;
@@ -15,12 +15,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import me.huigesi.eyesopen.app.utils.SPreUtils;
 import me.huigesi.eyesopen.mvp.model.entity.WeiboNews;
-import me.huigesi.eyesopen.mvp.model.entity.WeiboUserInfo;
+import me.huigesi.eyesopen.mvp.model.entity.WeiboUserSpace;
+import me.huigesi.eyesopen.mvp.ui.activity.MainActivity;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
 import javax.inject.Inject;
 
-import me.huigesi.eyesopen.mvp.contract.WeiboContract;
+import me.huigesi.eyesopen.mvp.contract.WeiboSpaceContract;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 import me.jessyan.rxerrorhandler.handler.RetryWithDelay;
 
@@ -31,43 +32,52 @@ import static me.huigesi.eyesopen.app.Constant.WEIBO_SOURCE;
 import static me.huigesi.eyesopen.app.Constant.WEIBO_WM;
 
 
-@FragmentScope
-public class WeiboPresenter extends BasePresenter<WeiboContract.Model, WeiboContract.View> {
+@ActivityScope
+public class WeiboSpacePresenter extends BasePresenter<WeiboSpaceContract.Model, WeiboSpaceContract.View> {
 
     RxErrorHandler mErrorHandler;
     Application mApplication;
     ImageLoader mImageLoader;
     AppManager mAppManager;
     private boolean isFirst = true;
-    private int page = 0;
+    private int page = 1;
     private String gsId = "";
 
-
     @Inject
-    public WeiboPresenter(WeiboContract.Model model, WeiboContract.View rootView,RxErrorHandler handler
-            , AppManager appManager, Application application) {
+    public WeiboSpacePresenter(WeiboSpaceContract.Model model, WeiboSpaceContract.View rootView,
+                               RxErrorHandler handler, AppManager appManager, Application application) {
         super(model, rootView);
         mErrorHandler=handler;
-        mApplication=application;
         mAppManager=appManager;
-        loginWeibo();
+        mApplication=application;
+
     }
 
-    private void loginWeibo() {
-        mModel.getGsid(WEIBO_C,"18909f1e","13242317873", "huigesi")
-                .subscribeOn(Schedulers.io())
+    public void requestHeader(String uid) {
+        //gsId=SPreUtils.getWeiBoUserInfo(SPreUtils.WEIBO_GSID, mRootView.getActivity());
+        Map<String, String> params = new HashMap<>();
+        params.put("s", WEIBO_S);
+        params.put("c", WEIBO_C);
+        params.put("gsid", gsId);
+        params.put("from", WEIBO_FORM);
+        params.put("wm", WEIBO_WM);
+        params.put("source", WEIBO_SOURCE);
+        params.put("uid", uid);
+        params.put("since_id", "0");
+        mModel.getHeader(params).
+        subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3, 2))
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
-                .subscribe(new ErrorHandleSubscriber<WeiboUserInfo>(mErrorHandler) {
+                .subscribe(new ErrorHandleSubscriber<WeiboUserSpace>(mErrorHandler) {
                     @Override
-                    public void onNext(WeiboUserInfo weiboUserInfo) {
-                        SPreUtils.setWeiBoUserInfo(weiboUserInfo, mRootView.getActivity());
+                    public void onNext(WeiboUserSpace weiboUserSpace) {
+                        mRootView.showHeader(weiboUserSpace);
+                        requestUserNews(true);
                     }
                 });
-        requestWeibos(true);
     }
 
-    public void requestWeibos(boolean pullToRefresh) {
+    public void requestUserNews(boolean pullToRefresh) {
         if (pullToRefresh) {
             page = 0;
         }

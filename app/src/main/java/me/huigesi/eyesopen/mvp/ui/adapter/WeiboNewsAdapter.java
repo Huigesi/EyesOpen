@@ -29,9 +29,11 @@ import me.huigesi.eyesopen.mvp.model.entity.WeiboNews;
 
 public class WeiboNewsAdapter extends BaseRecyclerViewAdapter<WeiboNews.StatusesData> {
     public ImgAdapter mImgAdapter;
+    private boolean mIsSpace;
 
-    public WeiboNewsAdapter(Context context) {
+    public WeiboNewsAdapter(Context context,boolean isSpace) {
         super(context);
+        mIsSpace = isSpace;
     }
 
     @Override
@@ -64,7 +66,7 @@ public class WeiboNewsAdapter extends BaseRecyclerViewAdapter<WeiboNews.Statuses
             ((NewsViewHolder) holder).imgWeiboUser.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //UIUtils.startSpaceFragment(mContext, data.getUser().getIdstr());
+                    if (!mIsSpace)UIUtils.startSpaceActivity(mContext, data.getUser().getIdstr());
                 }
             });
             ((NewsViewHolder) holder).tvWeiboUser.setText(data.getUser().getScreen_name());

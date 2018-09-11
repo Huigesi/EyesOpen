@@ -5,6 +5,7 @@ import java.util.Map;
 import io.reactivex.Observable;
 import me.huigesi.eyesopen.mvp.model.entity.WeiboNews;
 import me.huigesi.eyesopen.mvp.model.entity.WeiboUserInfo;
+import me.huigesi.eyesopen.mvp.model.entity.WeiboUserSpace;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -21,7 +22,10 @@ public interface WeiboService {
     @FormUrlEncoded
     @POST("account/login")
     Observable<WeiboUserInfo> WeiboLogin(@Field("c") String c,
-                                    @Field("s") String s,
-                                    @Field("u") String user,
-                                    @Field("p") String password);
+                                         @Field("s") String s,
+                                         @Field("u") String user,
+                                         @Field("p") String password);
+    @Headers({"Domain-Name: weibo"})
+    @GET("users/show")
+    Observable<WeiboUserSpace> getWeiboUserHead(@QueryMap Map<String, String> params);
 }
