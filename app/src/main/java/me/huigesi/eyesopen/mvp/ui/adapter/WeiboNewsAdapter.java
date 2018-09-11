@@ -48,26 +48,20 @@ public class WeiboNewsAdapter extends BaseRecyclerViewAdapter<WeiboNews.Statuses
     @Override
     public void onBind(final RecyclerView.ViewHolder holder, int position, final WeiboNews.StatusesData data) {
         if (holder instanceof NewsViewHolder) {
-            View.OnTouchListener mOnTouchListener=new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    if (event.getAction() == MotionEvent.ACTION_UP) {
-                        holder.itemView.performClick();  //模拟父控件的点击
-                    }
-                    return false;
+            View.OnTouchListener mOnTouchListener= (v, event) -> {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    holder.itemView.performClick();  //模拟父控件的点击
                 }
+                return false;
             };
             if (data == null) {
                 return;
             }
-            int weight = Resolution.dipToPx(mContext, 35);
-            GlideUtils.loadCircle(mContext, data.getUser().getProfile_image_url(),
+            int weight = Resolution.dipToPx(mContext, 50);
+            GlideUtils.loadCircle(mContext, data.getUser().getAvatar_large(),
                     ((NewsViewHolder) holder).imgWeiboUser, weight, weight);
-            ((NewsViewHolder) holder).imgWeiboUser.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!mIsSpace)UIUtils.startSpaceActivity(mContext, data.getUser().getIdstr());
-                }
+            ((NewsViewHolder) holder).imgWeiboUser.setOnClickListener(v -> {
+                if (!mIsSpace)UIUtils.startSpaceActivity(mContext, data.getUser().getIdstr());
             });
             ((NewsViewHolder) holder).tvWeiboUser.setText(data.getUser().getScreen_name());
             try {
@@ -79,13 +73,13 @@ public class WeiboNewsAdapter extends BaseRecyclerViewAdapter<WeiboNews.Statuses
             ((NewsViewHolder) holder).tvWeiboSource.setText(RegularUtils.getA(data.getSource()));
             SpannableString content;
             if (data.isIsLongText()) {
-                //content = UIUtils.setTextHighLight(mContext, data.getText() + "...全文", null, true);
+                content = UIUtils.setTextHighLight(mContext, data.getText() + "...全文", null, true);
             } else {
-                //content = UIUtils.setTextHighLight(mContext, data.getText(), null, false);
+                content = UIUtils.setTextHighLight(mContext, data.getText(), null, false);
             }
             ((NewsViewHolder) holder).tvWeiboContentText.setOnTouchListener(mOnTouchListener);
             ((NewsViewHolder) holder).tvWeiboContentText.setMovementMethod(LinkMovementMethod.getInstance());
-            ((NewsViewHolder) holder).tvWeiboContentText.setText(data.getText());
+            ((NewsViewHolder) holder).tvWeiboContentText.setText(content);
             ((NewsViewHolder) holder).tvWeiboLike.setText(String.valueOf(data.getAttitudes_count()));
             ((NewsViewHolder) holder).tvWeiboComment.setText(String.valueOf(data.getComments_count()));
             ((NewsViewHolder) holder).tvWeiboZhuan.setText(String.valueOf(data.getReposts_count()));
@@ -133,9 +127,9 @@ public class WeiboNewsAdapter extends BaseRecyclerViewAdapter<WeiboNews.Statuses
                         .getText();
                 SpannableString retweeted;
                 if (data.getRetweeted_status().isIsLongText()) {
-                    //retweeted = UIUtils.setTextHighLight(mContext, userName + " : " + retWeedText + "...全文", userName, true);
+                    retweeted = UIUtils.setTextHighLight(mContext, userName + " : " + retWeedText + "...全文", userName, true);
                 } else {
-                    //retweeted = UIUtils.setTextHighLight(mContext, userName + " : " + retWeedText, userName, false);
+                    retweeted = UIUtils.setTextHighLight(mContext, userName + " : " + retWeedText, userName, false);
                 }
                 ((NewsViewHolder) holder).tvRetweetedContent.setOnTouchListener(new View.OnTouchListener() {
                     @Override
@@ -148,7 +142,7 @@ public class WeiboNewsAdapter extends BaseRecyclerViewAdapter<WeiboNews.Statuses
                 });
                 ((NewsViewHolder) holder).tvRetweetedContent.setMovementMethod(LinkMovementMethod.getInstance());
                 ((NewsViewHolder) holder).tvRetweetedContent.setText(
-                        retWeedText);
+                        retweeted);
                 ((NewsViewHolder) holder).tvRetweetedReport.setText("转发 " + data.getRetweeted_status()
                         .getReposts_count());
                 ((NewsViewHolder) holder).tvRetweetedComment.setText("评论 " + data.getRetweeted_status()

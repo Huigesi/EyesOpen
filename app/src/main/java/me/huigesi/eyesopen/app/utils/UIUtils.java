@@ -23,7 +23,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import me.huigesi.eyesopen.R;
+import me.huigesi.eyesopen.mvp.model.entity.WeiboUserSpace;
 import me.huigesi.eyesopen.mvp.ui.activity.WeiboSpaceActivity;
+
+import static me.huigesi.eyesopen.app.utils.RegularUtils.regex_at;
+import static me.huigesi.eyesopen.app.utils.RegularUtils.regex_http;
+import static me.huigesi.eyesopen.app.utils.RegularUtils.regex_sharp;
 
 
 public class UIUtils {
@@ -111,7 +116,7 @@ public class UIUtils {
     }
 
     //文字转换
-    /*
+
     public static SpannableString setTextHighLight(final Context context, String content, String nickName,
                                                    boolean isLongText) {
         final SpannableString result = new SpannableString(content);
@@ -139,10 +144,10 @@ public class UIUtils {
                         String name=result.subSequence(start,end).toString().substring(1);
                         parmes.put("screen_name", name);
                         parmes.put("c", "weicoabroad");
-                        HttpModule.getWeiBoUserShow(parmes);
+                        HttpModule.getWeiBoUserShow(parmes,context);
                         HttpModule.ResultListener listener = new HttpModule.ResultListener() {
                             @Override
-                            public void success(WeiBoSpaceUser o) {
+                            public void success(WeiboUserSpace o) {
                                 startSpaceActivity(context, o.getIdstr());
                             }
 
@@ -164,10 +169,10 @@ public class UIUtils {
                         String name=result.subSequence(start,end).toString().substring(1);
                         parmes.put("screen_name", name);
                         parmes.put("c", "weicoabroad");
-                        HttpModule.getWeiBoUserShow(parmes);
+                        HttpModule.getWeiBoUserShow(parmes,context);
                         HttpModule.ResultListener listener = new HttpModule.ResultListener() {
                             @Override
-                            public void success(WeiBoSpaceUser o) {
+                            public void success(WeiboUserSpace o) {
                                 startSpaceActivity(context, o.getIdstr());
                             }
 
@@ -210,14 +215,14 @@ public class UIUtils {
                 span.setOnClickListener(new TextClickSpan.OnTextClickListener() {
                     @Override
                     public void onClick() {
-                        startWebViewActivity(context, result.subSequence(start, end).toString(), "闲阅");
+                        //startWebViewActivity(context, result.subSequence(start, end).toString(), "闲阅");
                     }
                 });
                 result.setSpan(span, start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
             }
         }
         return result;
-    }*/
+    }
 
     public static class TextClickSpan extends ClickableSpan {
         private Context mContext;

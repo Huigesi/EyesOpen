@@ -105,7 +105,7 @@ public final class GlobalConfiguration implements ConfigModule {
     public void injectActivityLifecycle(Context context, List<Application.ActivityLifecycleCallbacks> lifecycles) {
         // ActivityLifecycleCallbacks 的所有方法都会在 Activity (包括三方库) 的对应的生命周期中被调用,所以在对应的方法中可以扩展一些自己需要的逻辑
         // 可以根据不同的逻辑添加多个实现类
-        //lifecycles.add(new ActivityLifecycleCallbacksImpl());
+        lifecycles.add(new ActivityLifecycleCallbacksImpl());
     }
 
     @Override

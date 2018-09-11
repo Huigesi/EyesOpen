@@ -29,6 +29,9 @@ public interface WeiboService {
     @GET("users/show")
     Observable<WeiboUserSpace> getWeiboUserHead(@QueryMap Map<String, String> params);
 
+    @GET("users/show")
+    Observable<WeiboUserSpace> getWeiboUserHead2(@QueryMap Map<String, String> params);
+
     @Headers({"Domain-Name: weibo"})
     @GET("statuses/user_timeline")
     Observable<WeiboNews> getWeiBoUser(@QueryMap Map<String, String> params);

@@ -106,35 +106,12 @@
 
             </RelativeLayout>
 
-            <android.support.v7.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:elevation="5dp"
-                app:contentInsetStart="0dp"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay">
-
-                <ImageView
-                    android:id="@+id/iv_back"
-                    android:layout_width="30dp"
-                    android:layout_height="match_parent"
-                    android:paddingHorizontal="10dp"
-                    android:src="@drawable/back" />
-
-                <TextView
-                    android:id="@+id/tv_bar_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:maxLines="1"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="16sp" />
-            </android.support.v7.widget.Toolbar>
+         <include layout="@layout/toolbar"></include>
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none"
@@ -153,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorLine" />
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </FrameLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>
