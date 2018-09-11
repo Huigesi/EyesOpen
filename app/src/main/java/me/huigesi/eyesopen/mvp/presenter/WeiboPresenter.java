@@ -69,12 +69,13 @@ public class WeiboPresenter extends BasePresenter<WeiboContract.Model, WeiboCont
 
     public void requestWeibos(boolean pullToRefresh) {
         if (pullToRefresh) {
-            page = 0;
+            page = 1;
+        }else {
+            page++;
         }
 
         if (pullToRefresh && isFirst) {
             isFirst = false;
-            page++;
         }
         gsId = SPreUtils.getWeiBoUserInfo(SPreUtils.WEIBO_GSID, mRootView.getActivity());
         Map<String, String> params = new HashMap<>();

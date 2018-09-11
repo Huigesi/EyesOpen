@@ -78,12 +78,13 @@ public class WeiboSpacePresenter extends BasePresenter<WeiboSpaceContract.Model,
 
     public void requestUserNews(boolean pullToRefresh,String gsId,String uid) {
         if (pullToRefresh) {
-            page = 0;
+            page = 1;
+        }else {
+            page++;
         }
 
         if (pullToRefresh && isFirst) {
             isFirst = false;
-            page++;
         }
         Map<String, String> params = new HashMap<>();
         params.put("since_id", String.valueOf(0));
@@ -94,6 +95,7 @@ public class WeiboSpacePresenter extends BasePresenter<WeiboSpaceContract.Model,
         params.put("uid", uid);
         params.put("source", WEIBO_SOURCE);
         params.put("advance_enable", "false");
+        params.put("count", String.valueOf(10));
         params.put("wm", WEIBO_WM);
         params.put("from", WEIBO_FORM);
         mModel.getWeiboNews(params)
@@ -114,7 +116,10 @@ public class WeiboSpacePresenter extends BasePresenter<WeiboSpaceContract.Model,
                 .subscribe(new ErrorHandleSubscriber<WeiboNews>(mErrorHandler) {
                     @Override
                     public void onNext(WeiboNews weiboNews) {
+                        if (isFirst)
                             mRootView.showData(weiboNews);
+                        else
+                            mRootView.showMoreData(weiboNews);
                     }
                 });
     }
