@@ -152,17 +152,19 @@ public class WeiboSpaceActivity extends SwipeBackActivity<WeiboSpacePresenter> i
 
     @Override
     public void showHeader(WeiboUserSpace data) {
-        int weight = ArmsUtils.dip2px(this, 100);
-        runOnUiThread(() -> {
-            GlideUtils.load(this, data.getCovers().get(0).getCover(), mMainbackdrop);
-            GlideUtils.loadCircle(this, data.getAvatar_large(), mImgWeiboUserCover,weight,weight);
-            mTvWeiboUserName.setText(data.getName());
-            mTvWeiboUserIntro.setText(data.getDescription());
-            mTvWeiboUserLocation.setText(data.getLocation());
-            mTvWeiboUserFriendsCount.setText(data.getFriends_count() + " 关注");
-            mTvWeiboUserFollowersCount.setText(data.getFollowers_count() + " 粉丝");
-            mTvBarTitle.setText(data.getName() + "的微博");
-        });
+        if (data != null) {
+            int weight = ArmsUtils.dip2px(this, 100);
+            runOnUiThread(() -> {
+                GlideUtils.load(this, data.getCovers().get(0).getCover(), mMainbackdrop);
+                GlideUtils.loadCircle(this, data.getAvatar_large(), mImgWeiboUserCover,weight,weight);
+                mTvWeiboUserName.setText(data.getName());
+                mTvWeiboUserIntro.setText(data.getDescription());
+                mTvWeiboUserLocation.setText(data.getLocation());
+                mTvWeiboUserFriendsCount.setText(data.getFriends_count() + " 关注");
+                mTvWeiboUserFollowersCount.setText(data.getFollowers_count() + " 粉丝");
+                mTvBarTitle.setText(data.getName() + "的微博");
+            });
+        }
 
     }
 

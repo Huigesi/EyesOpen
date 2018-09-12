@@ -177,11 +177,13 @@ public class WeiboFragment extends BaseFragment<WeiboPresenter> implements Weibo
 
     @Override
     public void showData(WeiboNews data) {
+        if (data!=null&&data.getStatuses().size()>0)
         mAdapter.setData(data.getStatuses(), true);
     }
 
     @Override
     public void showMoreData(WeiboNews data) {
+        if (data!=null&&data.getStatuses().size()>0)
         mAdapter.setData(data.getStatuses(), false);
     }
 

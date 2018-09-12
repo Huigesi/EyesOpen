@@ -172,11 +172,13 @@ public class NbaFragment extends BaseFragment<NbaPresenter> implements NbaContra
 
     @Override
     public void showData(NbaNews data) {
+        if (data.getResult().getData()!=null&&data.getResult().getData().size()>0)
         mAdapter.setData(data.getResult().getData(), true);
     }
 
     @Override
     public void showMoreData(NbaNews data) {
+        if (data.getResult().getData()!=null&&data.getResult().getData().size()>0)
         mAdapter.setData(data.getResult().getData(), false);
     }
 

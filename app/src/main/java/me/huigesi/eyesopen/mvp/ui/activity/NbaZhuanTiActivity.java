@@ -116,10 +116,12 @@ public class NbaZhuanTiActivity extends SwipeBackActivity<NbaZhuanTiPresenter> i
 
     @Override
     public void showData(NbaZhuanti data) {
+        if (data.getResult() != null) {
         GlideUtils.load(this, data.getResult().getImg_m(), mMainbackdrop);
         mTvNbaZhuanti.setText(data.getResult().getTitle());
         mTvNbaZhuantiSum.setText(data.getResult().getSummary());
         mNbaZhuanTiAdapter.setData(data.getResult().getGroups(), true);
+        }
     }
 
     @Override
