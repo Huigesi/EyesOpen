@@ -1,7 +1,6 @@
 package me.huigesi.eyesopen.mvp.ui.fragment;
 
 import android.content.Intent;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -19,57 +18,51 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import me.huigesi.eyesopen.R;
 import me.huigesi.eyesopen.app.base.DefaultsFooter;
-import me.huigesi.eyesopen.app.utils.Resolution;
-import me.huigesi.eyesopen.di.component.DaggerNbaDetailComponent;
-import me.huigesi.eyesopen.di.module.NbaDetailModule;
-import me.huigesi.eyesopen.mvp.contract.NbaDetailContract;
-import me.huigesi.eyesopen.mvp.model.entity.NbaNewsComment;
-import me.huigesi.eyesopen.mvp.model.entity.NbaNewsDetail;
-import me.huigesi.eyesopen.mvp.presenter.NbaDetailPresenter;
-import me.huigesi.eyesopen.mvp.ui.adapter.NbaDetailAdapter;
-import me.huigesi.eyesopen.mvp.ui.view.NbaDetailHeaderView;
-import me.huigesi.eyesopen.mvp.ui.view.NbaDetailLightView;
+import me.huigesi.eyesopen.di.component.DaggerNbaBBSComponent;
+import me.huigesi.eyesopen.di.module.NbaBBSModule;
+import me.huigesi.eyesopen.mvp.contract.NbaBBSContract;
+import me.huigesi.eyesopen.mvp.model.entity.NbaBBSComment;
+import me.huigesi.eyesopen.mvp.model.entity.NbaBBSLightComment;
+import me.huigesi.eyesopen.mvp.presenter.NbaBBSPresenter;
+import me.huigesi.eyesopen.mvp.ui.adapter.NbaBBSDetailAdapter;
+import me.huigesi.eyesopen.mvp.ui.view.NbaBBSDetailLightView;
+import me.huigesi.eyesopen.mvp.ui.view.NbaBBSHeaderView;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
 
-public class NbaDetailFragment extends BaseFragment<NbaDetailPresenter> implements NbaDetailContract.View {
-    public static final String NBA_NID = "NBA_NID";
-
-    Unbinder unbinder;
+public class NbaBBSFragment extends BaseFragment<NbaBBSPresenter> implements NbaBBSContract.View {
+    public static final String NBA_H5_TID = "NBA_H5_TID";
+    public String tid;
     @BindView(R.id.rv_news)
     RecyclerView mRvNews;
     @BindView(R.id.srl_news)
     SmartRefreshLayout mSrlNews;
     @BindView(R.id.img_top)
     ImageView mImgTop;
-
-    private NbaDetailAdapter mNbaDetailAdapter;
-    private NbaDetailHeaderView mNbaDetailHeaderView;
-    private NbaDetailLightView mNbaDetailLightView;
-    public String mNid;
+    Unbinder unbinder;
+    private NbaBBSHeaderView mNbaBBSHeaderView;
+    private NbaBBSDetailLightView mNbaDetailLightView;
+    private NbaBBSDetailAdapter mNbaBBSDetailAdapter;
     private LinearLayoutManager mLinearLayoutManager;
 
-    public static NbaDetailFragment newInstance() {
-        NbaDetailFragment fragment = new NbaDetailFragment();
+    public static NbaBBSFragment newInstance() {
+        NbaBBSFragment fragment = new NbaBBSFragment();
         return fragment;
     }
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-        DaggerNbaDetailComponent //如找不到该类,请编译一下项目
+        DaggerNbaBBSComponent //如找不到该类,请编译一下项目
                 .builder()
                 .appComponent(appComponent)
-                .nbaDetailModule(new NbaDetailModule(this))
+                .nbaBBSModule(new NbaBBSModule(this))
                 .build()
                 .inject(this);
     }
@@ -81,35 +74,30 @@ public class NbaDetailFragment extends BaseFragment<NbaDetailPresenter> implemen
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        mNbaDetailAdapter = new NbaDetailAdapter(getActivity());
+        tid = getActivity().getIntent().getStringExtra(NBA_H5_TID);
+        mPresenter.requestBBSComment(tid,true);
+        mPresenter.requestLightBBSComment(tid,true);
+        mNbaBBSDetailAdapter = new NbaBBSDetailAdapter(getActivity());
+        mNbaBBSHeaderView = new NbaBBSHeaderView(getActivity());
+        mNbaDetailLightView = new NbaBBSDetailLightView(getActivity());
         mSrlNews.setRefreshHeader(new MaterialHeader(getActivity()).setColorSchemeColors(
                 getResources().getColor(R.color.colorTheme)));
         mSrlNews.setRefreshFooter(new DefaultsFooter(getActivity()).setFinishDuration(0));
+        mNbaBBSHeaderView.setData(tid);
+        mNbaBBSDetailAdapter.setHeaderView(mNbaBBSHeaderView);
+        mRvNews.setAdapter(mNbaBBSDetailAdapter);
         mRvNews.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRvNews.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                super.getItemOffsets(outRect, view, parent, state);
-                int line = Resolution.dipToPx(getContext(), 1);
-                outRect.set(0, 0, 0, line);
-            }
-        });
-        mNbaDetailHeaderView = new NbaDetailHeaderView(getActivity());
-        mNbaDetailLightView = new NbaDetailLightView(getActivity());
-        mNid = getActivity().getIntent().getStringExtra(NBA_NID);
-        mPresenter.getNbaHeader(mNid);
         initRecycleView();
-        mRvNews.setAdapter(mNbaDetailAdapter);
         mSrlNews.setOnRefreshListener(refreshLayout -> {
-            mPresenter.getNbaHeader(mNid);
-            mPresenter.requestComment(mNid,true);
+            mPresenter.requestBBSComment(tid,true);
+            mPresenter.requestLightBBSComment(tid,true);
         });
 
         mSrlNews.setOnLoadMoreListener(refreshLayout -> loadMoreData());
     }
 
     private void loadMoreData() {
-        mPresenter.requestComment(mNid,false);
+        mPresenter.requestBBSComment(tid,false);
     }
 
     private void initRecycleView() {
@@ -186,27 +174,25 @@ public class NbaDetailFragment extends BaseFragment<NbaDetailPresenter> implemen
     }
 
     @Override
-    public void showHeader(NbaNewsDetail data) {
-        mNbaDetailHeaderView.setData(data);
-        mNbaDetailAdapter.setHeaderView(mNbaDetailHeaderView);
+    public void showCommentData(NbaBBSComment data) {
+        mNbaBBSDetailAdapter.setData(data.getResult().getList(),true);
+        mNbaBBSHeaderView.setData(tid);
+        mNbaBBSDetailAdapter.setHeaderView(mNbaBBSHeaderView);
     }
 
     @Override
-    public void showData(NbaNewsComment data) {
-        if (data.getData() != null && data.getData().size() > 0) {
-            mNbaDetailAdapter.setData(data.getData(), true);
-            if (data.getLight_comments() != null && data.getLight_comments().size() > 0) {
-                mNbaDetailLightView.setData(data);
-                mNbaDetailAdapter.setLightCommentView(mNbaDetailLightView);
-            } else {
-                mNbaDetailAdapter.removeLightCommentView();
-            }
+    public void showCommentMoreData(NbaBBSComment data) {
+        mNbaBBSDetailAdapter.setData(data.getResult().getList(), false);
+    }
+
+    @Override
+    public void showLightCommentData(NbaBBSLightComment data) {
+        if (data.getList() != null && data.getList().size() > 0) {
+            mNbaDetailLightView.setData(data.getList());
+            mNbaBBSDetailAdapter.setLightCommentView(mNbaDetailLightView);
+        } else {
+            mNbaBBSDetailAdapter.removeLightCommentView();
         }
-    }
-
-    @Override
-    public void showMoreData(NbaNewsComment data) {
-        mNbaDetailAdapter.setData(data.getData(),false);
     }
 
     @Override

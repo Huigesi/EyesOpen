@@ -14,69 +14,46 @@ import java.util.Map;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import me.huigesi.eyesopen.mvp.model.api.Api;
-import me.huigesi.eyesopen.mvp.model.entity.NbaNewsComment;
-import me.huigesi.eyesopen.mvp.model.entity.NbaNewsDetail;
+import me.huigesi.eyesopen.mvp.model.entity.NbaBBSComment;
+import me.huigesi.eyesopen.mvp.model.entity.NbaBBSLightComment;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
 import javax.inject.Inject;
 
-import me.huigesi.eyesopen.mvp.contract.NbaDetailContract;
+import me.huigesi.eyesopen.mvp.contract.NbaBBSContract;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 import me.jessyan.rxerrorhandler.handler.RetryWithDelay;
 
 
 @FragmentScope
-public class NbaDetailPresenter extends BasePresenter<NbaDetailContract.Model, NbaDetailContract.View> {
+public class NbaBBSPresenter extends BasePresenter<NbaBBSContract.Model, NbaBBSContract.View> {
 
     RxErrorHandler mErrorHandler;
     Application mApplication;
     ImageLoader mImageLoader;
     AppManager mAppManager;
-    public String mNcid, mCreateTime;
-    private boolean isFirst = true;
+    private int mPage = 1;
 
     @Inject
-    public NbaDetailPresenter(NbaDetailContract.Model model, NbaDetailContract.View rootView
-            , RxErrorHandler handler, AppManager appManager, Application application) {
+    public NbaBBSPresenter(NbaBBSContract.Model model, NbaBBSContract.View rootView,
+                           RxErrorHandler handler, AppManager appManager, Application application) {
         super(model, rootView);
         mErrorHandler = handler;
         mApplication = application;
         mAppManager = appManager;
     }
 
-    public void getNbaHeader(String nid) {
-        Map<String, String> map = new HashMap<>();
-        map.put("client", Api.HUPU_CLIENT_ID);
-        map.put("nid", nid);
-        mModel.getNbaDetail(map)
-                .subscribeOn(Schedulers.io())
-                .retryWhen(new RetryWithDelay(3, 2))
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new ErrorHandleSubscriber<NbaNewsDetail>(mErrorHandler) {
-                    @Override
-                    public void onNext(NbaNewsDetail nbaNewsDetail) {
-                        mRootView.showHeader(nbaNewsDetail);
-                        requestComment(nid, true);
-                    }
-                });
-
-    }
-
-    public void requestComment(String nid, boolean pullToRefresh) {
+    public void requestBBSComment(String tid, boolean pullToRefresh) {
         if (pullToRefresh) {
-            mCreateTime = "";
-            mNcid = "";
-        }
-        if (pullToRefresh && isFirst) {
-            isFirst = false;
+            mPage = 1;
+        }else {
+            mPage++;
         }
         Map<String, String> map = new HashMap<>();
+        map.put("page", String.valueOf(mPage));
+        map.put("tid", tid);
         map.put("client", Api.HUPU_CLIENT_ID);
-        map.put("nid", nid);
-        map.put("ncid", (mNcid == null) ? "" : mNcid);
-        map.put("create_time", (mCreateTime == null) ? "" : mCreateTime);
-        mModel.getComment(map)
+        mModel.getBBSComment(map)
                 .subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3, 2))
                 .doOnSubscribe(disposable -> {
@@ -91,19 +68,44 @@ public class NbaDetailPresenter extends BasePresenter<NbaDetailContract.Model, N
                         mRootView.endLoadMore();//隐藏上拉加载更多的进度条
                 })
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
-                .subscribe(new ErrorHandleSubscriber<NbaNewsComment>(mErrorHandler) {
+                .subscribe(new ErrorHandleSubscriber<NbaBBSComment>(mErrorHandler) {
                     @Override
-                    public void onNext(NbaNewsComment nbaNewsComment) {
-                        if (pullToRefresh) {
-                            mRootView.showData(nbaNewsComment);
-                        } else {
-                            mRootView.showMoreData(nbaNewsComment);
-                        }
-                        if (nbaNewsComment.getData() != null && nbaNewsComment.getData().size() > 0){
-                            mNcid = nbaNewsComment.getData().get(nbaNewsComment.getData().size() - 1).getNcid();
-                            mCreateTime = nbaNewsComment.getData().get(nbaNewsComment.getData().size() - 1)
-                                    .getCreate_time();
-                        }
+                    public void onNext(NbaBBSComment nbaBBSComment) {
+                        if (pullToRefresh)
+                            mRootView.showCommentData(nbaBBSComment);
+                        else
+                            mRootView.showCommentMoreData(nbaBBSComment);
+                    }
+                });
+    }
+
+    public void requestLightBBSComment(String tid, boolean pullToRefresh) {
+        if (pullToRefresh) {
+            mPage = 1;
+        }
+        Map<String, String> map = new HashMap<>();
+        map.put("page", String.valueOf(mPage));
+        map.put("tid", tid);
+        map.put("client", Api.HUPU_CLIENT_ID);
+        mModel.getBBSLightComment(map)
+                .subscribeOn(Schedulers.io())
+                .retryWhen(new RetryWithDelay(3, 2))
+                .doOnSubscribe(disposable -> {
+                    if (pullToRefresh)
+                        mRootView.showLoading();//显示下拉刷新的进度条
+                }).subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(() -> {
+                    if (pullToRefresh)
+                        mRootView.hideLoading();//隐藏下拉刷新的进度条
+                    else
+                        mRootView.endLoadMore();//隐藏上拉加载更多的进度条
+                })
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .subscribe(new ErrorHandleSubscriber<NbaBBSLightComment>(mErrorHandler) {
+                    @Override
+                    public void onNext(NbaBBSLightComment nbaBBSComment) {
+                            mRootView.showLightCommentData(nbaBBSComment);
                     }
                 });
     }

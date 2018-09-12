@@ -8,8 +8,7 @@ import java.util.regex.Pattern;
 
 public class TimeUtils {
     public static long prettyDate1(String time) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat(
-                "EEE MMM dd HH:mm:ss Z yyyy", new Locale("ENGLISH", "CHINA"));
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy",Locale.US);
         Date myDate = sdf.parse(time);
         return myDate.getTime();
     }

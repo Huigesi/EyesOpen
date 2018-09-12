@@ -14,6 +14,7 @@ import android.widget.TextView;
 import me.huigesi.eyesopen.R;
 import me.huigesi.eyesopen.app.base.BaseRecyclerViewAdapter;
 import me.huigesi.eyesopen.app.utils.GlideUtils;
+import me.huigesi.eyesopen.app.utils.RegularUtils;
 import me.huigesi.eyesopen.app.utils.Resolution;
 import me.huigesi.eyesopen.app.utils.UIUtils;
 import me.huigesi.eyesopen.mvp.model.entity.NbaNews;
@@ -73,7 +74,7 @@ public class NbaNewsAdapter extends BaseRecyclerViewAdapter<NbaNews.ResultBean.D
                 } else if (data.getType() == 2) {
                     //UIUtils.startNbaZhuanTiActivity(mContext, data.getNid());
                 } else if (data.getType() == 5) {
-                    //UIUtils.startNbaH5Fragment(mContext, data.getNid(), RegularUtils.getTid(data.getLink()));
+                    UIUtils.startNbaH5Fragment(mContext, RegularUtils.getTid(data.getLink()));
                 } else if (data.getType() == 3) {
                     /*List<ImageInfo> imageInfoList = new ArrayList<>();
                     ImageInfo imageInfo;

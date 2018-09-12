@@ -26,6 +26,7 @@ import me.huigesi.eyesopen.R;
 import me.huigesi.eyesopen.mvp.model.entity.WeiboUserSpace;
 import me.huigesi.eyesopen.mvp.ui.activity.DetailActivity;
 import me.huigesi.eyesopen.mvp.ui.activity.WeiboSpaceActivity;
+import me.huigesi.eyesopen.mvp.ui.fragment.NbaBBSFragment;
 import me.huigesi.eyesopen.mvp.ui.fragment.NbaDetailFragment;
 
 import static me.huigesi.eyesopen.app.utils.RegularUtils.regex_at;
@@ -47,6 +48,12 @@ public class UIUtils {
         intent.putExtra(NbaDetailFragment.NBA_NID, nid);
         context.startActivity(intent);
     }
+    public static void startNbaH5Fragment(Context context, String tid) {
+        Intent intent = new Intent(context, DetailActivity.class);
+        intent.putExtra(FRAGMENT_CLASS, NbaBBSFragment.class.getName());
+        intent.putExtra(NbaBBSFragment.NBA_H5_TID, tid);
+        context.startActivity(intent);
+    }
 /*
 
 
@@ -63,16 +70,6 @@ public class UIUtils {
         intent.putExtra(NBAZhuanTiActivity.NBA_NID, nid);
         context.startActivity(intent);
     }
-
-    public static void startNbaH5Fragment(Context context, String nid, String tid) {
-        Intent intent = new Intent(context, DetailActivity.class);
-        intent.putExtra(FRAGMENT_CLASS, NbaH5Fragment.class.getName());
-        intent.putExtra(NbaH5Fragment.NBA_H5_NID, nid);
-        intent.putExtra(NbaH5Fragment.NBA_H5_TID, tid);
-        context.startActivity(intent);
-    }
-
-
 
     public static void startWeiBoDetailFragment(Context context, String nid) {
         Intent intent = new Intent(context, DetailActivity.class);
