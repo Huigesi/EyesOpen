@@ -185,7 +185,7 @@ public class WeiboSpaceActivity extends SwipeBackActivity<WeiboSpacePresenter> i
 
     @Override
     public Activity getActivity() {
-        return null;
+        return this;
     }
 
     @Override

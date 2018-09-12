@@ -50,6 +50,7 @@
         <activity
             android:name=".mvp.ui.activity.DetailActivity"
             android:theme="@style/transparent" />
+        <activity android:name=".mvp.ui.activity.NbaZhuanTiActivity"></activity>
     </application>
 
 </manifest>
