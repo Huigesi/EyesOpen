@@ -152,7 +152,7 @@ public class WeiboNewsAdapter extends BaseRecyclerViewAdapter<WeiboNews.Statuses
                 ((NewsViewHolder) holder).llWeiboRetweeted.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //UIUtils.startWeiBoDetailFragment(mContext, data.getRetweeted_status().getIdstr());
+                        UIUtils.startWeiBoDetailFragment(mContext, data.getRetweeted_status().getIdstr());
                     }
                 });
                 if (data.getRetweeted_status().getPic_ids() != null &&
@@ -178,7 +178,7 @@ public class WeiboNewsAdapter extends BaseRecyclerViewAdapter<WeiboNews.Statuses
                         @Override
                         public boolean onTouch(View v, MotionEvent event) {
                             if (event.getAction() == MotionEvent.ACTION_UP) {
-                                ((NewsViewHolder) holder).itemView.performClick();  //模拟父控件的点击
+                                ((NewsViewHolder) holder).llWeiboRetweeted.performClick();  //模拟父控件的点击
                             }
                             return false;
                         }
@@ -210,7 +210,7 @@ public class WeiboNewsAdapter extends BaseRecyclerViewAdapter<WeiboNews.Statuses
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   // UIUtils.startWeiBoDetailFragment(mContext, data.getIdstr());
+                   UIUtils.startWeiBoDetailFragment(mContext, data.getIdstr());
                 }
             });
         }

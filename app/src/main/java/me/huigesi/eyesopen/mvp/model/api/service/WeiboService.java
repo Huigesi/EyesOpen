@@ -3,6 +3,7 @@ package me.huigesi.eyesopen.mvp.model.api.service;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import me.huigesi.eyesopen.mvp.model.entity.WeiboDetail;
 import me.huigesi.eyesopen.mvp.model.entity.WeiboNews;
 import me.huigesi.eyesopen.mvp.model.entity.WeiboUserInfo;
 import me.huigesi.eyesopen.mvp.model.entity.WeiboUserSpace;
@@ -33,4 +34,8 @@ public interface WeiboService {
     @Headers({"Domain-Name: weibo"})
     @GET("statuses/user_timeline")
     Observable<WeiboNews> getWeiBoUser(@QueryMap Map<String, String> params);
+
+    @Headers({"Domain-Name: weibo"})
+    @GET("comments/build_comments")
+    Observable<WeiboDetail> getWeiBoDetail(@QueryMap Map<String, String> params);
 }

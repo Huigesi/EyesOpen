@@ -28,6 +28,7 @@ import me.huigesi.eyesopen.mvp.ui.activity.DetailActivity;
 import me.huigesi.eyesopen.mvp.ui.activity.WeiboSpaceActivity;
 import me.huigesi.eyesopen.mvp.ui.fragment.NbaBBSFragment;
 import me.huigesi.eyesopen.mvp.ui.fragment.NbaDetailFragment;
+import me.huigesi.eyesopen.mvp.ui.fragment.WeiboDetailFragment;
 
 import static me.huigesi.eyesopen.app.utils.RegularUtils.regex_at;
 import static me.huigesi.eyesopen.app.utils.RegularUtils.regex_http;
@@ -54,6 +55,13 @@ public class UIUtils {
         intent.putExtra(NbaBBSFragment.NBA_H5_TID, tid);
         context.startActivity(intent);
     }
+
+    public static void startWeiBoDetailFragment(Context context, String id) {
+        Intent intent = new Intent(context, DetailActivity.class);
+        intent.putExtra(FRAGMENT_CLASS, WeiboDetailFragment.class.getName());
+        intent.putExtra(WeiboDetailFragment.WEIBO_ID, id);
+        context.startActivity(intent);
+    }
 /*
 
 
@@ -68,13 +76,6 @@ public class UIUtils {
     public static void startNbaZhuanTiActivity(Context context, String nid) {
         Intent intent = new Intent(context, NBAZhuanTiActivity.class);
         intent.putExtra(NBAZhuanTiActivity.NBA_NID, nid);
-        context.startActivity(intent);
-    }
-
-    public static void startWeiBoDetailFragment(Context context, String nid) {
-        Intent intent = new Intent(context, DetailActivity.class);
-        intent.putExtra(FRAGMENT_CLASS, WeiBoDetailFragment.class.getName());
-        intent.putExtra(WeiBoDetailFragment.WEIBO_NID, nid);
         context.startActivity(intent);
     }
 

@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.jess.arms.base.BaseFragment;
+import com.jess.arms.mvp.IPresenter;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -23,7 +25,7 @@ import static android.support.v7.widget.RecyclerView.SCROLL_STATE_DRAGGING;
 import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
 import static android.support.v7.widget.RecyclerView.SCROLL_STATE_SETTLING;
 
-public abstract class BaseRecyclerFragment extends Fragment {
+public abstract class BaseRecyclerFragment<P extends IPresenter> extends BaseFragment<P> {
     @BindView(R.id.rv_news)
     protected RecyclerView mRvNews;
     @BindView(R.id.srl_news)
@@ -68,7 +70,7 @@ public abstract class BaseRecyclerFragment extends Fragment {
             }
         });
         mRvNews.setHasFixedSize(true);
-        mRvNews.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        /*mRvNews.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -103,7 +105,7 @@ public abstract class BaseRecyclerFragment extends Fragment {
                 }
 
             }
-        });
+        });*/
         init();
     }
 
