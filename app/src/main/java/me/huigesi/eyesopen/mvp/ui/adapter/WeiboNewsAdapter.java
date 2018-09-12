@@ -13,6 +13,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.http.imageloader.ImageLoader;
+import com.jess.arms.http.imageloader.glide.ImageConfigImpl;
+import com.jess.arms.utils.ArmsUtils;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +35,10 @@ import me.huigesi.eyesopen.mvp.model.entity.WeiboNews;
 public class WeiboNewsAdapter extends BaseRecyclerViewAdapter<WeiboNews.StatusesData> {
     public ImgAdapter mImgAdapter;
     private boolean mIsSpace;
+    private ImageLoader mImageLoader;
+    private AppComponent mAppComponent;
 
-    public WeiboNewsAdapter(Context context,boolean isSpace) {
+    public WeiboNewsAdapter(Context context, boolean isSpace) {
         super(context);
         mIsSpace = isSpace;
     }
@@ -48,7 +55,7 @@ public class WeiboNewsAdapter extends BaseRecyclerViewAdapter<WeiboNews.Statuses
     @Override
     public void onBind(final RecyclerView.ViewHolder holder, int position, final WeiboNews.StatusesData data) {
         if (holder instanceof NewsViewHolder) {
-            View.OnTouchListener mOnTouchListener= (v, event) -> {
+            View.OnTouchListener mOnTouchListener = (v, event) -> {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     holder.itemView.performClick();  //模拟父控件的点击
                 }
@@ -58,10 +65,27 @@ public class WeiboNewsAdapter extends BaseRecyclerViewAdapter<WeiboNews.Statuses
                 return;
             }
             int weight = Resolution.dipToPx(mContext, 50);
-            GlideUtils.loadCircle(mContext, data.getUser().getAvatar_large(),
-                    ((NewsViewHolder) holder).imgWeiboUser, weight, weight);
+            mAppComponent = ArmsUtils.obtainAppComponentFromContext(mContext);
+            mImageLoader = mAppComponent.imageLoader();
+            /*
+            * mImageLoader.loadImage(itemView.getContext(),
+                ImageConfigImpl
+                        .builder()
+                        .url(data.getAvatarUrl())
+                        .imageView(mAvatar)
+                        .build());
+            * */
+            mImageLoader.loadImage(mContext,
+                    ImageConfigImpl
+                            .builder()
+                            .isCircle(true)
+                            .url(data.getUser().getAvatar_large())
+                            .imageView(((NewsViewHolder) holder).imgWeiboUser)
+                            .build());
+           /* GlideUtils.loadCircle(mContext, data.getUser().getAvatar_large(),
+                    ((NewsViewHolder) holder).imgWeiboUser, weight, weight);*/
             ((NewsViewHolder) holder).imgWeiboUser.setOnClickListener(v -> {
-                if (!mIsSpace)UIUtils.startSpaceActivity(mContext, data.getUser().getIdstr());
+                if (!mIsSpace) UIUtils.startSpaceActivity(mContext, data.getUser().getIdstr());
             });
             ((NewsViewHolder) holder).tvWeiboUser.setText(data.getUser().getScreen_name());
             try {
@@ -90,12 +114,12 @@ public class WeiboNewsAdapter extends BaseRecyclerViewAdapter<WeiboNews.Statuses
                         mContext, 3));
                 mImgAdapter = new ImgAdapter(mContext);
                 List<String> gifIds = new ArrayList<>();
-                if (data.getGif_ids().equals("")){
+                if (data.getGif_ids().equals("")) {
                     mImgAdapter.setGifIds(gifIds);
-                }else {
-                    String[] str1=data.getGif_ids().split(",");
+                } else {
+                    String[] str1 = data.getGif_ids().split(",");
                     for (String s : str1) {
-                        String id=s.substring(0,s.indexOf("|"));
+                        String id = s.substring(0, s.indexOf("|"));
                         gifIds.add(id);
                     }
                     mImgAdapter.setGifIds(gifIds);
@@ -163,12 +187,12 @@ public class WeiboNewsAdapter extends BaseRecyclerViewAdapter<WeiboNews.Statuses
                     ((NewsViewHolder) holder).rvRetweetedImgs.setLayoutManager(new GridLayoutManager(
                             mContext, 3));
                     List<String> gifIds = new ArrayList<>();
-                    if (data.getRetweeted_status().getGif_ids().equals("")){
+                    if (data.getRetweeted_status().getGif_ids().equals("")) {
                         mImgAdapter.setGifIds(gifIds);
-                    }else {
-                        String[] str1=data.getRetweeted_status().getGif_ids().split(",");
+                    } else {
+                        String[] str1 = data.getRetweeted_status().getGif_ids().split(",");
                         for (String s : str1) {
-                            String id=s.substring(0,s.indexOf("|"));
+                            String id = s.substring(0, s.indexOf("|"));
                             gifIds.add(id);
                         }
                         mImgAdapter.setGifIds(gifIds);
@@ -210,7 +234,7 @@ public class WeiboNewsAdapter extends BaseRecyclerViewAdapter<WeiboNews.Statuses
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   UIUtils.startWeiBoDetailFragment(mContext, data.getIdstr());
+                    UIUtils.startWeiBoDetailFragment(mContext, data.getIdstr());
                 }
             });
         }

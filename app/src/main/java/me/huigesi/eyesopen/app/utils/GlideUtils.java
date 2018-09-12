@@ -83,7 +83,7 @@ public class GlideUtils {
     public static void loadGif(final Context context, String url, ImageView view) {
         RequestOptions weightoptions = new RequestOptions()
                 .placeholder(R.drawable.picture)
-                .fitCenter()
+                .centerCrop()
                 .error(R.drawable.picture_error)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
         Glide.with(context)

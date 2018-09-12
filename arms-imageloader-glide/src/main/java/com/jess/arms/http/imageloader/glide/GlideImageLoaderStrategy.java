@@ -114,6 +114,9 @@ public class GlideImageLoaderStrategy implements BaseImageLoaderStrategy<ImageCo
         if (config.getFallback() != 0)//设置请求 url 为空图片
             glideRequest.fallback(config.getFallback());
 
+        if (config.getWidth() != 0 && config.getHeight() != 0) {
+            glideRequest.override(config.getWidth(), config.getHeight());
+        }
 
         glideRequest
                 .into(config.getImageView());

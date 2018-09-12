@@ -8,6 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 
+import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.http.imageloader.ImageLoader;
+import com.jess.arms.http.imageloader.glide.ImageConfigImpl;
+import com.jess.arms.utils.ArmsUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +27,8 @@ import me.huigesi.eyesopen.mvp.model.api.Api;
 public class ImgAdapter extends BaseRecyclerViewAdapter<String> {
     private List<ImageInfo> imageInfoList;
     private List<String> gifIds;
+    private ImageLoader mImageLoader;
+    private AppComponent mAppComponent;
 
     public List<String> getGifIds() {
         return gifIds;
@@ -50,9 +57,19 @@ public class ImgAdapter extends BaseRecyclerViewAdapter<String> {
             int weight = Resolution.dipToPx(this.mContext, 120);
             initPictureData(data);
             String url;
+            mAppComponent = ArmsUtils.obtainAppComponentFromContext(mContext);
+            mImageLoader = mAppComponent.imageLoader();
             if (gifIds.contains(data)) {
                 url = Api.IMG_WEIBO_ORIGINAL_GIF + data + ".gif";
-                GlideUtils.loadGif(mContext, url, ((ViewHolder) holder).mImageView);
+                mImageLoader.loadImage(mContext,
+                        ImageConfigImpl
+                                .builder()
+                                .url(url)
+                                .isClearMemory(true)
+                                .isCenterCrop(true)
+                                .imageView(((ViewHolder) holder).mImageView)
+                                .build());
+                //GlideUtils.loadGif(mContext, url, ((ViewHolder) holder).mImageView);
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -72,7 +89,15 @@ public class ImgAdapter extends BaseRecyclerViewAdapter<String> {
                 });
             } else {
                 url = Api.IMG_WEIBO_WAP360 + data + ".jpg";
-                GlideUtils.load(mContext, url, ((ViewHolder) holder).mImageView, weight, weight);
+                mImageLoader.loadImage(mContext,
+                        ImageConfigImpl
+                                .builder()
+                                .url(url)
+                                .override(weight, weight)
+                                .isCenterCrop(true)
+                                .imageView(((ViewHolder) holder).mImageView)
+                                .build());
+                //GlideUtils.load(mContext, url, ((ViewHolder) holder).mImageView, weight, weight);
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

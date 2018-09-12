@@ -168,6 +168,8 @@ public class WeiboDetailFragment extends BaseRecyclerFragment<WeiboDetailPresent
         }
         if (data.getRoot_comments() != null && data.getRoot_comments().size() > 0) {
             mWeiBoDetailAdapter.setData(data.getRoot_comments(), true);
+        }else {
+            mSrlNews.setNoMoreData(true);
         }
     }
 
@@ -175,6 +177,8 @@ public class WeiboDetailFragment extends BaseRecyclerFragment<WeiboDetailPresent
     public void showMoreData(WeiboDetail data) {
         if (data.getRoot_comments() != null && data.getRoot_comments().size() > 0) {
             mWeiBoDetailAdapter.setData(data.getRoot_comments(), false);
+        }else {
+            mSrlNews.setNoMoreData(true);
         }
     }
 

@@ -193,7 +193,6 @@ public class WeiboSpaceActivity extends SwipeBackActivity<WeiboSpacePresenter> i
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
 }

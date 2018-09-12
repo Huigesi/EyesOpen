@@ -49,6 +49,16 @@ public class ImageConfigImpl extends ImageConfig {
     private boolean isCircle;//是否将图片剪切为圆形
     private boolean isClearMemory;//清理内存缓存
     private boolean isClearDiskCache;//清理本地缓存
+    private int width;
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+    private int height;
 
     private ImageConfigImpl(Builder builder) {
         this.url = builder.url;
@@ -67,6 +77,12 @@ public class ImageConfigImpl extends ImageConfig {
         this.isClearMemory = builder.isClearMemory;
         this.isClearDiskCache = builder.isClearDiskCache;
     }
+
+    public void override(int width, int height){
+        this.width=width;
+        this.height=height;
+    }
+
 
     public int getCacheStrategy() {
         return cacheStrategy;
@@ -134,6 +150,8 @@ public class ImageConfigImpl extends ImageConfig {
         private int cacheStrategy;//0对应DiskCacheStrategy.all,1对应DiskCacheStrategy.NONE,2对应DiskCacheStrategy.SOURCE,3对应DiskCacheStrategy.RESULT
         private int imageRadius;//图片每个圆角的大小
         private int blurValue;//高斯模糊值, 值越大模糊效果越大
+        private int width;
+        private int height;
         /**
          * @see {@link Builder#transformation(BitmapTransformation)}
          */
@@ -147,6 +165,12 @@ public class ImageConfigImpl extends ImageConfig {
         private boolean isClearDiskCache;//清理本地缓存
 
         private Builder() {
+        }
+
+        public Builder override(int width, int height) {
+            this.width=width;
+            this.height=height;
+            return this;
         }
 
         public Builder url(String url) {
