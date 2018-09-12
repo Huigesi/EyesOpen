@@ -106,7 +106,7 @@ public class WeiboPresenter extends BasePresenter<WeiboContract.Model, WeiboCont
                 .subscribe(new ErrorHandleSubscriber<WeiboNews>(mErrorHandler) {
                     @Override
                     public void onNext(WeiboNews weiboNews) {
-                        if (isFirst) {
+                        if (pullToRefresh) {
                             mRootView.showData(weiboNews);
                         }else {
                             mRootView.showMoreData(weiboNews);
