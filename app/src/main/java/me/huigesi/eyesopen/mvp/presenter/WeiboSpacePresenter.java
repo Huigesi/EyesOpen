@@ -39,7 +39,6 @@ public class WeiboSpacePresenter extends BasePresenter<WeiboSpaceContract.Model,
     Application mApplication;
     ImageLoader mImageLoader;
     AppManager mAppManager;
-    private boolean isFirst = true;
     private int page = 1;
     private String gsId = "";
 
@@ -82,10 +81,6 @@ public class WeiboSpacePresenter extends BasePresenter<WeiboSpaceContract.Model,
         }else {
             page++;
         }
-
-        if (pullToRefresh && isFirst) {
-            isFirst = false;
-        }
         Map<String, String> params = new HashMap<>();
         params.put("since_id", String.valueOf(0));
         params.put("s", WEIBO_S);
@@ -116,7 +111,7 @@ public class WeiboSpacePresenter extends BasePresenter<WeiboSpaceContract.Model,
                 .subscribe(new ErrorHandleSubscriber<WeiboNews>(mErrorHandler) {
                     @Override
                     public void onNext(WeiboNews weiboNews) {
-                        if (isFirst)
+                        if (pullToRefresh)
                             mRootView.showData(weiboNews);
                         else
                             mRootView.showMoreData(weiboNews);

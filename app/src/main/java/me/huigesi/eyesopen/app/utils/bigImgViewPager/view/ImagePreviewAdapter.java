@@ -251,14 +251,14 @@ public class ImagePreviewAdapter extends PagerAdapter {
             gifView.setVisibility(View.VISIBLE);
             imageView.setVisibility(View.GONE);
             final ImageInfo info = this.imageInfo.get(position);
-            final String gifUrl=info.getOriginUrl();
+            final String gifUrl = info.getOriginUrl();
             RequestOptions weightoptions = new RequestOptions()
                     .placeholder(R.drawable.picture)
                     .fitCenter()
                     .error(R.drawable.picture_error)
                     .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
             Glide.with(activity).load(gifUrl).apply(weightoptions)
-                    .into(new DrawableImageViewTarget(gifView){
+                    .into(new DrawableImageViewTarget(gifView) {
                         @Override
                         public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                             super.onResourceReady(resource, transition);
