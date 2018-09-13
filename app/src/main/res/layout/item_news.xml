@@ -193,10 +193,11 @@
 
                     <TextView
                         android:id="@+id/tv_game1_title"
-                        android:layout_width="wrap_content"
+                        android:layout_width="25dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="2dp"
-                        android:text=""
+                        android:text="ssss"
+                        android:maxLines="2"
                         android:textColor="@color/text_common"
                         android:textSize="12sp" />
 
@@ -205,6 +206,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Blizzard"
+                        android:maxLines="1"
                         android:textColor="@color/colorSubtitle"
                         android:textSize="6sp" />
                 </LinearLayout>
@@ -236,7 +238,7 @@
 
                     <TextView
                         android:id="@+id/tv_game2_title"
-                        android:layout_width="wrap_content"
+                        android:layout_width="25dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="2dp"
                         android:text=""
@@ -248,6 +250,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Blizzard"
+                        android:maxLines="1"
                         android:textColor="@color/colorSubtitle"
                         android:textSize="6sp" />
                 </LinearLayout>
@@ -279,7 +282,7 @@
 
                     <TextView
                         android:id="@+id/tv_game3_title"
-                        android:layout_width="wrap_content"
+                        android:layout_width="25dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="2dp"
                         android:text=""
@@ -291,6 +294,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Blizzard"
+                        android:maxLines="1"
                         android:textColor="@color/colorSubtitle"
                         android:textSize="6sp" />
                 </LinearLayout>
@@ -321,7 +325,7 @@
 
                     <TextView
                         android:id="@+id/tv_game4_title"
-                        android:layout_width="wrap_content"
+                        android:layout_width="25dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="2dp"
                         android:text=""
@@ -333,6 +337,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Blizzard"
+                        android:maxLines="1"
                         android:textColor="@color/colorSubtitle"
                         android:textSize="6sp" />
                 </LinearLayout>

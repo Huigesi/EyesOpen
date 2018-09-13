@@ -9,7 +9,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,9 +28,9 @@ import me.huigesi.eyesopen.mvp.contract.MainContract;
 import me.huigesi.eyesopen.mvp.model.api.Api;
 import me.huigesi.eyesopen.mvp.presenter.MainPresenter;
 import me.huigesi.eyesopen.mvp.ui.adapter.MyFragmentAdapter;
-import me.huigesi.eyesopen.mvp.ui.fragment.NbaDetailFragment;
 import me.huigesi.eyesopen.mvp.ui.fragment.NbaFragment;
 import me.huigesi.eyesopen.mvp.ui.fragment.News163Fragment;
+import me.huigesi.eyesopen.mvp.ui.fragment.News163ListFragment;
 import me.huigesi.eyesopen.mvp.ui.fragment.WeiboFragment;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -78,7 +77,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorTheme));
         }
         ArrayList<Fragment> mFragmentList = new ArrayList<>();
-        mFragmentList.add(News163Fragment.newInstance(Api.HEADLINE_ID));
+        mFragmentList.add(News163Fragment.newInstance());
         mFragmentList.add(WeiboFragment.newInstance());
         mFragmentList.add(NbaFragment.newInstance());
         MyFragmentAdapter adapter = new MyFragmentAdapter(getSupportFragmentManager(),

@@ -47,8 +47,13 @@ public class ItemNewsAdapter extends BaseRecyclerViewAdapter<News163> {
                             ((ItemNewsHolder) holder).imgTemplateGame1);
                     ((ItemNewsHolder) holder).tvGame1Title.setText(
                             data.getWap_pluginfo().get(0).getTitle());
-                    ((ItemNewsHolder) holder).tvGame1Subtitle.setText(
-                            data.getWap_pluginfo().get(0).getSubtitle());
+                    if (data.getWap_pluginfo().get(0).getSubtitle().equals("")){
+                        ((ItemNewsHolder) holder).tvGame1Subtitle.setVisibility(View.GONE);
+                    }else {
+                        ((ItemNewsHolder) holder).tvGame1Subtitle.setVisibility(View.VISIBLE);
+                        ((ItemNewsHolder) holder).tvGame1Subtitle.setText(
+                                data.getWap_pluginfo().get(0).getSubtitle());
+                    }
                     ((ItemNewsHolder) holder).llTemplateGame1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -62,8 +67,13 @@ public class ItemNewsAdapter extends BaseRecyclerViewAdapter<News163> {
                             ((ItemNewsHolder) holder).imgTemplateGame2);
                     ((ItemNewsHolder) holder).tvGame2Title.setText(
                             data.getWap_pluginfo().get(1).getTitle());
-                    ((ItemNewsHolder) holder).tvGame2Subtitle.setText(
-                            data.getWap_pluginfo().get(1).getSubtitle());
+                    if (data.getWap_pluginfo().get(1).getSubtitle().equals("")){
+                        ((ItemNewsHolder) holder).tvGame2Subtitle.setVisibility(View.GONE);
+                    }else {
+                        ((ItemNewsHolder) holder).tvGame2Subtitle.setVisibility(View.VISIBLE);
+                        ((ItemNewsHolder) holder).tvGame2Subtitle.setText(
+                                data.getWap_pluginfo().get(1).getSubtitle());
+                    }
                     ((ItemNewsHolder) holder).llTemplateGame2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -77,8 +87,13 @@ public class ItemNewsAdapter extends BaseRecyclerViewAdapter<News163> {
                             ((ItemNewsHolder) holder).imgTemplateGame3);
                     ((ItemNewsHolder) holder).tvGame3Title.setText(
                             data.getWap_pluginfo().get(2).getTitle());
-                    ((ItemNewsHolder) holder).tvGame3Subtitle.setText(
-                            data.getWap_pluginfo().get(2).getSubtitle());
+                    if (data.getWap_pluginfo().get(2).getSubtitle().equals("")){
+                        ((ItemNewsHolder) holder).tvGame3Subtitle.setVisibility(View.GONE);
+                    }else {
+                        ((ItemNewsHolder) holder).tvGame3Subtitle.setVisibility(View.VISIBLE);
+                        ((ItemNewsHolder) holder).tvGame3Subtitle.setText(
+                                data.getWap_pluginfo().get(2).getSubtitle());
+                    }
                     ((ItemNewsHolder) holder).llTemplateGame3.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -92,8 +107,13 @@ public class ItemNewsAdapter extends BaseRecyclerViewAdapter<News163> {
                             ((ItemNewsHolder) holder).imgTemplateGame4);
                     ((ItemNewsHolder) holder).tvGame4Title.setText(
                             data.getWap_pluginfo().get(3).getTitle());
-                    ((ItemNewsHolder) holder).tvGame4Subtitle.setText(
-                            data.getWap_pluginfo().get(3).getSubtitle());
+                    if (data.getWap_pluginfo().get(3).getSubtitle().equals("")){
+                        ((ItemNewsHolder) holder).tvGame4Subtitle.setVisibility(View.GONE);
+                    }else {
+                        ((ItemNewsHolder) holder).tvGame4Subtitle.setVisibility(View.VISIBLE);
+                        ((ItemNewsHolder) holder).tvGame4Subtitle.setText(
+                                data.getWap_pluginfo().get(3).getSubtitle());
+                    }
                     ((ItemNewsHolder) holder).llTemplateGame4.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

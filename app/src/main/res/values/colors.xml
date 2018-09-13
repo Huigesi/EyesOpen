@@ -17,4 +17,5 @@
     <color name="black_p50">#7f000000</color>
     <color name="transparent">#03000000</color>
     <color name="colorHomeLine">#D4D4D4</color>
+    <color name="colorTabTextNormal">#e28b89</color>
 </resources>
