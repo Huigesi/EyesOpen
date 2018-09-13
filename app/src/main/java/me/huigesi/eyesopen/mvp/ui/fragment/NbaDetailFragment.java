@@ -102,19 +102,19 @@ public class NbaDetailFragment extends BaseFragment<NbaDetailPresenter> implemen
         mRvNews.setAdapter(mNbaDetailAdapter);
         mSrlNews.setOnRefreshListener(refreshLayout -> {
             mPresenter.getNbaHeader(mNid);
-            mPresenter.requestComment(mNid,true);
+            mPresenter.requestComment(mNid, true);
         });
 
         mSrlNews.setOnLoadMoreListener(refreshLayout -> loadMoreData());
     }
 
     private void loadMoreData() {
-        mPresenter.requestComment(mNid,false);
+        mPresenter.requestComment(mNid, false);
     }
 
     private void initRecycleView() {
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
-        ArmsUtils.configRecyclerView(mRvNews,mLinearLayoutManager);
+        ArmsUtils.configRecyclerView(mRvNews, mLinearLayoutManager);
     }
 
     /**
@@ -206,7 +206,10 @@ public class NbaDetailFragment extends BaseFragment<NbaDetailPresenter> implemen
 
     @Override
     public void showMoreData(NbaNewsComment data) {
-        mNbaDetailAdapter.setData(data.getData(),false);
+        if (data != null && data.getData().size() > 0)
+            mNbaDetailAdapter.setData(data.getData(), false);
+        else
+            mSrlNews.setNoMoreData(true);
     }
 
     @Override

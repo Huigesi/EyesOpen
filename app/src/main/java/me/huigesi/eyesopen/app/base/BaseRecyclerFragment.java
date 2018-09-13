@@ -106,10 +106,7 @@ public abstract class BaseRecyclerFragment<P extends IPresenter> extends BaseFra
 
             }
         });*/
-        init();
     }
-
-    public abstract void init();
 
     @Override
     public void onDestroyView() {

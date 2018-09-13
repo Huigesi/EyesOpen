@@ -88,17 +88,17 @@ public class WeiboFragment extends BaseFragment<WeiboPresenter> implements Weibo
             }
         });
         initRecycleView();
-        mAdapter = new WeiboNewsAdapter(getActivity(),false);
+        mAdapter = new WeiboNewsAdapter(getActivity(), false);
         mRvNews.setAdapter(mAdapter);
     }
 
     private void initRecycleView() {
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
-        ArmsUtils.configRecyclerView(mRvNews,mLinearLayoutManager);
+        ArmsUtils.configRecyclerView(mRvNews, mLinearLayoutManager);
         mRvNews.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                outRect.set(0,0,0,ArmsUtils.dip2px(getActivity(),5));
+                outRect.set(0, 0, 0, ArmsUtils.dip2px(getActivity(), 5));
             }
         });
     }
@@ -177,14 +177,16 @@ public class WeiboFragment extends BaseFragment<WeiboPresenter> implements Weibo
 
     @Override
     public void showData(WeiboNews data) {
-        if (data!=null&&data.getStatuses().size()>0)
-        mAdapter.setData(data.getStatuses(), true);
+        if (data != null && data.getStatuses().size() > 0)
+            mAdapter.setData(data.getStatuses(), true);
     }
 
     @Override
     public void showMoreData(WeiboNews data) {
-        if (data!=null&&data.getStatuses().size()>0)
-        mAdapter.setData(data.getStatuses(), false);
+        if (data != null && data.getStatuses().size() > 0)
+            mAdapter.setData(data.getStatuses(), false);
+        else
+            mSrlNews.setNoMoreData(true);
     }
 
     @Override

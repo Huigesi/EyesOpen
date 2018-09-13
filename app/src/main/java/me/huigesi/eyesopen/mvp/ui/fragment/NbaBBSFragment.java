@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
@@ -75,8 +76,8 @@ public class NbaBBSFragment extends BaseFragment<NbaBBSPresenter> implements Nba
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         tid = getActivity().getIntent().getStringExtra(NBA_H5_TID);
-        mPresenter.requestBBSComment(tid,true);
-        mPresenter.requestLightBBSComment(tid,true);
+        mPresenter.requestBBSComment(tid, true);
+        mPresenter.requestLightBBSComment(tid, true);
         mNbaBBSDetailAdapter = new NbaBBSDetailAdapter(getActivity());
         mNbaBBSHeaderView = new NbaBBSHeaderView(getActivity());
         mNbaDetailLightView = new NbaBBSDetailLightView(getActivity());
@@ -89,58 +90,22 @@ public class NbaBBSFragment extends BaseFragment<NbaBBSPresenter> implements Nba
         mRvNews.setLayoutManager(new LinearLayoutManager(getActivity()));
         initRecycleView();
         mSrlNews.setOnRefreshListener(refreshLayout -> {
-            mPresenter.requestBBSComment(tid,true);
-            mPresenter.requestLightBBSComment(tid,true);
+            mPresenter.requestBBSComment(tid, true);
+            mPresenter.requestLightBBSComment(tid, true);
         });
 
         mSrlNews.setOnLoadMoreListener(refreshLayout -> loadMoreData());
     }
 
     private void loadMoreData() {
-        mPresenter.requestBBSComment(tid,false);
+        mPresenter.requestBBSComment(tid, false);
     }
 
     private void initRecycleView() {
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
-        ArmsUtils.configRecyclerView(mRvNews,mLinearLayoutManager);
+        ArmsUtils.configRecyclerView(mRvNews, mLinearLayoutManager);
     }
 
-    /**
-     * 通过此方法可以使 Fragment 能够与外界做一些交互和通信, 比如说外部的 Activity 想让自己持有的某个 Fragment 对象执行一些方法,
-     * 建议在有多个需要与外界交互的方法时, 统一传 {@link Message}, 通过 what 字段来区分不同的方法, 在 {@link #setData(Object)}
-     * 方法中就可以 {@code switch} 做不同的操作, 这样就可以用统一的入口方法做多个不同的操作, 可以起到分发的作用
-     * <p>
-     * 调用此方法时请注意调用时 Fragment 的生命周期, 如果调用 {@link #setData(Object)} 方法时 {@link Fragment#onCreate(Bundle)} 还没执行
-     * 但在 {@link #setData(Object)} 里却调用了 Presenter 的方法, 是会报空的, 因为 Dagger 注入是在 {@link Fragment#onCreate(Bundle)} 方法中执行的
-     * 然后才创建的 Presenter, 如果要做一些初始化操作,可以不必让外部调用 {@link #setData(Object)}, 在 {@link #initData(Bundle)} 中初始化就可以了
-     * <p>
-     * Example usage:
-     * <pre>
-     * public void setData(@Nullable Object data) {
-     *     if (data != null && data instanceof Message) {
-     *         switch (((Message) data).what) {
-     *             case 0:
-     *                 loadData(((Message) data).arg1);
-     *                 break;
-     *             case 1:
-     *                 refreshUI();
-     *                 break;
-     *             default:
-     *                 //do something
-     *                 break;
-     *         }
-     *     }
-     * }
-     *
-     * // call setData(Object):
-     * Message data = new Message();
-     * data.what = 0;
-     * data.arg1 = 1;
-     * fragment.setData(data);
-     * </pre>
-     *
-     * @param data 当不需要参数时 {@code data} 可以为 {@code null}
-     */
     @Override
     public void setData(@Nullable Object data) {
 
@@ -175,14 +140,21 @@ public class NbaBBSFragment extends BaseFragment<NbaBBSPresenter> implements Nba
 
     @Override
     public void showCommentData(NbaBBSComment data) {
-        mNbaBBSDetailAdapter.setData(data.getResult().getList(),true);
+        if (data.getResult().getList() != null && data.getResult().getList().size() > 0) {
+            mNbaBBSDetailAdapter.setData(data.getResult().getList(), true);
+        } else {
+            Toast.makeText(getActivity(), "没有数据", Toast.LENGTH_SHORT).show();
+        }
         mNbaBBSHeaderView.setData(tid);
         mNbaBBSDetailAdapter.setHeaderView(mNbaBBSHeaderView);
     }
 
     @Override
     public void showCommentMoreData(NbaBBSComment data) {
-        mNbaBBSDetailAdapter.setData(data.getResult().getList(), false);
+        if (data.getResult().getList() != null && data.getResult().getList().size() > 0)
+            mNbaBBSDetailAdapter.setData(data.getResult().getList(), false);
+        else
+            mSrlNews.setNoMoreData(true);
     }
 
     @Override

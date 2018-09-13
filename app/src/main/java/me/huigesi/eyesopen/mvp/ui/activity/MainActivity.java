@@ -26,10 +26,12 @@ import me.huigesi.eyesopen.R;
 import me.huigesi.eyesopen.di.component.DaggerMainComponent;
 import me.huigesi.eyesopen.di.module.MainModule;
 import me.huigesi.eyesopen.mvp.contract.MainContract;
+import me.huigesi.eyesopen.mvp.model.api.Api;
 import me.huigesi.eyesopen.mvp.presenter.MainPresenter;
 import me.huigesi.eyesopen.mvp.ui.adapter.MyFragmentAdapter;
 import me.huigesi.eyesopen.mvp.ui.fragment.NbaDetailFragment;
 import me.huigesi.eyesopen.mvp.ui.fragment.NbaFragment;
+import me.huigesi.eyesopen.mvp.ui.fragment.News163Fragment;
 import me.huigesi.eyesopen.mvp.ui.fragment.WeiboFragment;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
@@ -76,7 +78,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorTheme));
         }
         ArrayList<Fragment> mFragmentList = new ArrayList<>();
-        mFragmentList.add(NbaFragment.newInstance());
+        mFragmentList.add(News163Fragment.newInstance(Api.HEADLINE_ID));
         mFragmentList.add(WeiboFragment.newInstance());
         mFragmentList.add(NbaFragment.newInstance());
         MyFragmentAdapter adapter = new MyFragmentAdapter(getSupportFragmentManager(),

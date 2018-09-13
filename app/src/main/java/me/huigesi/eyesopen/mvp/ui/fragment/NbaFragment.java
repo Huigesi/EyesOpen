@@ -65,7 +65,6 @@ public class NbaFragment extends BaseFragment<NbaPresenter> implements NbaContra
     }
 
 
-
     @Override
     public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_list, container, false);
@@ -99,7 +98,7 @@ public class NbaFragment extends BaseFragment<NbaPresenter> implements NbaContra
 
     private void initRecycleView() {
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
-        ArmsUtils.configRecyclerView(mRvNews,mLinearLayoutManager);
+        ArmsUtils.configRecyclerView(mRvNews, mLinearLayoutManager);
     }
 
     /**
@@ -172,14 +171,16 @@ public class NbaFragment extends BaseFragment<NbaPresenter> implements NbaContra
 
     @Override
     public void showData(NbaNews data) {
-        if (data.getResult().getData()!=null&&data.getResult().getData().size()>0)
-        mAdapter.setData(data.getResult().getData(), true);
+        if (data.getResult().getData() != null && data.getResult().getData().size() > 0)
+            mAdapter.setData(data.getResult().getData(), true);
     }
 
     @Override
     public void showMoreData(NbaNews data) {
-        if (data.getResult().getData()!=null&&data.getResult().getData().size()>0)
-        mAdapter.setData(data.getResult().getData(), false);
+        if (data.getResult().getData() != null && data.getResult().getData().size() > 0)
+            mAdapter.setData(data.getResult().getData(), false);
+        else
+            mSrlNews.setNoMoreData(true);
     }
 
     @Override
