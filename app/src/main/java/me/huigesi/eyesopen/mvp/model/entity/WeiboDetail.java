@@ -3618,7 +3618,7 @@ public class WeiboDetail {
                             private String file_monitor_type;
                             private TimeMonitorMetaData timeMonitorMeta;
                             private boolean domesticOnly;
-                            private InputTagsData input_tags;
+                            //private InputTagsData input_tags;
                             private String video_orientation;
                             private ExtInfoData ext_info;
                             private BizData biz;
@@ -3943,14 +3943,6 @@ public class WeiboDetail {
 
                             public void setDomesticOnly(boolean domesticOnly) {
                                 this.domesticOnly = domesticOnly;
-                            }
-
-                            public InputTagsData getInput_tags() {
-                                return input_tags;
-                            }
-
-                            public void setInput_tags(InputTagsData input_tags) {
-                                this.input_tags = input_tags;
                             }
 
                             public String getVideo_orientation() {

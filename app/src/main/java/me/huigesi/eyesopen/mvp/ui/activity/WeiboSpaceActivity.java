@@ -2,15 +2,21 @@ package me.huigesi.eyesopen.mvp.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -95,6 +101,12 @@ public class WeiboSpaceActivity extends SwipeBackActivity<WeiboSpacePresenter> i
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+            // 设置全屏，并且不会Activity的布局让出状态栏的空间
+            ArmsUtils.statuInScreen(this);
+        }
+        getWindow().setBackgroundDrawable(null);
+
         mUid = getIntent().getStringExtra(WEIBO_SPACE_UID);
         mGsId = SPreUtils.getWeiBoUserInfo(SPreUtils.WEIBO_GSID, this);
         mPresenter.requestHeader(mUid);
