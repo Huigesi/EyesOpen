@@ -16,6 +16,7 @@ import me.huigesi.eyesopen.R;
 import me.huigesi.eyesopen.app.base.BaseRecyclerViewAdapter;
 import me.huigesi.eyesopen.app.utils.GlideUtils;
 import me.huigesi.eyesopen.app.utils.Resolution;
+import me.huigesi.eyesopen.app.utils.UIUtils;
 import me.huigesi.eyesopen.mvp.model.entity.News163;
 
 public class ItemNewsAdapter extends BaseRecyclerViewAdapter<News163> {
@@ -47,9 +48,9 @@ public class ItemNewsAdapter extends BaseRecyclerViewAdapter<News163> {
                             ((ItemNewsHolder) holder).imgTemplateGame1);
                     ((ItemNewsHolder) holder).tvGame1Title.setText(
                             data.getWap_pluginfo().get(0).getTitle());
-                    if (data.getWap_pluginfo().get(0).getSubtitle().equals("")){
+                    if (data.getWap_pluginfo().get(0).getSubtitle().equals("")) {
                         ((ItemNewsHolder) holder).tvGame1Subtitle.setVisibility(View.GONE);
-                    }else {
+                    } else {
                         ((ItemNewsHolder) holder).tvGame1Subtitle.setVisibility(View.VISIBLE);
                         ((ItemNewsHolder) holder).tvGame1Subtitle.setText(
                                 data.getWap_pluginfo().get(0).getSubtitle());
@@ -57,19 +58,17 @@ public class ItemNewsAdapter extends BaseRecyclerViewAdapter<News163> {
                     ((ItemNewsHolder) holder).llTemplateGame1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                          /*  Intent intent = new Intent(mContext, GameActivity.class);
-                            intent.putExtra(GameActivity.WEB_URL, data.getWap_pluginfo().get(0).getUrl());
-                            intent.putExtra(GameActivity.WEB_TITLE, data.getWap_pluginfo().get(0).getTitle());
-                            mContext.startActivity(intent);*/
+                            UIUtils.startGameActivity(mContext, data.getWap_pluginfo().get(0).getUrl(),
+                                    data.getWap_pluginfo().get(0).getTitle());
                         }
                     });
                     GlideUtils.load(mContext, data.getWap_pluginfo().get(1).getImgsrc(),
                             ((ItemNewsHolder) holder).imgTemplateGame2);
                     ((ItemNewsHolder) holder).tvGame2Title.setText(
                             data.getWap_pluginfo().get(1).getTitle());
-                    if (data.getWap_pluginfo().get(1).getSubtitle().equals("")){
+                    if (data.getWap_pluginfo().get(1).getSubtitle().equals("")) {
                         ((ItemNewsHolder) holder).tvGame2Subtitle.setVisibility(View.GONE);
-                    }else {
+                    } else {
                         ((ItemNewsHolder) holder).tvGame2Subtitle.setVisibility(View.VISIBLE);
                         ((ItemNewsHolder) holder).tvGame2Subtitle.setText(
                                 data.getWap_pluginfo().get(1).getSubtitle());
@@ -77,19 +76,17 @@ public class ItemNewsAdapter extends BaseRecyclerViewAdapter<News163> {
                     ((ItemNewsHolder) holder).llTemplateGame2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                           /* Intent intent = new Intent(mContext, GameActivity.class);
-                            intent.putExtra(GameActivity.WEB_URL, data.getWap_pluginfo().get(1).getUrl());
-                            intent.putExtra(GameActivity.WEB_TITLE, data.getWap_pluginfo().get(1).getTitle());
-                            mContext.startActivity(intent);*/
+                            UIUtils.startGameActivity(mContext, data.getWap_pluginfo().get(1).getUrl(),
+                                    data.getWap_pluginfo().get(1).getTitle());
                         }
                     });
                     GlideUtils.load(mContext, data.getWap_pluginfo().get(2).getImgsrc(),
                             ((ItemNewsHolder) holder).imgTemplateGame3);
                     ((ItemNewsHolder) holder).tvGame3Title.setText(
                             data.getWap_pluginfo().get(2).getTitle());
-                    if (data.getWap_pluginfo().get(2).getSubtitle().equals("")){
+                    if (data.getWap_pluginfo().get(2).getSubtitle().equals("")) {
                         ((ItemNewsHolder) holder).tvGame3Subtitle.setVisibility(View.GONE);
-                    }else {
+                    } else {
                         ((ItemNewsHolder) holder).tvGame3Subtitle.setVisibility(View.VISIBLE);
                         ((ItemNewsHolder) holder).tvGame3Subtitle.setText(
                                 data.getWap_pluginfo().get(2).getSubtitle());
@@ -97,19 +94,17 @@ public class ItemNewsAdapter extends BaseRecyclerViewAdapter<News163> {
                     ((ItemNewsHolder) holder).llTemplateGame3.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                           /* Intent intent = new Intent(mContext, GameActivity.class);
-                            intent.putExtra(GameActivity.WEB_URL, data.getWap_pluginfo().get(2).getUrl());
-                            intent.putExtra(GameActivity.WEB_TITLE, data.getWap_pluginfo().get(2).getTitle());
-                            mContext.startActivity(intent);*/
+                            UIUtils.startGameActivity(mContext, data.getWap_pluginfo().get(2).getUrl(),
+                                    data.getWap_pluginfo().get(2).getTitle());
                         }
                     });
                     GlideUtils.load(mContext, data.getWap_pluginfo().get(3).getImgsrc(),
                             ((ItemNewsHolder) holder).imgTemplateGame4);
                     ((ItemNewsHolder) holder).tvGame4Title.setText(
                             data.getWap_pluginfo().get(3).getTitle());
-                    if (data.getWap_pluginfo().get(3).getSubtitle().equals("")){
+                    if (data.getWap_pluginfo().get(3).getSubtitle().equals("")) {
                         ((ItemNewsHolder) holder).tvGame4Subtitle.setVisibility(View.GONE);
-                    }else {
+                    } else {
                         ((ItemNewsHolder) holder).tvGame4Subtitle.setVisibility(View.VISIBLE);
                         ((ItemNewsHolder) holder).tvGame4Subtitle.setText(
                                 data.getWap_pluginfo().get(3).getSubtitle());
@@ -117,10 +112,8 @@ public class ItemNewsAdapter extends BaseRecyclerViewAdapter<News163> {
                     ((ItemNewsHolder) holder).llTemplateGame4.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            /*Intent intent = new Intent(mContext, GameActivity.class);
-                            intent.putExtra(GameActivity.WEB_URL, data.getWap_pluginfo().get(3).getUrl());
-                            intent.putExtra(GameActivity.WEB_TITLE, data.getWap_pluginfo().get(3).getTitle());
-                            mContext.startActivity(intent);*/
+                            UIUtils.startGameActivity(mContext, data.getWap_pluginfo().get(3).getUrl(),
+                                    data.getWap_pluginfo().get(3).getTitle());
                         }
                     });
                 } else {
@@ -159,10 +152,7 @@ public class ItemNewsAdapter extends BaseRecyclerViewAdapter<News163> {
                 ((ItemNewsHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        /*Intent intent = new Intent(mContext, WebViewActivity.class);
-                        intent.putExtra(WebViewActivity.WEB_URL, data.getUrl());
-                        intent.putExtra(WebViewActivity.WEB_TITLE, data.getSource());
-                        mContext.startActivity(intent);*/
+                        UIUtils.startWebViewActivity(mContext, data.getUrl(), data.getSource());
                     }
                 });
             }

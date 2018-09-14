@@ -25,6 +25,7 @@ import java.util.regex.Pattern;
 import me.huigesi.eyesopen.R;
 import me.huigesi.eyesopen.mvp.model.entity.WeiboUserSpace;
 import me.huigesi.eyesopen.mvp.ui.activity.DetailActivity;
+import me.huigesi.eyesopen.mvp.ui.activity.GameActivity;
 import me.huigesi.eyesopen.mvp.ui.activity.WebViewActivity;
 import me.huigesi.eyesopen.mvp.ui.activity.WeiboSpaceActivity;
 import me.huigesi.eyesopen.mvp.ui.fragment.NbaBBSFragment;
@@ -67,6 +68,13 @@ public class UIUtils {
         Intent intent = new Intent(mContext, WebViewActivity.class);
         intent.putExtra(WebViewActivity.WEB_URL, url);
         intent.putExtra(WebViewActivity.WEB_TITLE, title);
+        mContext.startActivity(intent);
+    }
+
+    public static void startGameActivity(Context mContext,String url,String title) {
+        Intent intent = new Intent(mContext, GameActivity.class);
+        intent.putExtra(GameActivity.WEB_URL, url);
+        intent.putExtra(GameActivity.WEB_TITLE, title);
         mContext.startActivity(intent);
     }
 /*

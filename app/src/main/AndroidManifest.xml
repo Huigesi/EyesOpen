@@ -58,6 +58,8 @@
         </activity>
         <activity android:name=".mvp.ui.activity.WebViewActivity"
             android:theme="@style/transparent"/>
+        <activity android:name=".mvp.ui.activity.GameActivity"
+            android:theme="@style/transparent"/>
     </application>
 
 </manifest>
