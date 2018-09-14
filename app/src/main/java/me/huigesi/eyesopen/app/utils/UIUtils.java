@@ -26,6 +26,7 @@ import me.huigesi.eyesopen.R;
 import me.huigesi.eyesopen.mvp.model.entity.WeiboUserSpace;
 import me.huigesi.eyesopen.mvp.ui.activity.DetailActivity;
 import me.huigesi.eyesopen.mvp.ui.activity.GameActivity;
+import me.huigesi.eyesopen.mvp.ui.activity.NbaZhuanTiActivity;
 import me.huigesi.eyesopen.mvp.ui.activity.WebViewActivity;
 import me.huigesi.eyesopen.mvp.ui.activity.WeiboSpaceActivity;
 import me.huigesi.eyesopen.mvp.ui.fragment.NbaBBSFragment;
@@ -77,13 +78,14 @@ public class UIUtils {
         intent.putExtra(GameActivity.WEB_TITLE, title);
         mContext.startActivity(intent);
     }
-/*
-
     public static void startNbaZhuanTiActivity(Context context, String nid) {
-        Intent intent = new Intent(context, NBAZhuanTiActivity.class);
-        intent.putExtra(NBAZhuanTiActivity.NBA_NID, nid);
+        Intent intent = new Intent(context, NbaZhuanTiActivity.class);
+        intent.putExtra(NbaZhuanTiActivity.NBA_NID, nid);
         context.startActivity(intent);
     }
+/*
+
+
 
     public static void startWeiBoLoginActivity(Activity activity) {
         Intent intent = new Intent(activity, WeiBoLoginActivity.class);

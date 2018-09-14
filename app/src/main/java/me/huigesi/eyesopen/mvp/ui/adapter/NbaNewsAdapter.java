@@ -72,7 +72,7 @@ public class NbaNewsAdapter extends BaseRecyclerViewAdapter<NbaNews.ResultBean.D
                 if (data.getType() == 1) {
                     UIUtils.startNbaNewsFragment(mContext, data.getNid());
                 } else if (data.getType() == 2) {
-                    //UIUtils.startNbaZhuanTiActivity(mContext, data.getNid());
+                    UIUtils.startNbaZhuanTiActivity(mContext, data.getNid());
                 } else if (data.getType() == 5) {
                     UIUtils.startNbaH5Fragment(mContext, RegularUtils.getTid(data.getLink()));
                 } else if (data.getType() == 3) {
