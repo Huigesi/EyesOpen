@@ -27,14 +27,7 @@
             android:layout_centerVertical="true"
             />
     </RelativeLayout>
-    <me.huigesi.eyesopen.app.utils.ChannelView.view.ChannelTagView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/channelTagView"
-        app:channelItemTxSize="14sp"
-        >
-    </me.huigesi.eyesopen.app.utils.ChannelView.view.ChannelTagView>
-<!--    <LinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -87,6 +80,6 @@
         android:layout_marginLeft="40dp"
         android:id="@+id/rv_column_more">
 
-    </android.support.v7.widget.RecyclerView>-->
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
