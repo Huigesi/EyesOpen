@@ -25,6 +25,7 @@ import java.util.regex.Pattern;
 import me.huigesi.eyesopen.R;
 import me.huigesi.eyesopen.mvp.model.entity.WeiboUserSpace;
 import me.huigesi.eyesopen.mvp.ui.activity.DetailActivity;
+import me.huigesi.eyesopen.mvp.ui.activity.WebViewActivity;
 import me.huigesi.eyesopen.mvp.ui.activity.WeiboSpaceActivity;
 import me.huigesi.eyesopen.mvp.ui.fragment.NbaBBSFragment;
 import me.huigesi.eyesopen.mvp.ui.fragment.NbaDetailFragment;
@@ -62,16 +63,13 @@ public class UIUtils {
         intent.putExtra(WeiboDetailFragment.WEIBO_ID, id);
         context.startActivity(intent);
     }
-/*
-
-
-
     public static void startWebViewActivity(Context mContext, String url, String title) {
         Intent intent = new Intent(mContext, WebViewActivity.class);
         intent.putExtra(WebViewActivity.WEB_URL, url);
         intent.putExtra(WebViewActivity.WEB_TITLE, title);
         mContext.startActivity(intent);
     }
+/*
 
     public static void startNbaZhuanTiActivity(Context context, String nid) {
         Intent intent = new Intent(context, NBAZhuanTiActivity.class);
@@ -217,7 +215,7 @@ public class UIUtils {
                 span.setOnClickListener(new TextClickSpan.OnTextClickListener() {
                     @Override
                     public void onClick() {
-                        //startWebViewActivity(context, result.subSequence(start, end).toString(), "闲阅");
+                        startWebViewActivity(context, result.subSequence(start, end).toString(), "闲阅");
                     }
                 });
                 result.setSpan(span, start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);

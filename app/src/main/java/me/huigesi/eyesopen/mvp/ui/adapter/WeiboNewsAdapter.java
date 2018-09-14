@@ -101,7 +101,6 @@ public class WeiboNewsAdapter extends BaseRecyclerViewAdapter<WeiboNews.Statuses
             } else {
                 content = UIUtils.setTextHighLight(mContext, data.getText(), null, false);
             }
-            ((NewsViewHolder) holder).tvWeiboContentText.setOnTouchListener(mOnTouchListener);
             ((NewsViewHolder) holder).tvWeiboContentText.setMovementMethod(LinkMovementMethod.getInstance());
             ((NewsViewHolder) holder).tvWeiboContentText.setText(content);
             ((NewsViewHolder) holder).tvWeiboLike.setText(String.valueOf(data.getAttitudes_count()));
@@ -155,15 +154,6 @@ public class WeiboNewsAdapter extends BaseRecyclerViewAdapter<WeiboNews.Statuses
                 } else {
                     retweeted = UIUtils.setTextHighLight(mContext, userName + " : " + retWeedText, userName, false);
                 }
-                ((NewsViewHolder) holder).tvRetweetedContent.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        if (event.getAction() == MotionEvent.ACTION_UP) {
-                            ((NewsViewHolder) holder).llWeiboRetweeted.performClick();  //模拟父控件的点击
-                        }
-                        return false;
-                    }
-                });
                 ((NewsViewHolder) holder).tvRetweetedContent.setMovementMethod(LinkMovementMethod.getInstance());
                 ((NewsViewHolder) holder).tvRetweetedContent.setText(
                         retweeted);

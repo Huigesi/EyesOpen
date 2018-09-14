@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="adUrls">
+        <item>img3.kfkfl.cn</item>
+        <item>img3.kfkfl.cn</item>
+        <item>c.cnzz.com</item>
+        <item>s13.cnzz.com</item>
+        <item>js.kfkfl.cn</item>
+        <item>img.lianmengma.com</item>
+        <item>hnhbyxdq</item>
+        <item>hongyangpai</item>
+    </string-array>
+    <string-array name="adBlockDiv">
+        <item>topbar</item>
+        <item>doc-footer-wrapper</item>
+        <item>a_adtemp a_topad js-topad</item>
+    </string-array>
+</resources>

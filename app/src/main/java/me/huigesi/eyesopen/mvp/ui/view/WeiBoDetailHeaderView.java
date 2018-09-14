@@ -169,15 +169,6 @@ public class WeiBoDetailHeaderView extends LinearLayout {
                 retweeted = UIUtils.setTextHighLight(getContext(), userName + " : " +
                         retWeedText, userName, false);
             }
-            mTvRetweetedContent.setOnTouchListener(new OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    if (event.getAction() == MotionEvent.ACTION_UP) {
-                        mLlWeiboRetweeted.performClick();  //模拟父控件的点击
-                    }
-                    return false;
-                }
-            });
             mTvRetweetedContent.setMovementMethod(LinkMovementMethod.getInstance());
             mTvRetweetedContent.setText(retweeted);
 
