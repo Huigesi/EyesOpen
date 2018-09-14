@@ -58,6 +58,7 @@ dependencies {
     implementation 'com.github.donkingliang:GroupedRecyclerViewAdapter:1.0.1'
     implementation 'com.zhy:base-rvadapter:3.0.3'
     implementation 'cn.bingoogolapple:bga-badgeview:1.1.3@aar'
+    implementation files('libs/open_sdk_r6008_lite.jar')
     //test
     testImplementation rootProject.ext.dependencies["junit"]
     debugImplementation rootProject.ext.dependencies["canary-debug"]
