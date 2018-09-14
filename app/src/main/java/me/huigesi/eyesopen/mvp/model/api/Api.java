@@ -27,6 +27,7 @@ package me.huigesi.eyesopen.mvp.model.api;
 public class Api {
     public static final String APP_DOMAIN = "https://api.github.com";
     public static final String RequestSuccess = "0";
+    public static final int NETEASE_NEWS = 0;
     //BaseUrl
     public static final String NEWS_HOST = "https://c.m.163.com/";
     public static final String MOVIE_HOST = "https://api.douban.com/";
@@ -54,4 +55,14 @@ public class Api {
     public static final String IMG_WEIBO_WAP720 = "https://wx3.sinaimg.cn/wap720/";
     public static final String IMG_WEIBO_ORIGINAL = "https://wx4.sinaimg.cn/woriginal/";
     public static final String IMG_WEIBO_ORIGINAL_GIF = "https://wx3.sinaimg.cn/woriginal/";
+
+
+
+    public static String getHost(int hostType) {
+        switch (hostType) {
+            case NETEASE_NEWS:
+                return NEWS_HOST;
+        }
+        return "";
+    }
 }
