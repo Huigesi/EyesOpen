@@ -84,7 +84,7 @@ public class NbaDetailHeaderView extends LinearLayout {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                imgReset();
+                //imgReset();
             }
         });
         //imgReset(mWvNbaDetailContent);
