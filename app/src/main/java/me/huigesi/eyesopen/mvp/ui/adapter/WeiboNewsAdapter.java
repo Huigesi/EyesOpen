@@ -80,6 +80,7 @@ public class WeiboNewsAdapter extends BaseRecyclerViewAdapter<WeiboNews.Statuses
                             .builder()
                             .isCircle(true)
                             .url(data.getUser().getAvatar_large())
+                            .override(weight,weight)
                             .imageView(((NewsViewHolder) holder).imgWeiboUser)
                             .build());
            /* GlideUtils.loadCircle(mContext, data.getUser().getAvatar_large(),

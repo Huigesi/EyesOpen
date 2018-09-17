@@ -4,8 +4,8 @@
     package="me.huigesi.eyesopen">
 
     <uses-sdk
-        android:minSdkVersion="16"
-        android:targetSdkVersion="19"
+        android:minSdkVersion="11"
+        android:targetSdkVersion="22"
         tools:overrideLibrary="cn.jzvd"
         />
 
