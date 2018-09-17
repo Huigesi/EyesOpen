@@ -27,6 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import me.huigesi.eyesopen.R;
+import me.huigesi.eyesopen.app.base.BaseRecyclerFragment;
 import me.huigesi.eyesopen.app.base.DefaultsFooter;
 import me.huigesi.eyesopen.di.component.DaggerWeiboComponent;
 import me.huigesi.eyesopen.di.module.WeiboModule;
@@ -38,7 +39,7 @@ import me.huigesi.eyesopen.mvp.ui.adapter.WeiboNewsAdapter;
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
 
-public class WeiboFragment extends BaseFragment<WeiboPresenter> implements WeiboContract.View {
+public class WeiboFragment extends BaseRecyclerFragment<WeiboPresenter> implements WeiboContract.View {
 
     @BindView(R.id.rv_news)
     RecyclerView mRvNews;

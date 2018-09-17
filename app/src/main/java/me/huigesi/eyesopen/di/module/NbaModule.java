@@ -42,22 +42,5 @@ public class NbaModule {
     NbaContract.Model provideNbaModel(NbaModel model) {
         return model;
     }
-/*
-    @ActivityScope
-    @Provides
-    RecyclerView.LayoutManager provideLayoutManager() {
-        return new LinearLayoutManager(view.getActivity());
-    }
 
-    @ActivityScope
-    @Provides
-    List<NbaNews.ResultBean.DataBean> provideUserList() {
-        return new ArrayList<>();
-    }*/
-
-    /*@ActivityScope
-    @Provides
-    RecyclerView.Adapter provideUserAdapter(List<NbaNews.ResultBean.DataBean> list){
-        return new UserAdapter(list);
-    }*/
 }
