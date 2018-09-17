@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 
-import com.jess.arms.di.scope.ActivityScope;
+import com.jess.arms.di.scope.FragmentScope;
 
 import java.util.Map;
 
@@ -23,7 +23,7 @@ import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 import static me.huigesi.eyesopen.app.utils.GsonUtils.setGsonAdapter;
 
 
-@ActivityScope
+@FragmentScope
 public class WeiboSpaceModel extends BaseModel implements WeiboSpaceContract.Model {
     @Inject
     Gson mGson;

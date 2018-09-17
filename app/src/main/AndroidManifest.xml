@@ -47,9 +47,6 @@
             android:name=".app.utils.bigImgViewPager.view.ImagePreviewActivity"
             android:theme="@style/Theme.ImagePreview" />
         <activity
-            android:name=".mvp.ui.activity.WeiboSpaceActivity"
-            android:theme="@style/transparent"/>
-        <activity
             android:name=".mvp.ui.activity.DetailActivity"
             android:theme="@style/transparent" />
         <activity android:name=".mvp.ui.activity.NbaZhuanTiActivity" />

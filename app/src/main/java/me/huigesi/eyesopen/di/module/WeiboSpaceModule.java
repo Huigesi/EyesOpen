@@ -1,6 +1,6 @@
 package me.huigesi.eyesopen.di.module;
 
-import com.jess.arms.di.scope.ActivityScope;
+import com.jess.arms.di.scope.FragmentScope;
 
 import dagger.Module;
 import dagger.Provides;
@@ -14,7 +14,7 @@ public class WeiboSpaceModule {
     private WeiboSpaceContract.View view;
 
     /**
-     * 构建WeiboSpaceModule时,将View的实现类传进来,这样就可以提供View的实现类给presenter
+     * 构建WeiboSpacefgModule时,将View的实现类传进来,这样就可以提供View的实现类给presenter
      *
      * @param view
      */
@@ -22,15 +22,15 @@ public class WeiboSpaceModule {
         this.view = view;
     }
 
-    @ActivityScope
+    @FragmentScope
     @Provides
-    WeiboSpaceContract.View provideWeiboSpaceView() {
+    WeiboSpaceContract.View provideWeiboSpacefgView() {
         return this.view;
     }
 
-    @ActivityScope
+    @FragmentScope
     @Provides
-    WeiboSpaceContract.Model provideWeiboSpaceModel(WeiboSpaceModel model) {
+    WeiboSpaceContract.Model provideWeiboSpacefgModel(WeiboSpaceModel model) {
         return model;
     }
 }

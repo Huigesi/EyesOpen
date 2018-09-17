@@ -6,12 +6,12 @@ import com.jess.arms.di.component.AppComponent;
 
 import me.huigesi.eyesopen.di.module.WeiboSpaceModule;
 
-import com.jess.arms.di.scope.ActivityScope;
+import com.jess.arms.di.scope.FragmentScope;
 
-import me.huigesi.eyesopen.mvp.ui.activity.WeiboSpaceActivity;
+import me.huigesi.eyesopen.mvp.ui.fragment.WeiboSpaceFragment;
 
-@ActivityScope
+@FragmentScope
 @Component(modules = WeiboSpaceModule.class, dependencies = AppComponent.class)
 public interface WeiboSpaceComponent {
-    void inject(WeiboSpaceActivity activity);
+    void inject(WeiboSpaceFragment fragment);
 }

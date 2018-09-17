@@ -1,6 +1,5 @@
 package me.huigesi.eyesopen.app.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -28,10 +27,10 @@ import me.huigesi.eyesopen.mvp.ui.activity.DetailActivity;
 import me.huigesi.eyesopen.mvp.ui.activity.GameActivity;
 import me.huigesi.eyesopen.mvp.ui.activity.NbaZhuanTiActivity;
 import me.huigesi.eyesopen.mvp.ui.activity.WebViewActivity;
-import me.huigesi.eyesopen.mvp.ui.activity.WeiboSpaceActivity;
 import me.huigesi.eyesopen.mvp.ui.fragment.NbaBBSFragment;
 import me.huigesi.eyesopen.mvp.ui.fragment.NbaDetailFragment;
 import me.huigesi.eyesopen.mvp.ui.fragment.WeiboDetailFragment;
+import me.huigesi.eyesopen.mvp.ui.fragment.WeiboSpaceFragment;
 
 import static me.huigesi.eyesopen.app.utils.RegularUtils.regex_at;
 import static me.huigesi.eyesopen.app.utils.RegularUtils.regex_http;
@@ -41,8 +40,10 @@ import static me.huigesi.eyesopen.app.utils.RegularUtils.regex_sharp;
 public class UIUtils {
     public static final String FRAGMENT_CLASS = "FRAGMENT_CLASS";
     public static void startSpaceActivity(Context context, String uid) {
-        Intent intent = new Intent(context, WeiboSpaceActivity.class);
-        intent.putExtra(WeiboSpaceActivity.WEIBO_SPACE_UID, uid);
+        Intent intent = new Intent(context, DetailActivity.class);
+        intent.putExtra(FRAGMENT_CLASS, WeiboSpaceFragment.class.getName());
+        intent.putExtra(WeiboSpaceFragment.WEIBO_SPACE_UID, uid);
+        intent.putExtra(DetailActivity.SHOW_TOOLBAR, false);
         context.startActivity(intent);
     }
 
@@ -50,12 +51,14 @@ public class UIUtils {
         Intent intent = new Intent(context, DetailActivity.class);
         intent.putExtra(FRAGMENT_CLASS, NbaDetailFragment.class.getName());
         intent.putExtra(NbaDetailFragment.NBA_NID, nid);
+        intent.putExtra(DetailActivity.SHOW_TOOLBAR, true);
         context.startActivity(intent);
     }
     public static void startNbaH5Fragment(Context context, String tid) {
         Intent intent = new Intent(context, DetailActivity.class);
         intent.putExtra(FRAGMENT_CLASS, NbaBBSFragment.class.getName());
         intent.putExtra(NbaBBSFragment.NBA_H5_TID, tid);
+        intent.putExtra(DetailActivity.SHOW_TOOLBAR, true);
         context.startActivity(intent);
     }
 
@@ -63,6 +66,7 @@ public class UIUtils {
         Intent intent = new Intent(context, DetailActivity.class);
         intent.putExtra(FRAGMENT_CLASS, WeiboDetailFragment.class.getName());
         intent.putExtra(WeiboDetailFragment.WEIBO_ID, id);
+        intent.putExtra(DetailActivity.SHOW_TOOLBAR, true);
         context.startActivity(intent);
     }
     public static void startWebViewActivity(Context mContext, String url, String title) {

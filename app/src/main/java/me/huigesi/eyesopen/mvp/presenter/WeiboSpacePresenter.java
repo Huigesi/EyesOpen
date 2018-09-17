@@ -3,7 +3,7 @@ package me.huigesi.eyesopen.mvp.presenter;
 import android.app.Application;
 
 import com.jess.arms.integration.AppManager;
-import com.jess.arms.di.scope.ActivityScope;
+import com.jess.arms.di.scope.FragmentScope;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.utils.RxLifecycleUtils;
@@ -13,15 +13,13 @@ import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import me.huigesi.eyesopen.app.utils.SPreUtils;
+import me.huigesi.eyesopen.mvp.contract.WeiboSpaceContract;
 import me.huigesi.eyesopen.mvp.model.entity.WeiboNews;
 import me.huigesi.eyesopen.mvp.model.entity.WeiboUserSpace;
-import me.huigesi.eyesopen.mvp.ui.activity.MainActivity;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
 import javax.inject.Inject;
 
-import me.huigesi.eyesopen.mvp.contract.WeiboSpaceContract;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 import me.jessyan.rxerrorhandler.handler.RetryWithDelay;
 
@@ -32,9 +30,8 @@ import static me.huigesi.eyesopen.app.Constant.WEIBO_SOURCE;
 import static me.huigesi.eyesopen.app.Constant.WEIBO_WM;
 
 
-@ActivityScope
+@FragmentScope
 public class WeiboSpacePresenter extends BasePresenter<WeiboSpaceContract.Model, WeiboSpaceContract.View> {
-
     RxErrorHandler mErrorHandler;
     Application mApplication;
     ImageLoader mImageLoader;
@@ -49,7 +46,6 @@ public class WeiboSpacePresenter extends BasePresenter<WeiboSpaceContract.Model,
         mErrorHandler=handler;
         mAppManager=appManager;
         mApplication=application;
-
     }
 
     public void requestHeader(String uid) {
@@ -64,7 +60,7 @@ public class WeiboSpacePresenter extends BasePresenter<WeiboSpaceContract.Model,
         params.put("uid", uid);
         params.put("since_id", "0");
         mModel.getHeader(params).
-        subscribeOn(Schedulers.io())
+                subscribeOn(Schedulers.io())
                 .retryWhen(new RetryWithDelay(3, 2))
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .subscribe(new ErrorHandleSubscriber<WeiboUserSpace>(mErrorHandler) {
@@ -118,6 +114,7 @@ public class WeiboSpacePresenter extends BasePresenter<WeiboSpaceContract.Model,
                     }
                 });
     }
+
 
     @Override
     public void onDestroy() {

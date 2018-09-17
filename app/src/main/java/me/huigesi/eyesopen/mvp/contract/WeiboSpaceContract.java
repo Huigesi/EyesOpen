@@ -9,7 +9,6 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import me.huigesi.eyesopen.mvp.model.entity.WeiboNews;
-import me.huigesi.eyesopen.mvp.model.entity.WeiboUserInfo;
 import me.huigesi.eyesopen.mvp.model.entity.WeiboUserSpace;
 
 
