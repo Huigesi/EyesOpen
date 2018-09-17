@@ -26,6 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import me.huigesi.eyesopen.R;
+import me.huigesi.eyesopen.app.base.BaseRecyclerFragment;
 import me.huigesi.eyesopen.app.base.DefaultsFooter;
 import me.huigesi.eyesopen.di.component.DaggerNbaComponent;
 import me.huigesi.eyesopen.di.module.NbaModule;
@@ -37,7 +38,7 @@ import me.huigesi.eyesopen.mvp.ui.adapter.NbaNewsAdapter;
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
 
-public class NbaFragment extends BaseFragment<NbaPresenter> implements NbaContract.View {
+public class NbaFragment extends BaseRecyclerFragment<NbaPresenter> implements NbaContract.View {
     @BindView(R.id.rv_news)
     RecyclerView mRvNews;
     @BindView(R.id.srl_news)
