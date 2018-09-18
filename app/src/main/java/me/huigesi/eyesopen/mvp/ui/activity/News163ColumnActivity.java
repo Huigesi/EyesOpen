@@ -1,10 +1,17 @@
 package me.huigesi.eyesopen.mvp.ui.activity;
 
+import android.animation.ValueAnimator;
+import android.graphics.Path;
+import android.graphics.PathMeasure;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.jess.arms.utils.ArmsUtils;
 
@@ -14,6 +21,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.huigesi.eyesopen.R;
+import me.huigesi.eyesopen.app.base.BaseRecyclerViewAdapter;
 import me.huigesi.eyesopen.mvp.model.entity.Column;
 import me.huigesi.eyesopen.mvp.ui.adapter.ColumnAdapter;
 import me.huigesi.eyesopen.mvp.ui.adapter.ColumnAdapter2;
@@ -40,8 +48,58 @@ public class News163ColumnActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news163_column);
         ButterKnife.bind(this);
+        mImgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         initRecycleView();
         initData();
+        initAdapter();
+    }
+
+    private void initAdapter() {
+        mColumnAdapter.setItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<Column>() {
+            @Override
+            public void onItemClick(View view, int position, Column data) {
+                Toast.makeText(getApplication(),"long click"+position,Toast.LENGTH_SHORT).show();
+
+              /*  mMoreColumnList.add(data);
+                mMyColumnList.remove(data);
+
+                mColumnAdapter2.setData(mMoreColumnList,true);
+                mColumnAdapter.setData(mMyColumnList,true);*/
+            }
+        });
+        mColumnAdapter.setItemLongClickListener(new BaseRecyclerViewAdapter.OnItemLongClickListener<Column>() {
+            @Override
+            public boolean onLongClick(View view, int position, Column data) {
+                Toast.makeText(getApplication(),"long click"+position,Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+        mColumnAdapter2.setItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<Column>() {
+            @Override
+            public void onItemClick(View view, int position, Column data) {
+                Toast.makeText(getApplication(),"click"+position,Toast.LENGTH_SHORT).show();
+
+                mMyColumnList.add(data);
+                mMoreColumnList.remove(data);
+                mColumnAdapter2.setData(mMoreColumnList,true);
+                mColumnAdapter.setData(mMyColumnList,true);
+            }
+        });
+        mColumnAdapter2.setItemLongClickListener(new BaseRecyclerViewAdapter.OnItemLongClickListener<Column>() {
+            @Override
+            public boolean onLongClick(View view, int position, Column data) {
+                mMyColumnList.add(data);
+                mMoreColumnList.remove(data);
+                mColumnAdapter2.setData(mMoreColumnList,true);
+                mColumnAdapter.setData(mMyColumnList,true);
+                return false;
+            }
+        });
     }
 
     private void initData() {
@@ -71,4 +129,5 @@ public class News163ColumnActivity extends AppCompatActivity {
         mRvColumnMy.setAdapter(mColumnAdapter);
         mRvColumnMore.setAdapter(mColumnAdapter2);
     }
+
 }

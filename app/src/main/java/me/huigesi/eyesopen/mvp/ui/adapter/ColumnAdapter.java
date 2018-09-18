@@ -7,16 +7,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Collections;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.huigesi.eyesopen.R;
 import me.huigesi.eyesopen.app.base.BaseRecyclerViewAdapter;
+import me.huigesi.eyesopen.app.column.ItemColumnHelperCallback;
 import me.huigesi.eyesopen.mvp.model.entity.Column;
 
-public class ColumnAdapter extends BaseRecyclerViewAdapter<Column> {
+public class ColumnAdapter extends BaseRecyclerViewAdapter<Column> implements ItemColumnHelperCallback.ItemTouchHelperAdapter{
+    private boolean mShowDelete;
 
     public ColumnAdapter(Context context) {
         super(context);
+    }
+
+    public void showDelete(boolean showDelete) {
+        this.mShowDelete = showDelete;
     }
 
     @Override
@@ -30,7 +38,32 @@ public class ColumnAdapter extends BaseRecyclerViewAdapter<Column> {
     public void onBind(RecyclerView.ViewHolder holder, int position, Column data) {
         if (holder instanceof ViewHolder) {
             ((ViewHolder) holder).mTvColumn.setText(data.getName());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mItemClickListener.onItemClick(v,position,data);
+                }
+            });
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    mItemClickListener.onItemClick(v,position,data);
+                    return true;
+                }
+            });
         }
+    }
+
+    @Override
+    public void onItemMove(int fromPosition, int toPosition) {
+        Collections.swap(mList, fromPosition, toPosition);
+        notifyItemMoved(fromPosition, toPosition);
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+        mList.remove(position);
+        notifyItemRemoved(position);
     }
 
     static class ViewHolder extends Holder{

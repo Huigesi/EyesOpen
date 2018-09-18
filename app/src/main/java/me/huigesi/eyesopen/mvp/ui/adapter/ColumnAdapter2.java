@@ -19,6 +19,14 @@ public class ColumnAdapter2 extends BaseRecyclerViewAdapter<Column> {
         super(context);
     }
 
+    public void addItem(Column column) {
+        mList.add(column);
+    }
+
+    public void deleteItem(Column column) {
+        mList.remove(column);
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreate(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -30,6 +38,19 @@ public class ColumnAdapter2 extends BaseRecyclerViewAdapter<Column> {
     public void onBind(RecyclerView.ViewHolder holder, int position, Column data) {
         if (holder instanceof ViewHolder) {
             ((ViewHolder) holder).mTvColumn.setText(data.getName());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mItemClickListener.onItemClick(v,position,data);
+                }
+            });
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    mItemClickListener.onItemClick(v,position,data);
+                    return true;
+                }
+            });
         }
     }
 

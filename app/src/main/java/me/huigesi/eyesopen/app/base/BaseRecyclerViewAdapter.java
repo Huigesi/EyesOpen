@@ -17,7 +17,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
     protected View mHeaderView, mFooterView;
 
     protected OnItemClickListener<T> mItemClickListener;
-    private OnItemLongClickListener<T> mItemLongClickListener;
+    protected OnItemLongClickListener<T> mItemLongClickListener;
 
     public BaseRecyclerViewAdapter(Context context) {
         mContext = context;
