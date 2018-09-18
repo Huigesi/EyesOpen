@@ -6,6 +6,11 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 
 public class ItemColumnHelperCallback extends ItemTouchHelper.Callback {
     private ItemTouchHelperAdapter mAdapter;
+    public interface OnStateChangedListener {
+        void onItemSelected();
+
+        void onItemClear();
+    }
 
     public ItemColumnHelperCallback(ItemTouchHelperAdapter mAdapter) {
         this.mAdapter=mAdapter;
@@ -23,9 +28,12 @@ public class ItemColumnHelperCallback extends ItemTouchHelper.Callback {
 
     @Override
     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-        mAdapter.onItemMove(viewHolder.getAdapterPosition(),
+        if (viewHolder.getItemViewType() != target.getItemViewType()) {
+            return false;
+        }
+
+        return mAdapter.onItemMove(viewHolder.getAdapterPosition(),
                 target.getAdapterPosition());
-        return true;
     }
 
     @Override
@@ -35,7 +43,7 @@ public class ItemColumnHelperCallback extends ItemTouchHelper.Callback {
 
     public interface ItemTouchHelperAdapter {
 
-        void onItemMove(int fromPosition, int toPosition);
+        boolean onItemMove(int fromPosition, int toPosition);
 
         void onItemDismiss(int position);
     }
@@ -61,5 +69,18 @@ public class ItemColumnHelperCallback extends ItemTouchHelper.Callback {
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY,
                     actionState, isCurrentlyActive);
         }
+    }
+
+    @Override
+    public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+        if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
+            //看看这个viewHolder是否实现了onStateChangedListener接口
+            if (viewHolder instanceof OnStateChangedListener) {
+                OnStateChangedListener listener = (OnStateChangedListener) viewHolder;
+                //回调ItemViewHolder中的onItemSelected方法来改变item的背景颜色
+                listener.onItemSelected();
+            }
+        }
+        super.onSelectedChanged(viewHolder, actionState);
     }
 }

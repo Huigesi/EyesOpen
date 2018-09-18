@@ -142,7 +142,7 @@ public class WeiboFragment extends BaseRecyclerFragment<WeiboPresenter> implemen
 
     @Override
     public void showData(WeiboNews data) {
-        if (data != null && data.getStatuses().size() > 0)
+        if (data != null && data.getStatuses() != null && data.getStatuses().size() > 0)
             mAdapter.setData(data.getStatuses(), true);
     }
 

@@ -42,12 +42,10 @@ import me.huigesi.eyesopen.app.utils.bigImgViewPager.tool.ToastUtil;
 import me.huigesi.eyesopen.di.component.DaggerMainComponent;
 import me.huigesi.eyesopen.di.module.MainModule;
 import me.huigesi.eyesopen.mvp.contract.MainContract;
-import me.huigesi.eyesopen.mvp.model.api.Api;
 import me.huigesi.eyesopen.mvp.presenter.MainPresenter;
 import me.huigesi.eyesopen.mvp.ui.adapter.MyFragmentAdapter;
 import me.huigesi.eyesopen.mvp.ui.fragment.NbaFragment;
 import me.huigesi.eyesopen.mvp.ui.fragment.News163Fragment;
-import me.huigesi.eyesopen.mvp.ui.fragment.News163ListFragment;
 import me.huigesi.eyesopen.mvp.ui.fragment.WeiboFragment;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;

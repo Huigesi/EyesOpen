@@ -6,8 +6,7 @@
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="22"
-        tools:overrideLibrary="cn.jzvd"
-        />
+        tools:overrideLibrary="cn.jzvd" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -16,7 +15,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:name="com.jess.arms.base.BaseApplication"
@@ -50,13 +49,13 @@
             android:name=".mvp.ui.activity.DetailActivity"
             android:theme="@style/transparent" />
         <activity android:name=".mvp.ui.activity.NbaZhuanTiActivity" />
-        <activity android:name=".mvp.ui.activity.News163ColumnActivity">
-
-        </activity>
-        <activity android:name=".mvp.ui.activity.WebViewActivity"
-            android:theme="@style/transparent"/>
-        <activity android:name=".mvp.ui.activity.GameActivity"
-            android:theme="@style/transparent"/>
+        <activity android:name=".mvp.ui.activity.News163ColumnActivity"></activity>
+        <activity
+            android:name=".mvp.ui.activity.WebViewActivity"
+            android:theme="@style/transparent" />
+        <activity
+            android:name=".mvp.ui.activity.GameActivity"
+            android:theme="@style/transparent" />
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
@@ -74,6 +73,7 @@
             android:name="com.tencent.connect.common.AssistActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name=".mvp.ui.activity.ColumnActivity"></activity>
     </application>
 
 </manifest>

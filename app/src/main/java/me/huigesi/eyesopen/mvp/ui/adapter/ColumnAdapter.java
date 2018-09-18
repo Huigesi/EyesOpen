@@ -2,6 +2,7 @@ package me.huigesi.eyesopen.mvp.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,11 @@ import me.huigesi.eyesopen.app.base.BaseRecyclerViewAdapter;
 import me.huigesi.eyesopen.app.column.ItemColumnHelperCallback;
 import me.huigesi.eyesopen.mvp.model.entity.Column;
 
-public class ColumnAdapter extends BaseRecyclerViewAdapter<Column> implements ItemColumnHelperCallback.ItemTouchHelperAdapter {
-
+public class ColumnAdapter extends BaseRecyclerViewAdapter<Column> implements
+        ItemColumnHelperCallback.ItemTouchHelperAdapter {
+    private static final String TAG = "ColumnAdapter";
     private boolean mShowDelete;
+    private OnItemMoveListener mItemMoveListener;
 
     public ColumnAdapter(Context context) {
         super(context);
@@ -62,10 +65,34 @@ public class ColumnAdapter extends BaseRecyclerViewAdapter<Column> implements It
     }
 
     @Override
-    public void onItemMove(int fromPosition, int toPosition) {
+    public boolean onItemMove(int fromPosition, int toPosition) {
         Collections.swap(mList, fromPosition, toPosition);
         notifyItemMoved(fromPosition, toPosition);
+        Log.i(TAG, "onItemMove: "+mList.get(fromPosition));
+        if (!mList.get(fromPosition).getNewsColumnFixed() && !mList.get(toPosition)
+                .getNewsColumnFixed()) {
+            //交换mItems数据的位置
+            Collections.swap(mList, fromPosition, toPosition);
+            //交换RecyclerView列表中item的位置
+            notifyItemMoved(fromPosition, toPosition);
+
+            if (mItemMoveListener != null) {
+                mItemMoveListener.onItemMove(fromPosition, toPosition);
+            }
+
+            return true;
+        }
+        return false;
     }
+
+    public void setItemMoveListener(OnItemMoveListener itemMoveListener) {
+        mItemMoveListener = itemMoveListener;
+    }
+
+    public interface OnItemMoveListener {
+        void onItemMove(int fromPosition, int toPosition);
+    }
+
 
     @Override
     public void onItemDismiss(int position) {
