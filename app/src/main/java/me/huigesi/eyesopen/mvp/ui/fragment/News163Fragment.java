@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,8 @@ public class News163Fragment extends Fragment {
     @BindView(R.id.vp_news)
     ViewPager mVpNews;
     Unbinder unbinder;
+    @BindView(R.id.img_column_add)
+    ImageView mImgColumnAdd;
     private List<Fragment> fragments = new ArrayList<>();
     private List<String> fragmentTitles = new ArrayList<>();
 
@@ -53,6 +56,12 @@ public class News163Fragment extends Fragment {
         mTlNews.setupWithViewPager(mVpNews);
         int marge = Resolution.dipToPx(getContext(), 25);
         UIUtils.setUpIndicatorWidth(mTlNews, marge, marge);
+        mImgColumnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UIUtils.startColumnActivity(getActivity());
+            }
+        });
     }
 
     private void setViewPager() {

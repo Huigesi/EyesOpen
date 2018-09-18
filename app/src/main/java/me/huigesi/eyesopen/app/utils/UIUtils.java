@@ -26,6 +26,7 @@ import me.huigesi.eyesopen.mvp.model.entity.WeiboUserSpace;
 import me.huigesi.eyesopen.mvp.ui.activity.DetailActivity;
 import me.huigesi.eyesopen.mvp.ui.activity.GameActivity;
 import me.huigesi.eyesopen.mvp.ui.activity.NbaZhuanTiActivity;
+import me.huigesi.eyesopen.mvp.ui.activity.News163ColumnActivity;
 import me.huigesi.eyesopen.mvp.ui.activity.WebViewActivity;
 import me.huigesi.eyesopen.mvp.ui.fragment.NbaBBSFragment;
 import me.huigesi.eyesopen.mvp.ui.fragment.NbaDetailFragment;
@@ -39,6 +40,12 @@ import static me.huigesi.eyesopen.app.utils.RegularUtils.regex_sharp;
 
 public class UIUtils {
     public static final String FRAGMENT_CLASS = "FRAGMENT_CLASS";
+
+    public static void startColumnActivity(Context context) {
+        Intent intent = new Intent(context, News163ColumnActivity.class);
+        context.startActivity(intent);
+    }
+
     public static void startSpaceActivity(Context context, String uid) {
         Intent intent = new Intent(context, DetailActivity.class);
         intent.putExtra(FRAGMENT_CLASS, WeiboSpaceFragment.class.getName());

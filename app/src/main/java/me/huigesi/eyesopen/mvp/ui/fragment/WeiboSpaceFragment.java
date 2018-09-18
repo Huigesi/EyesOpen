@@ -91,7 +91,7 @@ public class WeiboSpaceFragment extends BaseFragment<WeiboSpacePresenter> implem
 
     @Override
     public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_weibo_spacefg, container, false);
+        return inflater.inflate(R.layout.fragment_weibo_space, container, false);
     }
 
     @Override
