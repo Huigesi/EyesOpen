@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
+import com.jess.arms.utils.ArmsUtils;
+
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
@@ -61,6 +63,7 @@ public class UIUtils {
         intent.putExtra(DetailActivity.SHOW_TOOLBAR, true);
         context.startActivity(intent);
     }
+
     public static void startNbaH5Fragment(Context context, String tid) {
         Intent intent = new Intent(context, DetailActivity.class);
         intent.putExtra(FRAGMENT_CLASS, NbaBBSFragment.class.getName());
@@ -76,6 +79,7 @@ public class UIUtils {
         intent.putExtra(DetailActivity.SHOW_TOOLBAR, true);
         context.startActivity(intent);
     }
+
     public static void startWebViewActivity(Context mContext, String url, String title) {
         Intent intent = new Intent(mContext, WebViewActivity.class);
         intent.putExtra(WebViewActivity.WEB_URL, url);
@@ -83,26 +87,44 @@ public class UIUtils {
         mContext.startActivity(intent);
     }
 
-    public static void startGameActivity(Context mContext,String url,String title) {
+    public static void startGameActivity(Context mContext, String url, String title) {
         Intent intent = new Intent(mContext, GameActivity.class);
         intent.putExtra(GameActivity.WEB_URL, url);
         intent.putExtra(GameActivity.WEB_TITLE, title);
         mContext.startActivity(intent);
     }
+
     public static void startNbaZhuanTiActivity(Context context, String nid) {
         Intent intent = new Intent(context, NbaZhuanTiActivity.class);
         intent.putExtra(NbaZhuanTiActivity.NBA_NID, nid);
         context.startActivity(intent);
     }
-/*
+
+    /*
 
 
 
-    public static void startWeiBoLoginActivity(Activity activity) {
-        Intent intent = new Intent(activity, WeiBoLoginActivity.class);
-        activity.startActivity(intent);
+        public static void startWeiBoLoginActivity(Activity activity) {
+            Intent intent = new Intent(activity, WeiBoLoginActivity.class);
+            activity.startActivity(intent);
+        }
+    */
+    //动态修改tab长度
+    public static void dynamicSetTabLayoutMode(TabLayout tabLayout) {
+        int tabTotalWidth = 0;
+        for (int i = 0; i < tabLayout.getChildCount(); i++) {
+            final View view = tabLayout.getChildAt(i);
+            view.measure(0, 0);
+            tabTotalWidth += view.getMeasuredWidth();
+        }
+        if (tabTotalWidth <= ArmsUtils.getScreenSize(tabLayout.getContext()).x) {
+            tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+            tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        } else {
+            tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
+            tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        }
     }
-*/
 
     public static void setUpIndicatorWidth(TabLayout tabLayout, int marginLeft, int marginRight) {
         Class<?> tabLayoutClass = tabLayout.getClass();
@@ -162,10 +184,10 @@ public class UIUtils {
                         Map<String, String> parmes = new HashMap<>();
                         //s=ca0bff51&screen_name=博物杂志&c=weicoabroad&gsid=_2A252g8InDeRxGeRJ7FQY9C_MzT2IHXVTGVLvrDV6PUJbkdANLWPykWpNUh3I3pRTBVDeOibMN0qnkz_i9kdHj9AZ
                         parmes.put("s", "ca0bff51");
-                        String name=result.subSequence(start,end).toString().substring(1);
+                        String name = result.subSequence(start, end).toString().substring(1);
                         parmes.put("screen_name", name);
                         parmes.put("c", "weicoabroad");
-                        HttpModule.getWeiBoUserShow(parmes,context);
+                        HttpModule.getWeiBoUserShow(parmes, context);
                         HttpModule.ResultListener listener = new HttpModule.ResultListener() {
                             @Override
                             public void success(WeiboUserSpace o) {
@@ -187,10 +209,10 @@ public class UIUtils {
                         Map<String, String> parmes = new HashMap<>();
                         //s=ca0bff51&screen_name=博物杂志&c=weicoabroad&gsid=_2A252g8InDeRxGeRJ7FQY9C_MzT2IHXVTGVLvrDV6PUJbkdANLWPykWpNUh3I3pRTBVDeOibMN0qnkz_i9kdHj9AZ
                         parmes.put("s", "ca0bff51");
-                        String name=result.subSequence(start,end).toString().substring(1);
+                        String name = result.subSequence(start, end).toString().substring(1);
                         parmes.put("screen_name", name);
                         parmes.put("c", "weicoabroad");
-                        HttpModule.getWeiBoUserShow(parmes,context);
+                        HttpModule.getWeiBoUserShow(parmes, context);
                         HttpModule.ResultListener listener = new HttpModule.ResultListener() {
                             @Override
                             public void success(WeiboUserSpace o) {

@@ -19,6 +19,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -75,6 +76,15 @@ public class ArmsUtils {
 
         // 设置hint  
         v.setHint(new SpannedString(ss)); // 一定要进行转换,否则属性会消失
+    }
+
+    public static Point getScreenSize(Context context) {
+
+        // 获取屏幕宽高
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Point screenSize = new Point();
+        wm.getDefaultDisplay().getSize(screenSize);
+        return screenSize;
     }
 
     /**

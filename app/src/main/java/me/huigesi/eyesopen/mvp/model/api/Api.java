@@ -46,6 +46,10 @@ public class Api {
     //type
     public static final String TYPE_HEADLINE = "headline";
     public static final String TYPE_LIST = "list";
+    // 房产
+    public static final String TYPE_HOUSE = "house";
+    // 房产id
+    public static final String HOUSE_ID = "5YyX5Lqs";
 
     /*
      * 新浪微博图片链接
@@ -56,7 +60,17 @@ public class Api {
     public static final String IMG_WEIBO_ORIGINAL = "https://wx4.sinaimg.cn/woriginal/";
     public static final String IMG_WEIBO_ORIGINAL_GIF = "https://wx3.sinaimg.cn/woriginal/";
 
-
+    public static String getType(String id) {
+        switch (id) {
+            case HEADLINE_ID:
+                return TYPE_HEADLINE;
+            case HOUSE_ID:
+                return TYPE_HOUSE;
+            default:
+                break;
+        }
+        return TYPE_LIST;
+    }
 
     public static String getHost(int hostType) {
         switch (hostType) {

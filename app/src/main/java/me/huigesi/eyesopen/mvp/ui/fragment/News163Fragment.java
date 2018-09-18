@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
@@ -30,6 +31,7 @@ import me.huigesi.eyesopen.di.component.DaggerNews163Component;
 import me.huigesi.eyesopen.di.module.News163Module;
 import me.huigesi.eyesopen.mvp.contract.News163Contract;
 import me.huigesi.eyesopen.mvp.model.api.Api;
+import me.huigesi.eyesopen.mvp.model.entity.Column;
 import me.huigesi.eyesopen.mvp.presenter.News163Presenter;
 import me.huigesi.eyesopen.mvp.ui.adapter.MyFragmentAdapter;
 
@@ -45,8 +47,8 @@ public class News163Fragment extends BaseFragment<News163Presenter> implements N
     @BindView(R.id.vp_news)
     ViewPager mVpNews;
     Unbinder unbinder;
-    private List<Fragment> fragments = new ArrayList<>();
-    private List<String> fragmentTitles = new ArrayList<>();
+    private List<Fragment> mFragments = new ArrayList<>();
+    private List<String> mFragmentTitles = new ArrayList<>();
 
     public static News163Fragment newInstance() {
         News163Fragment fragment = new News163Fragment();
@@ -70,6 +72,7 @@ public class News163Fragment extends BaseFragment<News163Presenter> implements N
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        mPresenter.operateColumnDb();
         setViewPager();
         //预加载界面数
         mVpNews.setOffscreenPageLimit(3);
@@ -85,7 +88,7 @@ public class News163Fragment extends BaseFragment<News163Presenter> implements N
     }
 
     private void setViewPager() {
-        fragments.add(News163ListFragment.newInstance(Api.HEADLINE_ID));
+        /*fragments.add(News163ListFragment.newInstance(Api.HEADLINE_ID));
         fragments.add(News163ListFragment.newInstance(Api.JOKE_ID));
         fragments.add(News163ListFragment.newInstance(Api.GAME_ID));
         fragmentTitles.add("头条");
@@ -93,7 +96,7 @@ public class News163Fragment extends BaseFragment<News163Presenter> implements N
         fragmentTitles.add("游戏");
         MyFragmentAdapter adapter = new MyFragmentAdapter(getChildFragmentManager(),
                 fragments, fragmentTitles);
-        mVpNews.setAdapter(adapter);
+        mVpNews.setAdapter(adapter);*/
 
     }
 
@@ -141,5 +144,58 @@ public class News163Fragment extends BaseFragment<News163Presenter> implements N
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void initViewPager(List<Column> data) {
+        if (data != null) {
+            for (Column news : data) {
+                final News163ListFragment fragment = News163ListFragment
+                        .newInstance(news.getId(), news.getGroup(),
+                                news.getNewsColumnIndex());
+
+                mFragments.add(fragment);
+                mFragmentTitles.add(news.getName());
+            }
+
+            if (mVpNews.getAdapter() == null) {
+                // 初始化ViewPager
+                MyFragmentAdapter adapter = new MyFragmentAdapter(getActivity().getSupportFragmentManager(),
+                        mFragments, mFragmentTitles);
+                mVpNews.setAdapter(adapter);
+            } else {
+                final MyFragmentAdapter adapter = (MyFragmentAdapter) mVpNews.getAdapter();
+                adapter.updateFragments(mFragments, mFragmentTitles);
+            }
+            mVpNews.setCurrentItem(0, false);
+            mTlNews.setupWithViewPager(mVpNews);
+            mTlNews.setScrollPosition(0, 0, true);
+            // 根据Tab的长度动态设置TabLayout的模式
+            UIUtils.dynamicSetTabLayoutMode(mTlNews);
+
+
+            setOnTabSelectEvent(mVpNews, mTlNews);
+
+        } else {
+            Toast.makeText(getActivity(), "数据异常", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void setOnTabSelectEvent(final ViewPager viewPager, final TabLayout tabLayout) {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition(), true);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 }

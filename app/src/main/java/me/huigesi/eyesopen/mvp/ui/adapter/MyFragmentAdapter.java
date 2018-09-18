@@ -3,6 +3,7 @@ package me.huigesi.eyesopen.mvp.ui.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.List;
  */
 
 public class MyFragmentAdapter extends FragmentPagerAdapter {
-
+    private FragmentManager mFragmentManager;
     private List<Fragment> fragments = new ArrayList<>();
     private List<String> fragmentTitles = new ArrayList<>();
 
@@ -51,5 +52,24 @@ public class MyFragmentAdapter extends FragmentPagerAdapter {
         } else {
             return "";
         }
+    }
+    public void updateFragments(List<Fragment> fragments, List<String> titles) {
+        for (int i = 0; i < fragments.size(); i++) {
+            final Fragment fragment = fragments.get(i);
+            final FragmentTransaction ft = mFragmentManager.beginTransaction();
+            if (i > 2) {
+                ft.remove(fragment);
+                fragments.remove(i);
+                i--;
+            }
+            ft.commit();
+        }
+        for (int i = 0; i < fragments.size(); i++) {
+            if (i > 2) {
+                fragments.add(fragments.get(i));
+            }
+        }
+        this.fragmentTitles = titles;
+        notifyDataSetChanged();
     }
 }

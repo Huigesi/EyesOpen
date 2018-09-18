@@ -13,16 +13,21 @@ import com.jess.arms.http.imageloader.glide.GlideImageLoaderStrategy;
 import com.jess.arms.http.log.RequestInterceptor;
 import com.jess.arms.integration.ConfigModule;
 
+import org.greenrobot.greendao.database.Database;
+import org.greenrobot.greendao.query.QueryBuilder;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import me.huigesi.eyesopen.app.column.DaoMaster;
+import me.huigesi.eyesopen.app.column.DaoSession;
 import me.huigesi.eyesopen.mvp.model.api.Api;
 import me.huigesi.eyesopen.mvp.ui.adapter.IntegerDefault0Adapter;
 import me.jessyan.progressmanager.ProgressManager;
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 
 public final class GlobalConfiguration implements ConfigModule {
-
+    private DaoSession mDaoSession;
     @Override
     public void applyOptions(Context context, GlobalConfigModule.Builder builder) {
         if (!BuildConfig.DEBUG) { //Release 时,让框架不再打印 Http 请求和响应的信息
@@ -92,6 +97,22 @@ public final class GlobalConfiguration implements ConfigModule {
                     // 否则请 return null;
                     return null;
                 });
+        // // 官方推荐将获取 DaoMaster 对象的方法放到 Application 层，这样将避免多次创建生成 Session 对象
+        // 通过 DaoMaster 的内部类 DevOpenHelper，你可以得到一个便利的 SQLiteOpenHelper 对象。
+        // 可能你已经注意到了，你并不需要去编写「CREATE TABLE」这样的 SQL 语句，因为 greenDAO 已经帮你做了。
+        // 注意：默认的 DaoMaster.DevOpenHelper 会在数据库升级时，删除所有的表，意味着这将导致数据的丢失。
+        // 所以，在正式的项目中，你还应该做一层封装，来实现数据库的安全升级。
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, Constant.DB_NAME, null);
+        Database db = helper.getWritableDb();
+        // 注意：该数据库连接属于 DaoMaster，所以多个 Session 指的是相同的数据库连接。
+        DaoMaster daoMaster = new DaoMaster(db);
+        mDaoSession = daoMaster.newSession();
+        // 在 QueryBuilder 类中内置两个 Flag 用于方便输出执行的 SQL 语句与传递参数的值
+        QueryBuilder.LOG_SQL = BuildConfig.DEBUG;
+        QueryBuilder.LOG_VALUES = BuildConfig.DEBUG;
+    }
+    private void setupDatabase() {
+
     }
 
     @Override

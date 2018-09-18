@@ -7,4 +7,5 @@ public class Constant {
     public static final String WEIBO_WM = "2468_1001";
     public static final String WEIBO_SOURCE = "4215535043";
     public static final String DB_NAME = "NewsColumnTable";
+    public static final String APP_NAME = "EyesOpen";
 }

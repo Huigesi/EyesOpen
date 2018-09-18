@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.jess.arms.BuildConfig;
+import com.jess.arms.base.BaseApplication;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -14,7 +15,7 @@ import org.greenrobot.greendao.database.Database;
 import me.huigesi.eyesopen.app.column.DaoMaster;
 import me.huigesi.eyesopen.app.column.DaoSession;
 
-public class App extends Application {
+public class App extends BaseApplication {
 
     private RefWatcher mRefWatcher;
 
@@ -71,7 +72,6 @@ public class App extends Application {
         // 注意：默认的 DaoMaster.DevOpenHelper 会在数据库升级时，删除所有的表，意味着这将导致数据的丢失。
         // 所以，在正式的项目中，你还应该做一层封装，来实现数据库的安全升级。
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, Constant.DB_NAME, null);
-       // DaoMaster.DevOpenHelper helper=new DaoMaster.DevOpenHelper(this,Constant.DB_NAME)
         Database db = helper.getWritableDb();
         // 注意：该数据库连接属于 DaoMaster，所以多个 Session 指的是相同的数据库连接。
         DaoMaster daoMaster = new DaoMaster(db);
