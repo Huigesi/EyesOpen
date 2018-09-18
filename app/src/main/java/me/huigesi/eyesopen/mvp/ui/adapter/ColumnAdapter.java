@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Collections;
@@ -16,7 +17,8 @@ import me.huigesi.eyesopen.app.base.BaseRecyclerViewAdapter;
 import me.huigesi.eyesopen.app.column.ItemColumnHelperCallback;
 import me.huigesi.eyesopen.mvp.model.entity.Column;
 
-public class ColumnAdapter extends BaseRecyclerViewAdapter<Column> implements ItemColumnHelperCallback.ItemTouchHelperAdapter{
+public class ColumnAdapter extends BaseRecyclerViewAdapter<Column> implements ItemColumnHelperCallback.ItemTouchHelperAdapter {
+
     private boolean mShowDelete;
 
     public ColumnAdapter(Context context) {
@@ -41,16 +43,21 @@ public class ColumnAdapter extends BaseRecyclerViewAdapter<Column> implements It
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mItemClickListener.onItemClick(v,position,data);
+                    mItemClickListener.onItemClick(v, position, data);
                 }
             });
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    mItemClickListener.onItemClick(v,position,data);
+                    mItemClickListener.onLongClick(v, position, data);
                     return true;
                 }
             });
+            if (mShowDelete) {
+                ((ViewHolder) holder).mImgClose.setVisibility(View.VISIBLE);
+            }else {
+                ((ViewHolder) holder).mImgClose.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -66,10 +73,11 @@ public class ColumnAdapter extends BaseRecyclerViewAdapter<Column> implements It
         notifyItemRemoved(position);
     }
 
-    static class ViewHolder extends Holder{
+    static class ViewHolder extends Holder {
         @BindView(R.id.tv_column)
         TextView mTvColumn;
-
+        @BindView(R.id.img_close)
+        ImageView mImgClose;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

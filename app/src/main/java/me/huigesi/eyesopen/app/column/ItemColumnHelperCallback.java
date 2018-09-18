@@ -7,7 +7,8 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 public class ItemColumnHelperCallback extends ItemTouchHelper.Callback {
     private ItemTouchHelperAdapter mAdapter;
 
-    public ItemColumnHelperCallback() {
+    public ItemColumnHelperCallback(ItemTouchHelperAdapter mAdapter) {
+        this.mAdapter=mAdapter;
     }
 
     @Override

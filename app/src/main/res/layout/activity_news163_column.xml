@@ -32,26 +32,41 @@
                 android:layout_centerVertical="true"
                 />
         </RelativeLayout>
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:orientation="horizontal"
             android:layout_marginVertical="20dp">
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="我的栏目"
+                android:gravity="center"
                 android:textSize="15sp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="15dp"
+                android:id="@+id/tv_my_column"
                 android:textColor="@color/text_common"/>
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
                 android:text="点击进入栏目"
+                android:layout_toRightOf="@+id/tv_my_column"
                 android:textSize="13sp"
                 android:textColor="@color/colorSubtitle"/>
-        </LinearLayout>
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:text="编辑"
+                android:gravity="center"
+                android:layout_marginRight="20dp"
+                android:textSize="12sp"
+                android:id="@+id/tv_column_edit"
+                android:textColor="@color/colorTheme"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/channel_item_red"/>
+        </RelativeLayout>
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -13,9 +14,9 @@ import me.huigesi.eyesopen.R;
 import me.huigesi.eyesopen.app.base.BaseRecyclerViewAdapter;
 import me.huigesi.eyesopen.mvp.model.entity.Column;
 
-public class ColumnAdapter2 extends BaseRecyclerViewAdapter<Column> {
+public class ColumnMoreAdapter extends BaseRecyclerViewAdapter<Column> {
 
-    public ColumnAdapter2(Context context) {
+    public ColumnMoreAdapter(Context context) {
         super(context);
     }
 
@@ -51,13 +52,15 @@ public class ColumnAdapter2 extends BaseRecyclerViewAdapter<Column> {
                     return true;
                 }
             });
+            ((ViewHolder) holder).mImgClose.setVisibility(View.GONE);
         }
     }
 
     static class ViewHolder extends Holder {
         @BindView(R.id.tv_column)
         TextView mTvColumn;
-
+        @BindView(R.id.img_close)
+        ImageView mImgClose;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
