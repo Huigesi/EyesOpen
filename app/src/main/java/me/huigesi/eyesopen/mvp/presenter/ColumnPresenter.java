@@ -38,6 +38,24 @@ public class ColumnPresenter extends BasePresenter<ColumnContract.Model, ColumnC
         mErrorHandler = handler;
         mApplication = application;
         mAppManager = appManager;
+        mModel.columnDbOperate("", null)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        /*if (selectState == null) {
+
+                        }*/
+                    }
+                }).subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ErrorHandleSubscriber<Map<Boolean, List<Column>>>(mErrorHandler) {
+
+                    @Override
+                    public void onNext(Map<Boolean, List<Column>> data) {
+                        mRootView.initData(data.get(true),data.get(false));
+                    }
+                });;
     }
 
     public void onItemAddOrRemove(String columnName, boolean selectState) {

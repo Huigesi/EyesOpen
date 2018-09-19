@@ -55,22 +55,12 @@ public class ColumnActivity extends BaseActivity<ColumnPresenter> implements Col
     private ColumnMoreAdapter mColumnMoreAdapter;
     private List<Column> mMyColumnList = new ArrayList<>();
     private List<Column> mMoreColumnList = new ArrayList<>();
-    Boolean flag=false;
+    Boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news163_column);
         ButterKnife.bind(this);
-        mImgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        initRecycleView();
-        initData();
-        initAdapter();
     }
 
     private void initAdapter() {
@@ -81,25 +71,25 @@ public class ColumnActivity extends BaseActivity<ColumnPresenter> implements Col
         mColumnAdapter.setItemMoveListener(new ColumnAdapter.OnItemMoveListener() {
             @Override
             public void onItemMove(int fromPosition, int toPosition) {
-                mPresenter.onItemSwap(fromPosition,toPosition);
+                mPresenter.onItemSwap(fromPosition, toPosition);
             }
         });
         mColumnAdapter.setItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<Column>() {
             @Override
             public void onItemClick(View view, int position, Column data) {
                 //防止快速点击
-                if (ClickUtils.isFastDoubleClick()) {
+               /* if (ClickUtils.isFastDoubleClick()) {
                     return;
-                }
+                }*/
 
-                if (flag==true) {
-                    if (!data.getNewsColumnFixed()){
-                        mPresenter.onItemAddOrRemove(data.getName(),false);
+                if (flag == true) {
+                    if (!data.getNewsColumnFixed()) {
+                        mPresenter.onItemAddOrRemove(data.getName(), false);
                     }
                     mMoreColumnList.add(data);
                     mMyColumnList.remove(data);
                 } else {
-                    Toast.makeText(getApplication(), "click" + position, Toast.LENGTH_SHORT).show();
+
                 }
 
             }
@@ -107,22 +97,21 @@ public class ColumnActivity extends BaseActivity<ColumnPresenter> implements Col
             @Override
             public void onLongClick(View view, int position, Column data) {
                 if (!flag) {
-                    flag=true;
+                    flag = true;
                     mColumnAdapter.showDelete(flag);
                     mTvColumnEdit.setText("完成");
                     mColumnAdapter.notifyDataSetChanged();
                 }
-                Toast.makeText(getApplication(), "long click" + position, Toast.LENGTH_SHORT).show();
             }
         });
 
         mColumnMoreAdapter.setItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<Column>() {
             @Override
             public void onItemClick(View view, int position, Column data) {
-                if (ClickUtils.isFastDoubleClick()){
+                if (ClickUtils.isFastDoubleClick()) {
                     return;
                 }
-                mPresenter.onItemAddOrRemove(data.getName(),true);
+                mPresenter.onItemAddOrRemove(data.getName(), true);
                 mMyColumnList.add(data);
                 mMoreColumnList.remove(data);
             }
@@ -136,35 +125,16 @@ public class ColumnActivity extends BaseActivity<ColumnPresenter> implements Col
             @Override
             public void onClick(View v) {
                 if (flag == true) {
-                    flag=false;
+                    flag = false;
                     mTvColumnEdit.setText("编辑");
-                }else {
-                    flag=true;
+                } else {
+                    flag = true;
                     mTvColumnEdit.setText("完成");
                 }
                 mColumnAdapter.showDelete(flag);
                 mColumnAdapter.notifyDataSetChanged();
             }
         });
-    }
-
-    private void initData() {
-        String[] columnList = getResources().getStringArray(R.array.news_channel);
-        String[] columnIdList = getResources().getStringArray(R.array.news_channel_id);
-        for (int i = 0; i < 3; i++) {
-            Column column = new Column();
-            column.setId(columnIdList[i]);
-            column.setName(columnList[i]);
-            mMyColumnList.add(column);
-        }
-        for (int i = 3; i < columnList.length; i++) {
-            Column column = new Column();
-            column.setId(columnIdList[i]);
-            column.setName(columnList[i]);
-            mMoreColumnList.add(column);
-        }
-        mColumnAdapter.setData(mMyColumnList, true);
-        mColumnMoreAdapter.setData(mMoreColumnList, true);
     }
 
     private void initRecycleView() {
@@ -179,7 +149,7 @@ public class ColumnActivity extends BaseActivity<ColumnPresenter> implements Col
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
         DaggerColumnComponent
-        .builder()
+                .builder()
                 .appComponent(appComponent)
                 .columnModule(new ColumnModule(this))
                 .build()
@@ -188,12 +158,19 @@ public class ColumnActivity extends BaseActivity<ColumnPresenter> implements Col
 
     @Override
     public int initView(@Nullable Bundle savedInstanceState) {
-        return 0;
+        return R.layout.activity_news163_column;
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        mImgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        initRecycleView();
+        initAdapter();
     }
 
     @Override
@@ -203,7 +180,7 @@ public class ColumnActivity extends BaseActivity<ColumnPresenter> implements Col
 
     @Override
     public void initData(List<Column> mMyColumnList, List<Column> mMoreColumnList) {
-        mColumnAdapter.setData(mMyColumnList,true);
-        mColumnMoreAdapter.setData(mMoreColumnList,true);
+        mColumnAdapter.setData(mMyColumnList, true);
+        mColumnMoreAdapter.setData(mMoreColumnList, true);
     }
 }

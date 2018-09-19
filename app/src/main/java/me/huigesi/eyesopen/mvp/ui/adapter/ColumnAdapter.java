@@ -68,7 +68,6 @@ public class ColumnAdapter extends BaseRecyclerViewAdapter<Column> implements
     public boolean onItemMove(int fromPosition, int toPosition) {
         Collections.swap(mList, fromPosition, toPosition);
         notifyItemMoved(fromPosition, toPosition);
-        Log.i(TAG, "onItemMove: "+mList.get(fromPosition));
         if (!mList.get(fromPosition).getNewsColumnFixed() && !mList.get(toPosition)
                 .getNewsColumnFixed()) {
             //交换mItems数据的位置

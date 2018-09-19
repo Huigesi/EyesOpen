@@ -1,6 +1,7 @@
 package me.huigesi.eyesopen.mvp.model;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.jess.arms.integration.IRepositoryManager;
@@ -27,6 +28,7 @@ import rx.Subscriber;
 
 @ActivityScope
 public class ColumnModel extends BaseModel implements ColumnContract.Model {
+    private static final String TAG = "ColumnModel";
     @Inject
     Gson mGson;
     @Inject
@@ -46,12 +48,7 @@ public class ColumnModel extends BaseModel implements ColumnContract.Model {
 
     @Override
     public Observable columnDbOperate(String columnName, Boolean selectState) {
-        /*return Observable.create(new ObservableOnSubscribe<Map<Boolean, List<Column>>>() {
-            @Override
-            public void subscribe(ObservableEmitter<Map<Boolean, List<Column>>> emitter) throws Exception {
 
-            }
-        });*/
         return Observable.create(new ObservableOnSubscribe<Map<Boolean, List<Column>>>() {
             @Override
             public void subscribe(ObservableEmitter<Map<Boolean, List<Column>>> subscriber) throws Exception {
@@ -62,6 +59,7 @@ public class ColumnModel extends BaseModel implements ColumnContract.Model {
                 if (selectState == null) {
                     // 初始化
                     //KLog.e("初始化取出选中的频道");
+                    Log.i(TAG, "subscribe: 初始化取出选中的频道");
                     HashMap<Boolean, List<Column>> map = new HashMap<>();
                     map.put(true, dao.queryBuilder()
                             .where(NewsChannelTableDao.Properties.NewsChannelSelect
@@ -82,11 +80,10 @@ public class ColumnModel extends BaseModel implements ColumnContract.Model {
 
                     if (selectState) {
                         //KLog.e("做增操作: " + channelName + ";" + selectState);
+                        Log.i(TAG, "做增操作: " + columnName + ";" + selectState);
                         // 找到它的信息
-                        final Column table = dao.queryBuilder()
-                                .where(NewsChannelTableDao.Properties.NewsChannelName
-                                        .eq(columnName)).unique();
-
+                        final Column table = dao.queryBuilder().where(NewsChannelTableDao.Properties.NewsChannelName.eq(columnName)).unique();
+                        Log.i(TAG, "subscribe: "+dao.queryBuilder().where(NewsChannelTableDao.Properties.NewsChannelName.eq(columnName)).uniqueOrThrow()/*.unique()*/);
                         // 它原来的位置
                         final int originPos = table.getNewsColumnIndex();
 
@@ -116,7 +113,7 @@ public class ColumnModel extends BaseModel implements ColumnContract.Model {
 
                     } else {
                         //KLog.e("做删操作: " + channelName + ";" + selectState);
-
+                        Log.i(TAG, "做删操作: " + columnName + ";" + selectState);
                         // 找到它的信息
                         final Column table = dao.queryBuilder()
                                 .where(NewsChannelTableDao.Properties.NewsChannelName
@@ -192,6 +189,7 @@ public class ColumnModel extends BaseModel implements ColumnContract.Model {
                 if (Math.abs(fromPosition - toPosition) == 1) {
                     // 相邻的交换，只需要调整两个位置即可
                     //KLog.e("相邻的交换，只需要调整两个位置即可");
+                    Log.i(TAG, "相邻的交换，只需要调整两个位置即可");
                     fromChannel.setNewsColumnIndex(toPosition);
                     toChannel.setNewsColumnIndex(fromPosition);
                     dao.update(fromChannel);
@@ -199,6 +197,7 @@ public class ColumnModel extends BaseModel implements ColumnContract.Model {
                 } else if (fromPosition - toPosition > 0) {
                     //  开始的位置大于要去的位置,往前移
                     //KLog.e("开始的位置大于要去的位置,往前移");
+                    Log.i(TAG, "开始的位置大于要去的位置,往前移");
                     final List<Column> moveChannels = dao.queryBuilder()
                             .where(NewsChannelTableDao.Properties.NewsChannelIndex
                                     .between(toPosition, fromPosition - 1)).build().list();
@@ -212,10 +211,12 @@ public class ColumnModel extends BaseModel implements ColumnContract.Model {
                 } else if (fromPosition - toPosition < 0) {
                     //  开始的位置小于要去的位置,往后移
                     //KLog.e("开始的位置小于要去的位置,往后移: " + toPosition + ";" + fromPosition);
+                    Log.i(TAG, "开始的位置小于要去的位置,往后移: " + toPosition + ";" + fromPosition);
                     final List<Column> moveChannels = dao.queryBuilder()
                             .where(NewsChannelTableDao.Properties.NewsChannelIndex
                                     .between(fromPosition + 1, toPosition)).build().list();
                    // KLog.e(moveChannels.size());
+                    Log.i(TAG, "subscribe: "+moveChannels.size());
                     // 全部减一
                     for (Column c : moveChannels) {
                         c.setNewsColumnIndex(c.getNewsColumnIndex() - 1);

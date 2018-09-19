@@ -25,6 +25,7 @@ import java.util.regex.Pattern;
 
 import me.huigesi.eyesopen.R;
 import me.huigesi.eyesopen.mvp.model.entity.WeiboUserSpace;
+import me.huigesi.eyesopen.mvp.ui.activity.ColumnActivity;
 import me.huigesi.eyesopen.mvp.ui.activity.DetailActivity;
 import me.huigesi.eyesopen.mvp.ui.activity.GameActivity;
 import me.huigesi.eyesopen.mvp.ui.activity.NbaZhuanTiActivity;
@@ -44,7 +45,7 @@ public class UIUtils {
     public static final String FRAGMENT_CLASS = "FRAGMENT_CLASS";
 
     public static void startColumnActivity(Context context) {
-        Intent intent = new Intent(context, News163ColumnActivity.class);
+        Intent intent = new Intent(context, ColumnActivity.class);
         context.startActivity(intent);
     }
 
