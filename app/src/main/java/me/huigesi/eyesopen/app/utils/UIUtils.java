@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-
 import com.jess.arms.utils.ArmsUtils;
 
 import java.lang.reflect.Field;
@@ -29,7 +28,6 @@ import me.huigesi.eyesopen.mvp.ui.activity.ColumnActivity;
 import me.huigesi.eyesopen.mvp.ui.activity.DetailActivity;
 import me.huigesi.eyesopen.mvp.ui.activity.GameActivity;
 import me.huigesi.eyesopen.mvp.ui.activity.NbaZhuanTiActivity;
-import me.huigesi.eyesopen.mvp.ui.activity.News163ColumnActivity;
 import me.huigesi.eyesopen.mvp.ui.activity.WebViewActivity;
 import me.huigesi.eyesopen.mvp.ui.fragment.NbaBBSFragment;
 import me.huigesi.eyesopen.mvp.ui.fragment.NbaDetailFragment;

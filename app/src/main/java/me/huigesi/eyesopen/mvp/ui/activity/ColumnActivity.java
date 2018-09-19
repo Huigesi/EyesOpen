@@ -22,6 +22,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.huigesi.eyesopen.app.base.BaseRecyclerViewAdapter;
+import me.huigesi.eyesopen.app.base.BaseSpacesItemDecoration;
 import me.huigesi.eyesopen.app.column.ItemColumnHelperCallback;
 import me.huigesi.eyesopen.app.utils.ClickUtils;
 import me.huigesi.eyesopen.di.component.DaggerColumnComponent;
@@ -40,11 +41,7 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
 
 public class ColumnActivity extends BaseActivity<ColumnPresenter> implements ColumnContract.View {
     @BindView(R.id.img_back)
-    ImageView mImgBack;/*
-    @BindView(R.id.rv_column_my)
-    RecyclerView mRvColumnMy;
-    @BindView(R.id.rv_column_more)
-    RecyclerView mRvColumnMore;*/
+    ImageView mImgBack;
     @BindView(R.id.rv_column_my)
     RecyclerView mRvColumnMy;
     @BindView(R.id.rv_column_more)
@@ -78,9 +75,9 @@ public class ColumnActivity extends BaseActivity<ColumnPresenter> implements Col
             @Override
             public void onItemClick(View view, int position, Column data) {
                 //防止快速点击
-               /* if (ClickUtils.isFastDoubleClick()) {
+                if (ClickUtils.isFastDoubleClick()) {
                     return;
-                }*/
+                }
 
                 if (flag == true) {
                     if (!data.getNewsColumnFixed()) {
@@ -142,6 +139,8 @@ public class ColumnActivity extends BaseActivity<ColumnPresenter> implements Col
         mColumnMoreAdapter = new ColumnMoreAdapter(this);
         ArmsUtils.configRecyclerView(mRvColumnMy, new GridLayoutManager(this, 4));
         ArmsUtils.configRecyclerView(mRvColumnMore, new GridLayoutManager(this, 4));
+        mRvColumnMy.addItemDecoration(new BaseSpacesItemDecoration(ArmsUtils.dip2px(this, 10)));
+        mRvColumnMore.addItemDecoration(new BaseSpacesItemDecoration(ArmsUtils.dip2px(this, 10)));
         mRvColumnMy.setAdapter(mColumnAdapter);
         mRvColumnMore.setAdapter(mColumnMoreAdapter);
     }
