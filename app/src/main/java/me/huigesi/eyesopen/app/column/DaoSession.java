@@ -31,18 +31,6 @@ public class DaoSession extends AbstractDaoSession {
 
         registerDao(Column.class, newsChannelTableDao);
     }
-
-  /*  public DaoSession(SQLiteDatabase db, IdentityScopeType type, Map<Class<? extends AbstractDao<?, ?>>, DaoConfig>
-            daoConfigMap) {
-        super(db);
-
-        newsChannelTableDaoConfig = daoConfigMap.get(NewsChannelTableDao.class).clone();
-        newsChannelTableDaoConfig.initIdentityScope(type);
-
-        newsChannelTableDao = new NewsChannelTableDao(newsChannelTableDaoConfig, this);
-
-        registerDao(Column.class, newsChannelTableDao);
-    }*/
     
     public void clear() {
         newsChannelTableDaoConfig.getIdentityScope().clear();

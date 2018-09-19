@@ -52,7 +52,7 @@ public class ActivityLifecycleCallbacksImpl implements Application.ActivityLifec
             activity.getIntent().putExtra("isInitToolbar", true);
             //这里全局给Activity设置toolbar和title,你想象力有多丰富,这里就有多强大,以前放到BaseActivity的操作都可以放到这里
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                activity.getWindow().setStatusBarColor(Color.parseColor("#ffce3d3a"));
+                activity.getWindow().setStatusBarColor(Color.parseColor("#D5674B"));
             }
             if (activity.findViewById(R.id.iv_back) != null) {
                 activity.findViewById(R.id.iv_back).setOnClickListener(v -> {
