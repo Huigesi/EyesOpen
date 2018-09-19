@@ -1,8 +1,6 @@
 package me.huigesi.eyesopen.app;
 
-import android.app.Application;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 
 import com.jess.arms.BuildConfig;
 import com.jess.arms.base.BaseApplication;

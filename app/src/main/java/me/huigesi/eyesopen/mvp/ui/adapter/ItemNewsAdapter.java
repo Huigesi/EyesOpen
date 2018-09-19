@@ -33,6 +33,28 @@ public class ItemNewsAdapter extends BaseRecyclerViewAdapter<News163> {
         return new ItemNewsHolder(view);
     }
 
+    public void setPlugInfo(int i,News163 data,LinearLayout llTemplateGame,ImageView imgTemplateGame,
+                            TextView tvGameTitle,TextView tvGameSubtitle,LinearLayout llTemplateGame1) {
+        llTemplateGame.setVisibility(View.VISIBLE);
+        GlideUtils.load(mContext, data.getWap_pluginfo().get(i).getImgsrc(),
+                imgTemplateGame);
+        tvGameTitle.setText(
+                data.getWap_pluginfo().get(i).getTitle());
+        if (data.getWap_pluginfo().get(i).getSubtitle().equals("")) {
+            tvGameSubtitle.setVisibility(View.GONE);
+        } else {
+            tvGameSubtitle.setVisibility(View.VISIBLE);
+            tvGameSubtitle.setText(
+                    data.getWap_pluginfo().get(i).getSubtitle());
+        }
+        llTemplateGame1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UIUtils.startGameActivity(mContext, data.getWap_pluginfo().get(i).getUrl(),
+                        data.getWap_pluginfo().get(i).getTitle());
+            }
+        });
+    }
     @Override
     public void onBind(RecyclerView.ViewHolder holder, int position, final News163 data) {
         if (holder instanceof ItemNewsHolder) {
@@ -43,79 +65,78 @@ public class ItemNewsAdapter extends BaseRecyclerViewAdapter<News163> {
             int height = Resolution.dipToPx(mContext, 80);
             if (!TextUtils.isEmpty(data.getTemplate())) {
                 if (data.getWap_pluginfo() != null && position == 0) {
-                    ((ItemNewsHolder) holder).llTemplateGame.setVisibility(View.VISIBLE);
-                    GlideUtils.load(mContext, data.getWap_pluginfo().get(0).getImgsrc(),
-                            ((ItemNewsHolder) holder).imgTemplateGame1);
-                    ((ItemNewsHolder) holder).tvGame1Title.setText(
-                            data.getWap_pluginfo().get(0).getTitle());
-                    if (data.getWap_pluginfo().get(0).getSubtitle().equals("")) {
-                        ((ItemNewsHolder) holder).tvGame1Subtitle.setVisibility(View.GONE);
-                    } else {
-                        ((ItemNewsHolder) holder).tvGame1Subtitle.setVisibility(View.VISIBLE);
-                        ((ItemNewsHolder) holder).tvGame1Subtitle.setText(
-                                data.getWap_pluginfo().get(0).getSubtitle());
+                    if (data.getWap_pluginfo().size() == 4) {
+                        ((ItemNewsHolder) holder).llTemplateGame3.setVisibility(View.VISIBLE);
+                        ((ItemNewsHolder) holder).llTemplateGame4.setVisibility(View.VISIBLE);
+                        ((ItemNewsHolder) holder).llTemplateGame1.setVisibility(View.VISIBLE);
+                        ((ItemNewsHolder) holder).llTemplateGame2.setVisibility(View.VISIBLE);
+                   setPlugInfo(0,data,((ItemNewsHolder) holder).llTemplateGame,
+                           ((ItemNewsHolder) holder).imgTemplateGame1,
+                           ((ItemNewsHolder) holder).tvGame1Title,
+                           ((ItemNewsHolder) holder).tvGame1Subtitle,
+                           ((ItemNewsHolder) holder).llTemplateGame1);
+                   setPlugInfo(1,data,((ItemNewsHolder) holder).llTemplateGame,
+                           ((ItemNewsHolder) holder).imgTemplateGame2,
+                           ((ItemNewsHolder) holder).tvGame2Title,
+                           ((ItemNewsHolder) holder).tvGame2Subtitle,
+                           ((ItemNewsHolder) holder).llTemplateGame2);
+                    setPlugInfo(2,data,((ItemNewsHolder) holder).llTemplateGame,
+                            ((ItemNewsHolder) holder).imgTemplateGame3,
+                            ((ItemNewsHolder) holder).tvGame3Title,
+                            ((ItemNewsHolder) holder).tvGame3Subtitle,
+                            ((ItemNewsHolder) holder).llTemplateGame3);
+                    setPlugInfo(3,data,((ItemNewsHolder) holder).llTemplateGame,
+                            ((ItemNewsHolder) holder).imgTemplateGame4,
+                            ((ItemNewsHolder) holder).tvGame4Title,
+                            ((ItemNewsHolder) holder).tvGame4Subtitle,
+                            ((ItemNewsHolder) holder).llTemplateGame4);
+                    } else if (data.getWap_pluginfo().size() == 3) {
+                        ((ItemNewsHolder) holder).llTemplateGame3.setVisibility(View.VISIBLE);
+                        ((ItemNewsHolder) holder).llTemplateGame4.setVisibility(View.GONE);
+                        ((ItemNewsHolder) holder).llTemplateGame1.setVisibility(View.VISIBLE);
+                        ((ItemNewsHolder) holder).llTemplateGame2.setVisibility(View.VISIBLE);
+                        setPlugInfo(0,data,((ItemNewsHolder) holder).llTemplateGame,
+                                ((ItemNewsHolder) holder).imgTemplateGame1,
+                                ((ItemNewsHolder) holder).tvGame1Title,
+                                ((ItemNewsHolder) holder).tvGame1Subtitle,
+                                ((ItemNewsHolder) holder).llTemplateGame1);
+                        setPlugInfo(1,data,((ItemNewsHolder) holder).llTemplateGame,
+                                ((ItemNewsHolder) holder).imgTemplateGame2,
+                                ((ItemNewsHolder) holder).tvGame2Title,
+                                ((ItemNewsHolder) holder).tvGame2Subtitle,
+                                ((ItemNewsHolder) holder).llTemplateGame2);
+                        setPlugInfo(2,data,((ItemNewsHolder) holder).llTemplateGame,
+                                ((ItemNewsHolder) holder).imgTemplateGame3,
+                                ((ItemNewsHolder) holder).tvGame3Title,
+                                ((ItemNewsHolder) holder).tvGame3Subtitle,
+                                ((ItemNewsHolder) holder).llTemplateGame3);
+                    }else if(data.getWap_pluginfo().size() == 2){
+                        setPlugInfo(0,data,((ItemNewsHolder) holder).llTemplateGame,
+                                ((ItemNewsHolder) holder).imgTemplateGame1,
+                                ((ItemNewsHolder) holder).tvGame1Title,
+                                ((ItemNewsHolder) holder).tvGame1Subtitle,
+                                ((ItemNewsHolder) holder).llTemplateGame1);
+                        setPlugInfo(1,data,((ItemNewsHolder) holder).llTemplateGame,
+                                ((ItemNewsHolder) holder).imgTemplateGame2,
+                                ((ItemNewsHolder) holder).tvGame2Title,
+                                ((ItemNewsHolder) holder).tvGame2Subtitle,
+                                ((ItemNewsHolder) holder).llTemplateGame2);
+                        ((ItemNewsHolder) holder).llTemplateGame1.setVisibility(View.VISIBLE);
+                        ((ItemNewsHolder) holder).llTemplateGame2.setVisibility(View.VISIBLE);
+                        ((ItemNewsHolder) holder).llTemplateGame4.setVisibility(View.GONE);
+                        ((ItemNewsHolder) holder).llTemplateGame3.setVisibility(View.GONE);
+                    }else {
+                        ((ItemNewsHolder) holder).llTemplateGame1.setVisibility(View.VISIBLE);
+                        ((ItemNewsHolder) holder).llTemplateGame2.setVisibility(View.GONE);
+                        ((ItemNewsHolder) holder).llTemplateGame4.setVisibility(View.GONE);
+                        ((ItemNewsHolder) holder).llTemplateGame3.setVisibility(View.GONE);
+                        setPlugInfo(0,data,((ItemNewsHolder) holder).llTemplateGame,
+                                ((ItemNewsHolder) holder).imgTemplateGame1,
+                                ((ItemNewsHolder) holder).tvGame1Title,
+                                ((ItemNewsHolder) holder).tvGame1Subtitle,
+                                ((ItemNewsHolder) holder).llTemplateGame1);
                     }
-                    ((ItemNewsHolder) holder).llTemplateGame1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            UIUtils.startGameActivity(mContext, data.getWap_pluginfo().get(0).getUrl(),
-                                    data.getWap_pluginfo().get(0).getTitle());
-                        }
-                    });
-                    GlideUtils.load(mContext, data.getWap_pluginfo().get(1).getImgsrc(),
-                            ((ItemNewsHolder) holder).imgTemplateGame2);
-                    ((ItemNewsHolder) holder).tvGame2Title.setText(
-                            data.getWap_pluginfo().get(1).getTitle());
-                    if (data.getWap_pluginfo().get(1).getSubtitle().equals("")) {
-                        ((ItemNewsHolder) holder).tvGame2Subtitle.setVisibility(View.GONE);
-                    } else {
-                        ((ItemNewsHolder) holder).tvGame2Subtitle.setVisibility(View.VISIBLE);
-                        ((ItemNewsHolder) holder).tvGame2Subtitle.setText(
-                                data.getWap_pluginfo().get(1).getSubtitle());
-                    }
-                    ((ItemNewsHolder) holder).llTemplateGame2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            UIUtils.startGameActivity(mContext, data.getWap_pluginfo().get(1).getUrl(),
-                                    data.getWap_pluginfo().get(1).getTitle());
-                        }
-                    });
-                    GlideUtils.load(mContext, data.getWap_pluginfo().get(2).getImgsrc(),
-                            ((ItemNewsHolder) holder).imgTemplateGame3);
-                    ((ItemNewsHolder) holder).tvGame3Title.setText(
-                            data.getWap_pluginfo().get(2).getTitle());
-                    if (data.getWap_pluginfo().get(2).getSubtitle().equals("")) {
-                        ((ItemNewsHolder) holder).tvGame3Subtitle.setVisibility(View.GONE);
-                    } else {
-                        ((ItemNewsHolder) holder).tvGame3Subtitle.setVisibility(View.VISIBLE);
-                        ((ItemNewsHolder) holder).tvGame3Subtitle.setText(
-                                data.getWap_pluginfo().get(2).getSubtitle());
-                    }
-                    ((ItemNewsHolder) holder).llTemplateGame3.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            UIUtils.startGameActivity(mContext, data.getWap_pluginfo().get(2).getUrl(),
-                                    data.getWap_pluginfo().get(2).getTitle());
-                        }
-                    });
-                    GlideUtils.load(mContext, data.getWap_pluginfo().get(3).getImgsrc(),
-                            ((ItemNewsHolder) holder).imgTemplateGame4);
-                    ((ItemNewsHolder) holder).tvGame4Title.setText(
-                            data.getWap_pluginfo().get(3).getTitle());
-                    if (data.getWap_pluginfo().get(3).getSubtitle().equals("")) {
-                        ((ItemNewsHolder) holder).tvGame4Subtitle.setVisibility(View.GONE);
-                    } else {
-                        ((ItemNewsHolder) holder).tvGame4Subtitle.setVisibility(View.VISIBLE);
-                        ((ItemNewsHolder) holder).tvGame4Subtitle.setText(
-                                data.getWap_pluginfo().get(3).getSubtitle());
-                    }
-                    ((ItemNewsHolder) holder).llTemplateGame4.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            UIUtils.startGameActivity(mContext, data.getWap_pluginfo().get(3).getUrl(),
-                                    data.getWap_pluginfo().get(3).getTitle());
-                        }
-                    });
+
                 } else {
                     ((ItemNewsHolder) holder).llTemplateGame.setVisibility(View.GONE);
                 }

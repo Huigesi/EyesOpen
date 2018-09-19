@@ -262,6 +262,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="1dp"
                 android:layout_weight="1"
+                android:gravity="center"
+                android:visibility="gone"
                 android:background="@color/colorWhite"
                 android:orientation="horizontal"
                 android:paddingLeft="5dp">
@@ -307,6 +309,7 @@
                 android:layout_weight="1"
                 android:background="@color/colorWhite"
                 android:gravity="center"
+                android:visibility="gone"
                 android:orientation="horizontal">
 
                 <ImageView
