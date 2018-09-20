@@ -87,7 +87,17 @@ public class ColumnPresenter extends BasePresenter<ColumnContract.Model, ColumnC
         mModel.columnDbSwap(fromPos,toPos)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
+                .subscribe(new ErrorHandleSubscriber(mErrorHandler) {
+                    @Override
+                    public void onComplete() {
+                        super.onComplete();
+                    }
+
+                    @Override
+                    public void onNext(Object o) {
+
+                    }
+                });
     }
 
     @Override

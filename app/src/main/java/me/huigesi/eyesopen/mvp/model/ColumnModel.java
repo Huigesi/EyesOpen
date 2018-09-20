@@ -175,19 +175,23 @@ public class ColumnModel extends BaseModel implements ColumnContract.Model {
 
                 final ColumnDao dao = ((App) App.getContext())
                         .getDaoSession().getColumnDao();
-
+                List<Column> fl=dao.queryBuilder()
+                        .where(ColumnDao.Properties.Index.eq(fromPos))
+                        .list();
+                Log.i(TAG, "subscribe: "+fl.size());
                 // 交换前此位置对应的频道
                 final Column fromChannel = dao.queryBuilder()
-                        .where(ColumnDao.Properties.Index.eq(fromPos),
-                                ColumnDao.Properties.Select.eq(true))
+                        .where(ColumnDao.Properties.Index.eq(fromPos))
                         .unique();
 
                 final int fromPosition = fromChannel.getIndex();
-
+                List<Column> fl2=dao.queryBuilder()
+                        .where(ColumnDao.Properties.Index.eq(toPos))
+                        .list();
+                Log.i(TAG, "subscribe: "+fl2.size());
                 // 交换前此位置将要去的对应的频道
                 final Column toChannel = dao.queryBuilder()
-                        .where(ColumnDao.Properties.Index.eq(toPos),
-                                ColumnDao.Properties.Select.eq(true))
+                        .where(ColumnDao.Properties.Index.eq(toPos))
                         .unique();
 
                 final int toPosition = toChannel.getIndex();
@@ -228,9 +232,7 @@ public class ColumnModel extends BaseModel implements ColumnContract.Model {
                     fromChannel.setIndex(toPosition);
                     dao.update(fromChannel);
                 }
-
                 subscriber.onComplete();
-
             }
         });
     }

@@ -170,10 +170,7 @@ public class News163Fragment extends BaseFragment<News163Presenter> implements N
             mTlNews.setScrollPosition(0, 0, true);
             // 根据Tab的长度动态设置TabLayout的模式
             UIUtils.dynamicSetTabLayoutMode(mTlNews);
-
-
             setOnTabSelectEvent(mVpNews, mTlNews);
-
         } else {
             Toast.makeText(getActivity(), "数据异常", Toast.LENGTH_SHORT).show();
         }

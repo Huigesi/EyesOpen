@@ -28,6 +28,7 @@ public class MyFragmentAdapter extends FragmentPagerAdapter {
         super(fm);
         this.fragments = fragments;
         this.fragmentTitles = fragmentTitles;
+        notifyDataSetChanged();
     }
 
     @Override

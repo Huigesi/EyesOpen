@@ -53,7 +53,6 @@ public class News163Model extends BaseModel implements News163Contract.Model {
         return Observable.create(new ObservableOnSubscribe<List<Column>>() {
             @Override
             public void subscribe(ObservableEmitter<List<Column>> emitter) throws Exception {
-                Log.i(TAG, "subscribe: "+((App) App.getContext()).getDaoSession().toString());
                 final ColumnDao dao = ((App) App.getContext()).getDaoSession()
                         .getColumnDao();
                 Log.e(TAG,"初始化了数据库了吗？ " + SPreUtils.readBoolean("initDb"));
@@ -70,6 +69,7 @@ public class News163Model extends BaseModel implements News163Contract.Model {
                                 channelId.get(i), Api.getType(channelId.get(i)), i <= 2,
                                 // 前三是固定死的，默认选中状态
                                 i, i <= 2);
+                        Log.i(TAG, "subscribe: "+table.getIndex());
                         dao.insert(table);
                     }
                     SPreUtils.writeBoolean("initDb", true);
