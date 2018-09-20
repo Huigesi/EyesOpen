@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jaeger.library.StatusBarUtil;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -72,6 +73,7 @@ public class NbaZhuanTiActivity extends SwipeBackActivity<NbaZhuanTiPresenter> i
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        StatusBarUtil.setTranslucentForCoordinatorLayout(NbaZhuanTiActivity.this,0);
         mNid = getIntent().getStringExtra(NBA_NID);
         mNbaZhuanTiAdapter = new NbaZhuanTiAdapter(this);
         mPresenter.requestZhuanTi(mNid);

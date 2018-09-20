@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jaeger.library.StatusBarUtil;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -94,9 +95,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorTheme));
-        }
+        }*/
+        StatusBarUtil.setColor(MainActivity.this, getResources().getColor(R.color.colorTheme));
+        StatusBarUtil.setColorNoTranslucentForDrawerLayout(MainActivity.this, mDrawerLayout,
+                getResources().getColor(R.color.colorTheme));
         View headerView = mNav.getHeaderView(0);
         img_person = (ImageView) headerView.findViewById(R.id.person);
         mUserName = (TextView) headerView.findViewById(R.id.tv_user_name);

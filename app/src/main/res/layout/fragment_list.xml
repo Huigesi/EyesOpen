@@ -6,7 +6,11 @@
     android:focusableInTouchMode="true"
     android:focusable="true"
     >
-
+    <View
+        android:id="@+id/fake_statusbar_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/colorTheme"/>
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/srl_news"
         android:layout_width="match_parent"

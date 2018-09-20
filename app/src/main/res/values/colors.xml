@@ -15,7 +15,7 @@
     <color name="colorTabret">#F4F4F4</color>
     <color name="colorTabText">#585858</color>
     <color name="black_p50">#7f000000</color>
-    <color name="transparent">#03000000</color>
+    <color name="transparent">#00000000</color>
     <color name="colorHomeLine">#D4D4D4</color>
     <color name="colorTabTextNormal">#e28b89</color>
 

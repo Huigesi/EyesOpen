@@ -9,6 +9,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jaeger.library.StatusBarUtil;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.huigesi.eyesopen.R;
@@ -27,11 +29,13 @@ public class DetailActivity extends SwipeBackActivity {
     @BindView(R.id.toolbar_detail)
     Toolbar mToolbarDetail;
     private Fragment mFragment;
+    private int mAlpha = StatusBarUtil.DEFAULT_STATUS_BAR_ALPHA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        StatusBarUtil.setTranslucentForCoordinatorLayout(DetailActivity.this,0);
         ButterKnife.bind(this);
         String className = getIntent().getStringExtra(UIUtils.FRAGMENT_CLASS);
         boolean showToolBar = getIntent().getBooleanExtra(SHOW_TOOLBAR, true);

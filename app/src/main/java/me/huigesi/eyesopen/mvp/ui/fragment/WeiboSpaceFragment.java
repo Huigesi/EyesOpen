@@ -96,7 +96,7 @@ public class WeiboSpaceFragment extends BaseFragment<WeiboSpacePresenter> implem
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        mMaincollapsing.setBackgroundColor(getResources().getColor(android.R.color.transparent));
         mUid = getActivity().getIntent().getStringExtra(WEIBO_SPACE_UID);
         mGsId = SPreUtils.getWeiBoUserInfo(SPreUtils.WEIBO_GSID, getActivity());
         mPresenter.requestHeader(mUid);

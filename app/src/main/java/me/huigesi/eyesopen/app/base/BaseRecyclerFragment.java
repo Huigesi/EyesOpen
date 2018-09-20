@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.jaeger.library.StatusBarUtil;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.mvp.IPresenter;
 import com.scwang.smartrefresh.header.MaterialHeader;
