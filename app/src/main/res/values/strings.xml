@@ -3,56 +3,56 @@
 
         <!--定死不能更改的三个频道-->
         <item>头条</item><!--T1348647909107-->
-        <item>体育</item><!--T1348649079062-->
+        <item>游戏</item><!--T1348654151579-->
         <item>科技</item><!--T1348649580692-->
+
         <item>军事</item><!--T1348648141035-->
         <item>财经</item><!--T1348648756099-->
         <!--<item>北京</item>-->
-        <item>房产</item><!--5YyX5Lqs-->
+        <!--<item>房产</item>&lt;!&ndash;5YyX5Lqs&ndash;&gt;-->
         <item>足球</item><!--T1399700447917-->
         <item>娱乐</item><!--T1348648517839-->
         <item>电影</item><!--T1348648650048-->
         <item>汽车</item><!--T1348654060988-->
         <item>笑话</item><!--T1350383429665-->
-        <item>游戏</item>
-        <item>时尚</item>
-        <item>情感</item>
-        <item>精选</item>
-        <item>电台</item>
-        <item>NBA</item>
-        <item>数码</item>
-        <item>移动</item>
-        <item>彩票</item>
-        <item>教育</item>
-        <item>论坛</item>
-        <item>旅游</item>
-        <item>手机</item>
-        <item>博客</item>
-        <item>社会</item>
-        <item>家居</item>
-        <item>暴雪</item>
-        <item>亲子</item>
-        <item>CBA</item>
-        <item>消息</item>
+        <item>体育</item><!--T1348649079062-->
+        <item>时尚</item><!--T1348650593803-->
+        <item>情感</item><!--T1348650839000-->
+        <item>精选</item><!--T1370583240249-->
+        <item>电台</item><!--T1379038288239-->
+        <item>NBA</item><!--T1348649145984-->
+        <item>数码</item><!--T1348649776727-->
+        <item>移动</item><!--T1351233117091-->
+        <item>彩票</item><!--T1356600029035-->
+        <item>教育</item><!--T1348654225495-->
+        <item>论坛</item><!--T1349837670307-->
+        <item>旅游</item><!--T1348654204705-->
+        <item>手机</item><!--T1348649654285-->
+        <item>博客</item><!--T1349837698345-->
+        <item>社会</item><!--T1348648037603-->
+        <item>家居</item><!--T1348654105308-->
+        <item>暴雪</item><!--T1397016069906-->
+        <item>亲子</item><!--T1397116135282-->
+        <item>CBA</item><!--T1348649475931-->
+        <item>消息</item><!--T1371543208049-->
     </string-array>
 
     <string-array name="news_channel_id">
 
         <!--定死不能更改的三个频道ID-->
         <item>T1348647909107</item>
-        <item>T1348649079062</item>
+        <item>T1348654151579</item>
         <item>T1348649580692</item>
 
         <item>T1348648141035</item>
         <item>T1348648756099</item>
         <!--<item>5YyX5Lqs</item>-->
-        <item>5YyX5Lqs</item>
         <item>T1399700447917</item>
         <item>T1348648517839</item>
         <item>T1348648650048</item>
         <item>T1348654060988</item>
         <item>T1350383429665</item>
-        <item>T1348654151579</item>
+        <item>T1348649079062</item>
         <item>T1348650593803</item>
         <item>T1348650839000</item>
         <item>T1370583240249</item>
@@ -71,8 +71,9 @@
         <item>T1397016069906</item>
         <item>T1397116135282</item>
         <item>T1348649475931</item>
-        <item>T1371543208049</item>
+        <item>T1371543208049</item><!---->
     </string-array>
+
     <string name="app_name">EyesOpen</string>
     <string name="indicator">%1$s/%2$s</string>
     <item name="type_header" type="integer"/>
