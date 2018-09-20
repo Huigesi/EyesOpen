@@ -6,11 +6,17 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 
 public class ItemColumnHelperCallback extends ItemTouchHelper.Callback {
     private ItemTouchHelperAdapter mAdapter;
+    private boolean mIsLongPressDragEnabled = true;
     public interface OnStateChangedListener {
         void onItemSelected();
 
         void onItemClear();
     }
+
+    public void setLongPressDragEnabled(boolean enable) {
+        mIsLongPressDragEnabled = enable;
+    }
+
 
     public ItemColumnHelperCallback(ItemTouchHelperAdapter mAdapter) {
         this.mAdapter=mAdapter;
@@ -49,7 +55,7 @@ public class ItemColumnHelperCallback extends ItemTouchHelper.Callback {
     }
 
     public boolean isLongPressDragEnabled() {
-        return true;
+        return mIsLongPressDragEnabled;
     }
 
     public boolean isItemViewSwipeEnabled() {

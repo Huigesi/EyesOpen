@@ -16,16 +16,19 @@ import me.huigesi.eyesopen.mvp.model.entity.Column;
 
 public class ColumnMoreAdapter extends BaseRecyclerViewAdapter<Column> {
 
+
     public ColumnMoreAdapter(Context context) {
         super(context);
     }
 
     public void addItem(Column column) {
         mList.add(column);
+        notifyDataSetChanged();
     }
 
     public void deleteItem(Column column) {
         mList.remove(column);
+        notifyDataSetChanged();
     }
 
     @Override

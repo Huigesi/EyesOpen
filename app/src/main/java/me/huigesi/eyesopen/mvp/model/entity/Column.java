@@ -1,76 +1,66 @@
 package me.huigesi.eyesopen.mvp.model.entity;
 
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
 
 @Entity
 public class Column {
-    private String id;
     private String name;
-    private String group;
-
-    private boolean newsColumnSelect;
-    private int newsColumnIndex;
-@Generated(hash = 2018402591)
+    @Id
+    private String id;
+    private String type;
+    private boolean select;
+    private int index;
+    private Boolean fixed;
+    @Generated(hash = 84521618)
+    public Column(String name, String id, String type, boolean select, int index,
+            Boolean fixed) {
+        this.name = name;
+        this.id = id;
+        this.type = type;
+        this.select = select;
+        this.index = index;
+        this.fixed = fixed;
+    }
+    @Generated(hash = 1645384572)
     public Column() {
     }
-@Generated(hash = 1851873653)
-    public Column(String id, String name, String group, boolean select, int index, Boolean fixed) {
-        this.id=id;
-        this.name=name;
-        this.group=group;
-        this.newsColumnSelect=select;
-        this.newsColumnIndex=index;
-        this.newsColumnFixed = fixed;
-    }
-
-    public boolean isNewsColumnSelect() {
-        return newsColumnSelect;
-    }
-
-    public void setNewsColumnSelect(boolean newsColumnSelect) {
-        this.newsColumnSelect = newsColumnSelect;
-    }
-
-    public int getNewsColumnIndex() {
-        return newsColumnIndex;
-    }
-
-    public void setNewsColumnIndex(int newsColumnIndex) {
-        this.newsColumnIndex = newsColumnIndex;
-    }
-
-    public Boolean getNewsColumnFixed() {
-        return newsColumnFixed;
-    }
-
-    public void setNewsColumnFixed(Boolean newsColumnFixed) {
-        this.newsColumnFixed = newsColumnFixed;
-    }
-
-    private Boolean newsColumnFixed;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getName() {
-        return name;
+        return this.name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getGroup() {
-        return group;
+    public String getId() {
+        return this.id;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
+    public String getType() {
+        return this.type;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
+    public boolean getSelect() {
+        return this.select;
+    }
+    public void setSelect(boolean select) {
+        this.select = select;
+    }
+    public int getIndex() {
+        return this.index;
+    }
+    public void setIndex(int index) {
+        this.index = index;
+    }
+    public Boolean getFixed() {
+        return this.fixed;
+    }
+    public void setFixed(Boolean fixed) {
+        this.fixed = fixed;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
-    }
 }

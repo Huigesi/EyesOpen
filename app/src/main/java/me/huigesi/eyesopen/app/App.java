@@ -4,14 +4,12 @@ import android.content.Context;
 
 import com.jess.arms.BuildConfig;
 import com.jess.arms.base.BaseApplication;
-import com.squareup.leakcanary.LeakCanary;
+import com.me.greendao.gen.DaoMaster;
+import com.me.greendao.gen.DaoSession;
 import com.squareup.leakcanary.RefWatcher;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 import org.greenrobot.greendao.database.Database;
-
-import me.huigesi.eyesopen.app.column.DaoMaster;
-import me.huigesi.eyesopen.app.column.DaoSession;
 
 public class App extends BaseApplication {
 

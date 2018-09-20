@@ -1,7 +1,6 @@
 package me.huigesi.eyesopen.mvp.model;
 
 import android.app.Application;
-import android.nfc.Tag;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -9,6 +8,7 @@ import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 
 import com.jess.arms.di.scope.FragmentScope;
+import com.me.greendao.gen.ColumnDao;
 
 import org.greenrobot.greendao.query.Query;
 
@@ -22,7 +22,6 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import me.huigesi.eyesopen.R;
 import me.huigesi.eyesopen.app.App;
-import me.huigesi.eyesopen.app.column.NewsChannelTableDao;
 import me.huigesi.eyesopen.app.utils.SPreUtils;
 import me.huigesi.eyesopen.mvp.contract.News163Contract;
 import me.huigesi.eyesopen.mvp.model.api.Api;
@@ -55,8 +54,8 @@ public class News163Model extends BaseModel implements News163Contract.Model {
             @Override
             public void subscribe(ObservableEmitter<List<Column>> emitter) throws Exception {
                 Log.i(TAG, "subscribe: "+((App) App.getContext()).getDaoSession().toString());
-                final NewsChannelTableDao dao = ((App) App.getContext()).getDaoSession()
-                        .getNewsChannelTableDao();
+                final ColumnDao dao = ((App) App.getContext()).getDaoSession()
+                        .getColumnDao();
                 Log.e(TAG,"初始化了数据库了吗？ " + SPreUtils.readBoolean("initDb"));
                 if (!SPreUtils.readBoolean("initDb")) {
 
@@ -78,8 +77,8 @@ public class News163Model extends BaseModel implements News163Contract.Model {
                 }
 
                 final Query<Column> build = dao.queryBuilder()
-                        .where(NewsChannelTableDao.Properties.NewsChannelSelect.eq(true))
-                        .orderAsc(NewsChannelTableDao.Properties.NewsChannelIndex).build();
+                        .where(ColumnDao.Properties.Select.eq(true))
+                        .orderAsc(ColumnDao.Properties.Index).build();
                 emitter.onNext(build.list());
                 emitter.onComplete();
             }

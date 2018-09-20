@@ -2,7 +2,6 @@ package me.huigesi.eyesopen.mvp.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -30,7 +29,6 @@ import me.huigesi.eyesopen.app.utils.UIUtils;
 import me.huigesi.eyesopen.di.component.DaggerNews163Component;
 import me.huigesi.eyesopen.di.module.News163Module;
 import me.huigesi.eyesopen.mvp.contract.News163Contract;
-import me.huigesi.eyesopen.mvp.model.api.Api;
 import me.huigesi.eyesopen.mvp.model.entity.Column;
 import me.huigesi.eyesopen.mvp.presenter.News163Presenter;
 import me.huigesi.eyesopen.mvp.ui.adapter.MyFragmentAdapter;
@@ -151,8 +149,8 @@ public class News163Fragment extends BaseFragment<News163Presenter> implements N
         if (data != null) {
             for (Column news : data) {
                 final News163ListFragment fragment = News163ListFragment
-                        .newInstance(news.getId(), news.getGroup(),
-                                news.getNewsColumnIndex());
+                        .newInstance(news.getId(), news.getType(),
+                                news.getIndex());
 
                 mFragments.add(fragment);
                 mFragmentTitles.add(news.getName());

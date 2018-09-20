@@ -7,6 +7,7 @@ import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +22,6 @@ import javax.inject.Inject;
 
 import me.huigesi.eyesopen.mvp.contract.ColumnContract;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
-import rx.functions.Action0;
 
 
 @ActivityScope
@@ -30,6 +30,8 @@ public class ColumnPresenter extends BasePresenter<ColumnContract.Model, ColumnC
     Application mApplication;
     ImageLoader mImageLoader;
     AppManager mAppManager;
+    private List<Column> mAddColumnList = new ArrayList<>();
+    private List<Column> mUnAddColumnList = new ArrayList<>();
 
     @Inject
     public ColumnPresenter(ColumnContract.Model model, ColumnContract.View rootView,
@@ -44,9 +46,7 @@ public class ColumnPresenter extends BasePresenter<ColumnContract.Model, ColumnC
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        /*if (selectState == null) {
 
-                        }*/
                     }
                 }).subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ErrorHandleSubscriber<Map<Boolean, List<Column>>>(mErrorHandler) {
@@ -58,19 +58,23 @@ public class ColumnPresenter extends BasePresenter<ColumnContract.Model, ColumnC
                 });;
     }
 
-    public void onItemAddOrRemove(String columnName, boolean selectState) {
+    public void onItemAddOrRemove(String columnName, Boolean selectState) {
         mModel.columnDbOperate(columnName, selectState)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        /*if (selectState == null) {
+                        if (selectState == null) {
 
-                        }*/
+                        }
                     }
                 }).subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ErrorHandleSubscriber<Map<Boolean, List<Column>>>(mErrorHandler) {
+                    @Override
+                    public void onComplete() {
+                        super.onComplete();
+                    }
 
                     @Override
                     public void onNext(Map<Boolean, List<Column>> data) {
@@ -81,7 +85,9 @@ public class ColumnPresenter extends BasePresenter<ColumnContract.Model, ColumnC
 
     public void onItemSwap(int fromPos, int toPos) {
         mModel.columnDbSwap(fromPos,toPos)
-                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
     }
 
     @Override

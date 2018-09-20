@@ -1,16 +1,15 @@
 package me.huigesi.eyesopen.mvp.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
@@ -80,11 +79,11 @@ public class ColumnActivity extends BaseActivity<ColumnPresenter> implements Col
                 }
 
                 if (flag == true) {
-                    if (!data.getNewsColumnFixed()) {
+                    if (!data.getFixed()) {
                         mPresenter.onItemAddOrRemove(data.getName(), false);
                     }
-                    mMoreColumnList.add(data);
-                    mMyColumnList.remove(data);
+                    mColumnMoreAdapter.addItem(data);
+                    mColumnAdapter.deleteItem(data);
                 } else {
 
                 }
@@ -108,9 +107,10 @@ public class ColumnActivity extends BaseActivity<ColumnPresenter> implements Col
                 if (ClickUtils.isFastDoubleClick()) {
                     return;
                 }
+                Log.i(TAG, "onItemClick: "+data.getName());
                 mPresenter.onItemAddOrRemove(data.getName(), true);
-                mMyColumnList.add(data);
-                mMoreColumnList.remove(data);
+                mColumnAdapter.addItem(data);
+                mColumnMoreAdapter.deleteItem(data);
             }
 
             @Override

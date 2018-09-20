@@ -4,30 +4,22 @@ import android.app.Application;
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
 
-import com.google.gson.GsonBuilder;
 import com.jess.arms.BuildConfig;
 import com.jess.arms.base.delegate.AppLifecycles;
-import com.jess.arms.di.module.AppModule;
 import com.jess.arms.di.module.GlobalConfigModule;
 import com.jess.arms.http.imageloader.glide.GlideImageLoaderStrategy;
 import com.jess.arms.http.log.RequestInterceptor;
 import com.jess.arms.integration.ConfigModule;
 
-import org.greenrobot.greendao.database.Database;
-import org.greenrobot.greendao.query.QueryBuilder;
-
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import me.huigesi.eyesopen.app.column.DaoMaster;
-import me.huigesi.eyesopen.app.column.DaoSession;
 import me.huigesi.eyesopen.mvp.model.api.Api;
 import me.huigesi.eyesopen.mvp.ui.adapter.IntegerDefault0Adapter;
 import me.jessyan.progressmanager.ProgressManager;
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 
 public final class GlobalConfiguration implements ConfigModule {
-    private DaoSession mDaoSession;
     @Override
     public void applyOptions(Context context, GlobalConfigModule.Builder builder) {
         if (!BuildConfig.DEBUG) { //Release 时,让框架不再打印 Http 请求和响应的信息
