@@ -41,7 +41,8 @@ public class News163ListFragment extends BaseRecyclerFragment<News163ListPresent
     public static final String POSITION = "POSITION";
     private ItemNewsAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
-    private String mId,mNewsType;
+    private String mId, mNewsType;
+
     public static News163ListFragment newInstance(String newsId, String newsType, int position) {
         News163ListFragment fragment = new News163ListFragment();
         Bundle args = new Bundle();
@@ -70,22 +71,22 @@ public class News163ListFragment extends BaseRecyclerFragment<News163ListPresent
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         mId = getArguments().getString(NEWS163_ID);
-        if (mId.equals(Api.HEADLINE_ID) ){
-            mNewsType=Api.TYPE_HEADLINE;
-        }else {
-            mNewsType=Api.TYPE_LIST;
+        if (mId.equals(Api.HEADLINE_ID)) {
+            mNewsType = Api.TYPE_HEADLINE;
+        } else {
+            mNewsType = Api.TYPE_LIST;
         }
-        mPresenter.requestNews163(mNewsType,mId,true);
+        mPresenter.requestNews163(mNewsType, mId, true);
         mSrlNews.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                mPresenter.requestNews163(mNewsType,mId,true);
+                mPresenter.requestNews163(mNewsType, mId, true);
             }
         });
         mSrlNews.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                mPresenter.requestNews163(mNewsType,mId,false);
+                mPresenter.requestNews163(mNewsType, mId, false);
             }
         });
         mAdapter = new ItemNewsAdapter(getActivity());
@@ -94,8 +95,8 @@ public class News163ListFragment extends BaseRecyclerFragment<News163ListPresent
     }
 
     private void initRecycleView() {
-        mLayoutManager=new LinearLayoutManager(getActivity());
-        ArmsUtils.configRecyclerView(mRvNews,mLayoutManager);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        ArmsUtils.configRecyclerView(mRvNews, mLayoutManager);
     }
 
     @Override
@@ -110,7 +111,8 @@ public class News163ListFragment extends BaseRecyclerFragment<News163ListPresent
 
     @Override
     public void hideLoading() {
-        mSrlNews.finishRefresh(0);
+        if (mSrlNews != null)
+            mSrlNews.finishRefresh(0);
     }
 
     @Override
@@ -134,7 +136,7 @@ public class News163ListFragment extends BaseRecyclerFragment<News163ListPresent
     public void showData(List<News163> data) {
         if (data != null && data.size() > 0) {
             mAdapter.setData(data, true);
-        }else {
+        } else {
             Toast.makeText(getActivity(), "没有数据", Toast.LENGTH_SHORT).show();
             mSrlNews.setNoMoreData(true);
         }
@@ -144,7 +146,7 @@ public class News163ListFragment extends BaseRecyclerFragment<News163ListPresent
     public void showMoreData(List<News163> data) {
         if (data != null && data.size() > 0) {
             mAdapter.setData(data, false);
-        }else {
+        } else {
             mSrlNews.setNoMoreData(true);
             Toast.makeText(getActivity(), "没有数据", Toast.LENGTH_SHORT).show();
         }

@@ -114,7 +114,8 @@ public class NbaFragment extends BaseRecyclerFragment<NbaPresenter> implements N
 
     @Override
     public void hideLoading() {
-        mSrlNews.finishRefresh(0);
+        if (mSrlNews != null)
+            mSrlNews.finishRefresh(0);
     }
 
     @Override

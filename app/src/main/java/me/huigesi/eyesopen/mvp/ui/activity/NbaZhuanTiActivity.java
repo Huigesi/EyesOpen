@@ -73,7 +73,7 @@ public class NbaZhuanTiActivity extends SwipeBackActivity<NbaZhuanTiPresenter> i
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        StatusBarUtil.setTranslucentForCoordinatorLayout(NbaZhuanTiActivity.this,0);
+        StatusBarUtil.setTranslucentForCoordinatorLayout(NbaZhuanTiActivity.this, 0);
         mNid = getIntent().getStringExtra(NBA_NID);
         mNbaZhuanTiAdapter = new NbaZhuanTiAdapter(this);
         mPresenter.requestZhuanTi(mNid);
@@ -89,7 +89,8 @@ public class NbaZhuanTiActivity extends SwipeBackActivity<NbaZhuanTiPresenter> i
 
     @Override
     public void hideLoading() {
-        mSrlNews.finishRefresh(0);
+        if (mSrlNews != null)
+            mSrlNews.finishRefresh(0);
     }
 
     @Override
@@ -119,10 +120,10 @@ public class NbaZhuanTiActivity extends SwipeBackActivity<NbaZhuanTiPresenter> i
     @Override
     public void showData(NbaZhuanti data) {
         if (data.getResult() != null) {
-        GlideUtils.load(this, data.getResult().getImg_m(), mMainbackdrop);
-        mTvNbaZhuanti.setText(data.getResult().getTitle());
-        mTvNbaZhuantiSum.setText(data.getResult().getSummary());
-        mNbaZhuanTiAdapter.setData(data.getResult().getGroups(), true);
+            GlideUtils.load(this, data.getResult().getImg_m(), mMainbackdrop);
+            mTvNbaZhuanti.setText(data.getResult().getTitle());
+            mTvNbaZhuantiSum.setText(data.getResult().getSummary());
+            mNbaZhuanTiAdapter.setData(data.getResult().getGroups(), true);
         }
     }
 

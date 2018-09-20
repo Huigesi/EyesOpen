@@ -172,7 +172,8 @@ public class WeiboSpaceFragment extends BaseFragment<WeiboSpacePresenter> implem
 
     @Override
     public void hideLoading() {
-        mSrlNews.finishRefresh(0);
+        if (mSrlNews != null)
+            mSrlNews.finishRefresh(0);
     }
 
     @Override

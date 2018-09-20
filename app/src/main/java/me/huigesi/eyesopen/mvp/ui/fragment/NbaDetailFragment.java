@@ -129,7 +129,8 @@ public class NbaDetailFragment extends BaseFragment<NbaDetailPresenter> implemen
 
     @Override
     public void hideLoading() {
-        mSrlNews.finishRefresh(0);
+        if (mSrlNews != null)
+            mSrlNews.finishRefresh(0);
     }
 
     @Override
