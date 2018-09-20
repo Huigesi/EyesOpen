@@ -35,7 +35,7 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
 
 public class WeiboDetailFragment extends BaseRecyclerFragment<WeiboDetailPresenter> implements WeiboDetailContract.View {
     public static final String WEIBO_ID = "WEIBO_ID";
-    private String mId,mGsid;
+    private String mId, mGsid;
     private WeiBoDetailAdapter mWeiBoDetailAdapter;
     private WeiBoDetailHeaderView mWeiBoDetailHeaderView;
 
@@ -98,7 +98,8 @@ public class WeiboDetailFragment extends BaseRecyclerFragment<WeiboDetailPresent
 
     @Override
     public void hideLoading() {
-        mSrlNews.finishRefresh(0);
+        if (mSrlNews != null)
+            mSrlNews.finishRefresh(0);
     }
 
     @Override
@@ -123,11 +124,11 @@ public class WeiboDetailFragment extends BaseRecyclerFragment<WeiboDetailPresent
         if (data.getStatus().getMblogtypename() != null) {
             mWeiBoDetailHeaderView.setData(data);
             mWeiBoDetailAdapter.setHeaderView(mWeiBoDetailHeaderView);
-        }else {
+        } else {
         }
         if (data.getRoot_comments() != null && data.getRoot_comments().size() > 0) {
             mWeiBoDetailAdapter.setData(data.getRoot_comments(), true);
-        }else {
+        } else {
             mSrlNews.setNoMoreData(true);
         }
     }
@@ -136,7 +137,7 @@ public class WeiboDetailFragment extends BaseRecyclerFragment<WeiboDetailPresent
     public void showMoreData(WeiboDetail data) {
         if (data.getRoot_comments() != null && data.getRoot_comments().size() > 0) {
             mWeiBoDetailAdapter.setData(data.getRoot_comments(), false);
-        }else {
+        } else {
             mSrlNews.setNoMoreData(true);
         }
     }

@@ -20,6 +20,7 @@ import me.huigesi.eyesopen.app.utils.swipeBack.SwipeBackActivity;
 public class DetailActivity extends SwipeBackActivity {
     private static final String TAG = "DetailActivity";
     public static final String SHOW_TOOLBAR = "SHOW_TOOLBAR";
+    public static final String SHOW_STATUS_VIEW = "SHOW_STATUS_VIEW";
     @BindView(R.id.iv_back)
     ImageView mIvBack;
     @BindView(R.id.tv_bar_title)
@@ -28,6 +29,8 @@ public class DetailActivity extends SwipeBackActivity {
     FrameLayout mMainContent;
     @BindView(R.id.toolbar_detail)
     Toolbar mToolbarDetail;
+    @BindView(R.id.status_view)
+    View mStatusView;
     private Fragment mFragment;
     private int mAlpha = StatusBarUtil.DEFAULT_STATUS_BAR_ALPHA;
 
@@ -35,14 +38,20 @@ public class DetailActivity extends SwipeBackActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        StatusBarUtil.setTranslucentForCoordinatorLayout(DetailActivity.this,0);
+        StatusBarUtil.setTranslucentForCoordinatorLayout(DetailActivity.this, 0);
         ButterKnife.bind(this);
         String className = getIntent().getStringExtra(UIUtils.FRAGMENT_CLASS);
         boolean showToolBar = getIntent().getBooleanExtra(SHOW_TOOLBAR, true);
+        boolean showStatusView = getIntent().getBooleanExtra(SHOW_STATUS_VIEW, false);
         if (showToolBar) {
             mToolbarDetail.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             mToolbarDetail.setVisibility(View.GONE);
+        }
+        if (showStatusView) {
+            mStatusView.setVisibility(View.VISIBLE);
+        }else {
+            mStatusView.setVisibility(View.GONE);
         }
         try {
             mFragment = (Fragment) Class.forName(className).newInstance();

@@ -52,6 +52,7 @@ public class UIUtils {
         intent.putExtra(FRAGMENT_CLASS, WeiboSpaceFragment.class.getName());
         intent.putExtra(WeiboSpaceFragment.WEIBO_SPACE_UID, uid);
         intent.putExtra(DetailActivity.SHOW_TOOLBAR, false);
+        intent.putExtra(DetailActivity.SHOW_STATUS_VIEW, false);
         context.startActivity(intent);
     }
 
@@ -60,6 +61,7 @@ public class UIUtils {
         intent.putExtra(FRAGMENT_CLASS, NbaDetailFragment.class.getName());
         intent.putExtra(NbaDetailFragment.NBA_NID, nid);
         intent.putExtra(DetailActivity.SHOW_TOOLBAR, true);
+        intent.putExtra(DetailActivity.SHOW_STATUS_VIEW, true);
         context.startActivity(intent);
     }
 
@@ -68,6 +70,7 @@ public class UIUtils {
         intent.putExtra(FRAGMENT_CLASS, NbaBBSFragment.class.getName());
         intent.putExtra(NbaBBSFragment.NBA_H5_TID, tid);
         intent.putExtra(DetailActivity.SHOW_TOOLBAR, true);
+        intent.putExtra(DetailActivity.SHOW_STATUS_VIEW, true);
         context.startActivity(intent);
     }
 
@@ -76,6 +79,7 @@ public class UIUtils {
         intent.putExtra(FRAGMENT_CLASS, WeiboDetailFragment.class.getName());
         intent.putExtra(WeiboDetailFragment.WEIBO_ID, id);
         intent.putExtra(DetailActivity.SHOW_TOOLBAR, true);
+        intent.putExtra(DetailActivity.SHOW_STATUS_VIEW, true);
         context.startActivity(intent);
     }
 
@@ -100,9 +104,6 @@ public class UIUtils {
     }
 
     /*
-
-
-
         public static void startWeiBoLoginActivity(Activity activity) {
             Intent intent = new Intent(activity, WeiBoLoginActivity.class);
             activity.startActivity(intent);
