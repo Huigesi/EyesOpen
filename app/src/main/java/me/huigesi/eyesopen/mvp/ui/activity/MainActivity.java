@@ -9,6 +9,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -71,6 +72,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     NavigationView mNav;
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
+    ActionBarDrawerToggle mToggle;
     private Tencent mTencent;
     private UserInfo mUserInfo;
     private ImageView img_person;
@@ -102,6 +104,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         StatusBarUtil.setColorNoTranslucentForDrawerLayout(MainActivity.this, mDrawerLayout,
                 getResources().getColor(R.color.colorTheme));
         View headerView = mNav.getHeaderView(0);
+        setDrawerToggle();
         img_person = (ImageView) headerView.findViewById(R.id.person);
         mUserName = (TextView) headerView.findViewById(R.id.tv_user_name);
         mTencent = Tencent.createInstance(APP_ID, MainActivity.this.getApplicationContext());
@@ -144,6 +147,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mImgMenu.setOnClickListener(this);
         setCurrentItem(0);
     }
+
+    private void setDrawerToggle() {
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbars,
+                0, 0);
+        mDrawerLayout.addDrawerListener(mToggle);
+        /*同步drawerlayout的状态*/
+        mToggle.syncState();
+    }
+
 
     private void setCurrentItem(int i) {
         mVpContent.setCurrentItem(i);
