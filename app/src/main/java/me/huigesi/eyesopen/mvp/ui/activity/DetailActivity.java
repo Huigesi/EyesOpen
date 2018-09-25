@@ -15,7 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.huigesi.eyesopen.R;
 import me.huigesi.eyesopen.app.utils.UIUtils;
-import me.huigesi.eyesopen.app.utils.swipeBack.SwipeBackActivity;
+import me.huigesi.eyesopen.app.utils.swipeBack.app.SwipeBackActivity;
 
 public class DetailActivity extends SwipeBackActivity {
     private static final String TAG = "DetailActivity";

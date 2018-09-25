@@ -21,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.huigesi.eyesopen.R;
 import me.huigesi.eyesopen.app.utils.GlideUtils;
-import me.huigesi.eyesopen.app.utils.swipeBack.SwipeBackActivity;
+import me.huigesi.eyesopen.app.utils.swipeBack.app.SwipeBackActivity;
 import me.huigesi.eyesopen.di.component.DaggerNbaZhuanTiComponent;
 import me.huigesi.eyesopen.di.module.NbaZhuanTiModule;
 import me.huigesi.eyesopen.mvp.contract.NbaZhuanTiContract;

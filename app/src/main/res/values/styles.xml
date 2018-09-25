@@ -9,7 +9,12 @@
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
 
     </style>
-
+    <style name="SwipeBackLayout">
+        <item name="edge_size">150dip</item>
+        <item name="shadow_left">@drawable/shadow_left</item>
+        <item name="shadow_right">@drawable/shadow_right</item>
+        <item name="shadow_bottom">@drawable/shadow_bottom</item>
+    </style>
     <!-- 默认Activity跳转动画 -->
     <style name="default_animation" mce_bogus="1" parent="@android:style/Animation.Activity">
         <item name="android:windowEnterAnimation">@anim/picker_anim_enter_bottom</item>

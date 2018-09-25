@@ -16,7 +16,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.huigesi.eyesopen.R;
-import me.huigesi.eyesopen.app.utils.swipeBack.SwipeBackActivity;
+import me.huigesi.eyesopen.app.utils.swipeBack.app.SwipeBackActivity;
 
 import static me.huigesi.eyesopen.app.utils.WebUtils.getClearAdDivJs;
 
